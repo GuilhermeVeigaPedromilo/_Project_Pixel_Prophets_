@@ -20,6 +20,49 @@ const Styles = StyleSheet.create({
     marginBottom: 40,
  },
 
+ textossaldo: {
+  fontSize: 17,
+  color: '#2F2C79',
+},
+
+textosconfig: {
+  fontSize: 17,
+  color: '#2F2C79',
+},
+
+ saldo: {
+  fontSize: 25,
+  color: '#2F2C79',
+  fontWeight: "bold"
+},
+
+data: {
+  fontSize: 19,
+  color: '#2F2C79',
+},
+
+textosbeges: {
+  fontSize: 17,
+  color: '#E8C39E',
+},
+
+linhaabx: {
+ width: "95%",
+ borderBottomWidth: 1,
+ borderBottomColor: "#2F2C79",
+ marginBottom: "11%",
+ padding: "3%",
+},
+
+linhald: {
+  height: "10%",
+  borderLeftWidth: 1,
+  borderLeftColor: "#2F2C79",
+  marginBottom: "2%",
+  width: "70%",
+  padding: "3%",
+ },
+
   ImgLogo: {
     width: 200,
     height: 200,
@@ -87,20 +130,6 @@ const Styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  Header: {
-    width: '100%',
-    height: '18%',
-    backgroundColor: '#171A4A',
-    justifyContent: 'flex-end',
-  },
-  Rodape: {
-    width: '100%',
-    height: '12%',
-    backgroundColor: '#171A4A',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   IconsRdp: {
     width: 30,
     height: 30,
@@ -115,7 +144,6 @@ const Styles = StyleSheet.create({
     borderRadius: 10
   },
   quadradocontainer2: {
-  
     marginTop: 20,
     width: '35%',
     height: '15%',
@@ -162,5 +190,5 @@ const Styles = StyleSheet.create({
 
 
 
-export default  Styles
+export default  Styles;
 

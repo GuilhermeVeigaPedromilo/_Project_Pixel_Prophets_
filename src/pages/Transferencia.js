@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { TextInput, Button, View, Alert, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import RdpComponente from "../components/RodapeComponent";
 import Txt from "../components/TextComponent";
 import Btn from "../components/ButtonComponent";
 import ImageProps from "../components/ImageComponent";

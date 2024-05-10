@@ -10,6 +10,7 @@ import RotasDrawer from "./Drawer.routes";
 import RotasTabs from "./BottomTabs.routes";
 import Splash from "../pages/Splash";
 import DrawerRoutes from "./Drawer.routes";
+import Cartoes from "../pages/Cartoes";
 
 const Stack = createNativeStackNavigator();
 
@@ -34,6 +35,11 @@ export default function StackRoutes() {
         <Stack.Screen
           name="Perfil"
           component={Perfil}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Cartoes"
+          component={Cartoes}
           options={{ headerShown: false }}
         />
         <Stack.Screen

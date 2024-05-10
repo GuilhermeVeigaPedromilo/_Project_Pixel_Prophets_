@@ -12,7 +12,6 @@ import { useNavigation } from "@react-navigation/native";
 import Styles from "../styles/StyleSheet";
 import Txt from "../components/TextComponent";
 import ImageProps from "../components/ImageComponent";
-import RdpComponente from "../components/RodapeComponent";
 
 export default function Settings() {
 

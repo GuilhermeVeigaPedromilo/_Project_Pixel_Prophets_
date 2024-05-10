@@ -7,6 +7,10 @@ import Home from "../pages/Home"; // Importacao da Pagina Home
 
 import Transferencia from "../pages/Transferencia"; // Importacao da Pagina Transferencia
 
+import Extrato from "../pages/Extrato"; // Importacao da Pagina Extrato
+
+import Configuracoes from "../pages/Configuracoes";
+
 import {
   TransferenciaConfirmacao,
   TransferenciaConclusao,
@@ -48,8 +52,8 @@ export default function RotasTabs() {
             },}}
         />
         <Tab.Screen
-          name="TransferenciaConfirmacao"
-          component={TransferenciaConfirmacao}
+          name="Extrato"
+          component={Extrato}
           options={{ 
             headerShown: false, 
             tabBarStyle: {backgroundColor: '#171A4A'}, 
@@ -61,8 +65,8 @@ export default function RotasTabs() {
             },}}
         />
         <Tab.Screen
-          name="TransferenciaConclusao"
-          component={TransferenciaConclusao}
+          name="Configuracoes"
+          component={Configuracoes}
           options={{ 
             headerShown: false, 
             tabBarStyle: {backgroundColor: '#171A4A'}, 

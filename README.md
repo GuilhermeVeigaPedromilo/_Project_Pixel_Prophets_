@@ -12,7 +12,7 @@ Developer: Paulo Cesar;
 Developer: Wellington Oliveira;
 -
 <br>
-<h1><b>Códigos utilizados e pacotes instalados para o projeto</b></h1>
+<h1><b>Códigos utilizados e pacotes instalados para o aplicativo</b></h1>
 <br>
 
 <b>Criando o aplicativo</b>
@@ -22,7 +22,7 @@ npx create-expo-app ThePixelProphets
 ```
 
 <br>
-<b>Entre no repositório do novo App</b>
+<b>Entre no diretório do novo App</b>
 
 ```
 cd ./ThePixelProphets
@@ -93,6 +93,14 @@ npx expo install @react-native-async-storage/async-storage
 
 <br>
 
+<b>Instale a biblioteca Axios.<b>
+
+```
+npm install axios
+```
+
+<br>
+
 <b>Uma biblioteca universal que fornece APIs separadas para reprodução de áudio e vídeo. Instale para o funcionamento do App</b>
 
 ```
@@ -125,4 +133,35 @@ npx expo install expo-font @expo-google-fonts/prompt
 
 ```
 npx expo start --tunnel
+```
+<br>
+
+<h1><b>Códigos utilizados e pacotes instalados para o servidor</b></h1>
+<br>
+
+<b>Entre no diretório do servidor<b>
+
+```
+cd ./src
+```
+<br>
+
+<b>Crie uma nova pasta<b>
+
+```
+mkdir server
+```
+<br>
+
+<b>Inicie um "projeto" Node.js<b>
+
+```
+npm init -y
+```
+<br>
+
+<b>Instale os pacotes necessários<b>
+
+```
+npm install express cors body-parser mysql express-server php phpmyadmin
 ```

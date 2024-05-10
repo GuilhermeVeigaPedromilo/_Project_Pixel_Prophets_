@@ -1,12 +1,11 @@
-import { View, ImageBackground, Text } from "react-native";
-import React, { useState, useEffect } from "react";
-import { StatusBar } from "expo-status-bar";
-import { useNavigation } from "@react-navigation/native";
+import { View, ImageBackground, Text } from "react-native"; //Importacao dos componentes do react-native
+import React, { useState, useEffect } from "react"; //Importacao do useState e do useEffect
+import { useNavigation } from "@react-navigation/native"; //Importacao do useNavigation
 
-import Btn from "../components/ButtonComponent";
-import Styles from "../styles/StyleSheet";
-import LoginModal from "../partials/Login";
-import CadastroModal from "../partials/Cadastro";
+import Btn from "../components/ButtonComponent"; //Importacao do componente Btn
+import Styles from "../styles/StyleSheet"; //Importacao do Styles
+import LoginModal from "../partials/Login"; //Importacao do Modal de Login
+import CadastroModal from "../partials/Cadastro"; //Importacao do Modal de Cadastro
 
 export default function First() {
   const [visibleA, setVisibleA] = useState(false);
@@ -15,7 +14,6 @@ export default function First() {
 
   return (
     <View>
-      <StatusBar />
       <ImageBackground
         source={require("../assets/images/Fundo1.png")}
         style={{ width: "100%", height: "100%", justifyContent: "flex-end" }}
@@ -44,7 +42,7 @@ export default function First() {
 
         <LoginModal visibleA={visibleA} OnPressCloseA={() => setVisibleA(false)} OnPress={() => {navigation.navigate("Home")}} />
 
-        <CadastroModal visibleB={visibleB} OnPressCloseB={() => setVisibleB(false)}  OnPress={() => {navigation.navigate("Home")}} />
+        <CadastroModal visibleB={visibleB} OnPressCloseB={() => setVisibleB(false)}/>
       </ImageBackground>
     </View>
   );

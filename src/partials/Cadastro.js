@@ -1,14 +1,41 @@
-import { View, Modal, TextInput, Text, Pressable } from "react-native";
+import React, { useState, useEffect } from "react"; //Importacao do useState e do useEffect
+import { View, Modal, TextInput, Text, Pressable, Alert, ScrollView} from "react-native"; //Importacao dos componentes do react-native
+import axios from "axios"; //Importacao do axios
+import { useNavigation } from "@react-navigation/native"; 
 
-import Btn from "../components/ButtonComponent";
-import Styles from "../styles/StyleSheet";
-import ImageProps from "../components/ImageComponent";
-import InputProps from "../components/InputComponent";
+import Btn from "../components/ButtonComponent"; // Importacao do componente Btn
+import ImageProps from "../components/ImageComponent"; // Importacao do componente ImageProps
 
-export default function LoginModal({ visibleB, OnPress, OnPressCloseB }) {;
+import Styles from "../styles/StyleSheet"; //Importacao do Styles
+
+export default function LoginModal({ visibleB, OnPressCloseB }) {;
+  const navigation = useNavigation();
+
+// Banco de dados:
+const [nome, setNome] = useState("");
+const [cpf, setCpf] = useState("");
+const [email, setEmail] = useState("");
+const [senha, setSenha] = useState("");
+
+const atualizarDados = async () => {
+  try {
+    await axios.post("http://10.144.170.70:3000/Cadastro", {
+      nome,
+      cpf,
+      email,
+      senha,
+    });
+    navigation.navigate('Login')
+  } catch (error) {
+    console.error("Erro ao atualizar os dados:", error);
+    Alert.alert("Erro ao atualizar os dados");
+  }
+};
+
   return (
     <View>
       <Modal animationType="slide" transparent={true} visible={visibleB}>
+        <ScrollView>
         <View style={Styles.section}>
           <View>
             <Pressable onPress={OnPressCloseB}>
@@ -26,28 +53,28 @@ export default function LoginModal({ visibleB, OnPress, OnPressCloseB }) {;
 
             <View style={{ alignItems: "center", }} >
               <View style={Styles.formGroup} >
-                <TextInput style={Styles.formInput} Placeholder="NOME COMPLETO" />
+                <TextInput style={Styles.formInput} Placeholder="NOME COMPLETO" value={nome} onChange={setNome} />
                 <View style={{ backgroundColor: "#F0EDE9" }}>
                   <Text style={Styles.formLabel}>NOME COMPLETO</Text>
                 </View>
               </View>
           
               <View style={Styles.formGroup}>
-                <TextInput style={Styles.formInput} Placeholder="CPF" />
+                <TextInput style={Styles.formInput} Placeholder="CPF" value={cpf} onChange={setCpf} />
                 <View style={{ backgroundColor: "#F0EDE9" }}>
                   <Text style={Styles.formLabel}>CPF</Text>
                 </View>
               </View>
 
               <View style={Styles.formGroup} >
-                <TextInput style={Styles.formInput} Placeholder="E-MAIL" />
+                <TextInput style={Styles.formInput} Placeholder="E-MAIL" value={email} onChange={setEmail} />
                 <View style={{ backgroundColor: "#F0EDE9" }}>
                   <Text style={Styles.formLabel}>E-MAIL</Text>
                 </View>
               </View>
           
               <View style={Styles.formGroup}>
-                <TextInput style={Styles.formInput} Placeholder="SENHA" />
+                <TextInput style={Styles.formInput} Placeholder="SENHA" value={senha} onChange={setSenha} />
                 <View style={{ backgroundColor: "#F0EDE9" }}>
                   <Text style={Styles.formLabel}>SENHA</Text>
                 </View>
@@ -71,12 +98,13 @@ export default function LoginModal({ visibleB, OnPress, OnPressCloseB }) {;
                     { color: "#F0EDE9" },
                   ]}
                   children="Entrar"
-                  OnPress={OnPress}
+                  OnPress={atualizarDados}
                 />
               </View>
             </View>
           </View>
         </View>
+        </ScrollView>
       </Modal>
     </View>
   );

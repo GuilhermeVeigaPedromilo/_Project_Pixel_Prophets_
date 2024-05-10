@@ -1,27 +1,11 @@
-import { StyleSheet } from "react-native";
-import { Video, ResizeMode } from "expo-av";
-import { CommonActions, useNavigation } from "@react-navigation/native";
-import { useEffect } from "react";
+import { Image, View } from "react-native";
+import Styles from "../styles/StyleSheet";
 
-export default function Splash() {
-  const navigation = useNavigation()
-
-  useEffect(() => {
-    setTimeout(() => {
-      navigation.dispatch(CommonActions.reset({
-        index: 0,
-        routes: [{name: "Login"}]
-      }))
-    }, 5000);
-  }, [])
+export default function SettingsApp() {
 
   return (
-      <Video
-        style={StyleSheet.absoluteFill}
-        resizeMode={ResizeMode.COVER}
-        source={require("../../assets/Splash1.mp4")}
-        isLooping={true}
-        shouldPlay={true}
-      />
+    <View style={Styles.container} >
+      <Image style={Styles.ImgLogo} source={require('../assets/images/LogoBlue.png')} />
+    </View>
   );
 }

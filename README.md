@@ -84,6 +84,15 @@ npx expo install react-native-gesture-handler react-native-reanimated
 
 <br>
 
+
+<b>Uma biblioteca que fornece uma API de armazenamento de valor-chave assíncrona, não criptografada e persistente.<b>
+
+```
+npx expo install @react-native-async-storage/async-storage
+```
+
+<br>
+
 <b>Uma biblioteca universal que fornece APIs separadas para reprodução de áudio e vídeo. Instale para o funcionamento do App</b>
 
 ```

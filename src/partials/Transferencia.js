@@ -45,7 +45,7 @@ function TransferenciaConfirmacao({ visible, OnPress }) {
               ]}
               letras={[Styles.firstButtons, { color: "#2F2C79" }]}
               children="Concluir"
-              OnPress={OnPress}
+              OnPress={() => navigation.navigate('Transferencia')}
             />
           </View>
         </View>

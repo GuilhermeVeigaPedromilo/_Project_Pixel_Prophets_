@@ -3,9 +3,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import RotasTabs from './BottomTabs.routes';
 
-import Login from '../pages/Login'; // Importação da página Login
-
-import Settings from '../pages/Configuracoes';
+import SettingsApp from '../pages/Configuracoes';
 
 import Help from '../pages/Ajudaa';
 
@@ -38,8 +36,8 @@ export default function RotasDrawer() {
           options={{ title: 'Perfil', headerStyle: { backgroundColor: "#171A4A"}, headerTintColor: "#F0EDE9",}}
         />
         <Drawer.Screen
-          name='Configurações'
-          component={Settings}
+          name='SettingsApp'
+          component={SettingsApp}
           options={{ title: 'Configurções', headerStyle: { backgroundColor: "#171A4A"}, headerTintColor: "#F0EDE9",}}
         />
         <Drawer.Screen

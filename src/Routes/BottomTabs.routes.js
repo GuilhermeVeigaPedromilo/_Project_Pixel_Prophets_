@@ -1,5 +1,7 @@
 import React from "react";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Ionicons } from '@expo/vector-icons';
+
 
 import Home from "../pages/Home"; // Importacao da Pagina Home
 
@@ -9,10 +11,6 @@ import {
   TransferenciaConfirmacao,
   TransferenciaConclusao,
 } from "../partials/Transferencia";
-
-import Perfil from "../pages/Perfil"; // Importacao da Pagina Perfil
-
-import Splash from "../pages/Splash";
 
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import FontAwesomeIcon from "@expo/vector-icons/FontAwesome";
@@ -28,10 +26,11 @@ export default function RotasTabs() {
           options={{ 
             headerShown: false,
             tabBarStyle: {backgroundColor: '#171A4A'},
-            tabBarActiveTintColor: '#F0EDE9', 
+            tabBarActiveTintColor: '#E8C39E', 
+            tabBarInactiveTintColor: 'white',
             tabBarLabel: "",
-            tabBarIcon: () => {
-              return <FontAwesome margim size={30} color="#F0EDE9" name="home"/>;
+            tabBarIcon: ({color}) => {
+              return <Ionicons margim size={28} color={color} name="home"/>;
             },}}
         />
         <Tab.Screen
@@ -40,10 +39,12 @@ export default function RotasTabs() {
           options={{ 
             headerShown: false, 
             tabBarStyle: {backgroundColor: '#171A4A'}, 
-            tabBarActiveTintColor: '#F0EDE9',
+            tabBarActiveTintColor: '#E8C39E',
+            tabBarInactiveTintColor: 'white',
             tabBarLabel: "",
-            tabBarIcon: () => {
-              return <FontAwesome margim size={30} color="#F0EDE9" name="envelope" icon="fa-sharp fa-regular fa-money-bill-transfer"/>
+            tabBarIcon: ({color}) => {
+              return <Ionicons name="cash" margim size={28} color={color} />;
+
             },}}
         />
         <Tab.Screen
@@ -52,10 +53,11 @@ export default function RotasTabs() {
           options={{ 
             headerShown: false, 
             tabBarStyle: {backgroundColor: '#171A4A'}, 
-            tabBarActiveTintColor: '#F0EDE9',
+            tabBarActiveTintColor: '#E8C39E',
+            tabBarInactiveTintColor: 'white',
             tabBarLabel: "",
-            tabBarIcon: () => {
-              return <FontAwesome margim size={30} color="#F0EDE9" name="envelope"/>;
+            tabBarIcon: ({color}) => {
+              return <Ionicons name="document-text" margim size={28} color={color} />;
             },}}
         />
         <Tab.Screen
@@ -64,12 +66,14 @@ export default function RotasTabs() {
           options={{ 
             headerShown: false, 
             tabBarStyle: {backgroundColor: '#171A4A'}, 
-            tabBarActiveTintColor: '#F0EDE9',
+            tabBarActiveTintColor: '#E8C39E',
+            tabBarInactiveTintColor: 'white',
             tabBarLabel: "",
-            tabBarIcon: () => {
-              return <FontAwesome margim size={30} color="#F0EDE9" name="envelope"/>;
+            tabBarIcon: ({color}) => {
+              return <Ionicons name="cog" margim size={28} color={color} />;
             },}}
         />
       </Tab.Navigator>
   );
 }
+

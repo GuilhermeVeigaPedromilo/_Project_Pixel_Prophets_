@@ -12,7 +12,7 @@ Developer: Paulo Cesar;
 Developer: Wellington Oliveira;
 -
 <br>
-<h1><b>Códigos utilizados e pacotes instalados para o projeto<b></h1>
+<h1><b>Códigos utilizados e pacotes instalados para o projeto</b></h1>
 <br>
 
 <b>Criando o aplicativo</b>
@@ -29,14 +29,14 @@ cd ./ThePixelProphets
 ```
 
 <br>
-<b>Instale as dependências necessárias para executar o aplicativo no navegador.</b>
+<b>Instale as dependências necessárias para executar o aplicativo no navegador.<b>
 
 ```
 npx expo install react-native-web react-dom @expo/metro-runtime
 ```
 
  <br>
-<b>Instale o pacote em seu projeto, que fornece as funcionalidades básicas para navegação.</b>
+<b>Instale o pacote em seu projeto, que fornece as funcionalidades básicas para navegação.<b>
 
 ```
 npm install @react-navigation/native
@@ -103,7 +103,7 @@ npx expo install expo-local-authentication
 
 <br>
 
-<b>Baixe os pacotes para utilizar as fontes da Google (prompt).</b>
+<b>Baixe os pacotes para utilizar as fontes da Google (prompt).<b>
 
 ```
 npx expo install expo-font @expo-google-fonts/prompt 

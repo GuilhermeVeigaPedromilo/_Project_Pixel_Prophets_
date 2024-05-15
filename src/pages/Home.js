@@ -32,14 +32,14 @@ export default function Home() {
     
   ];
 
-  const [loaded] = useFonts({
+ {/* const [loaded] = useFonts({
     "Prompt": require("../assets/fonts/Prompt-Regular.ttf"),
   });
   
   if (!loaded) {
     return null;
   }
-
+*/}
   return (
     <View style={{ flex: 1}}>
       <View style={{ flex: 1, alignItems: "center" , flexDirection: 'column' }}> 
@@ -50,13 +50,13 @@ export default function Home() {
               style={{ width: 30, height: 30, marginLeft: 15, marginTop: 10 }}
             />
 
-            <Text style={{ color: "white", marginLeft: 10, marginTop: 15, fontFamily: "Prompt",  }}>
+            <Text style={{ color: "white", marginLeft: 10, marginTop: 15,   }}>
               Saldo Disponível:{""}
             </Text>
           </View>
 
           <View style={{ width: "98%", marginTop: 30, marginLeft: "2%" }}>
-            <Text style={{ color: "white", fontSize: 30, fontFamily: "Prompt", }}>R$ 28.000,00</Text>
+            <Text style={{ color: "white", fontSize: 30,  }}>R$ 28.000,00</Text>
           </View>
         </View>
 
@@ -72,12 +72,12 @@ export default function Home() {
                   style={{ width: 30, height: 30, marginTop: 10, }}
                 />
               </View>
-              <Text style={{fontFamily: "Prompt", color: 'white', textAlign: 'center',  fontSize: 20, marginBottom: 10, marginTop: 10}}>{item.text}</Text>
+              <Text style={{ color: 'white', textAlign: 'center',  fontSize: 20, marginBottom: 10, marginTop: 10}}>{item.text}</Text>
             </Pressable>
           )}
         />
         
-        <Text style={{fontFamily: "Prompt", color: '#000020', textAlign: 'center', fontSize: 20}}>Cartão</Text>
+        <Text style={{ color: '#000020', textAlign: 'center', fontSize: 20}}>Cartão</Text>
         
         <View style={{width: '96%', height: 3, backgroundColor: '#171A4A', marginBottom: "4%" , borderRadius: 10, marginTop: "2%" }}></View>
         

@@ -53,13 +53,13 @@ export default function LoginModal({ visibleA, OnPress, OnPressCloseA }) {
 
   };
 
-  const [loaded] = useFonts({
+{/*  const [loaded] = useFonts({
     "Prompt": require("../assets/fonts/Prompt-Regular.ttf"),
   });
   
   if (!loaded) {
     return null;
-  }
+  }*/}
 
   return (
     <View>

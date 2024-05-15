@@ -13,13 +13,13 @@ export default function First() {
   const [visibleB, setVisibleB] = useState(false);
   const navigation = useNavigation();
 
-  const [loaded] = useFonts({
+{/*  const [loaded] = useFonts({
     "Prompt": require("../assets/fonts/Prompt-Regular.ttf"),
   });
 
   if (!loaded) {
     return null;
-  }
+  }*/}
 
   return (
     <View>

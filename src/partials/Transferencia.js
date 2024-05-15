@@ -13,13 +13,7 @@ import InputProps from "../components/InputComponent";
 function TransferenciaConfirmacao({ visible, OnPress }) {
   const navigation = useNavigation();
 
-  const [loaded] = useFonts({
-    "Prompt": require("../assets/fonts/Prompt-Regular.ttf"),
-  });
 
-  if (!loaded) {
-    return null;
-  }
 
   return (
     <View>

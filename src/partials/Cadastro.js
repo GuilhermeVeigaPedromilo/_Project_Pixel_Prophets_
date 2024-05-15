@@ -3,6 +3,8 @@ import { View, Modal, TextInput, Text, Pressable, Alert, ScrollView } from "reac
 import axios from "axios"; //Importacao do axios
 import { useNavigation } from "@react-navigation/native";
 
+IP = "10.144.170.78"
+
 import Btn from "../components/ButtonComponent"; // Importacao do componente Btn
 import ImageProps from "../components/ImageComponent"; // Importacao do componente ImageProps
 
@@ -17,19 +19,32 @@ export default function LoginModal({ visibleB, OnPressCloseB }) {
   const [cpf, setCpf] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const numConta = `${cpf}`
 
   const atualizarDados = async () => {
     try {
-      await axios.post("http://10.144.170.78:3000/Cadastro", {
-        nome,
-        cpf,
-        email,
-        senha,
-      });
-      navigation.navigate('Login')
+      if(nome === ''){
+        alert('Cadastro inválido: Insira todos os dados solicitados')
+      }else if(cpf === ''){
+        alert('Cadastro inválido: Insira todos os dados solicitados')
+      }else if(email === ''){
+        alert('Cadastro inválido: Insira todos os dados solicitados')
+      }else if(senha === ''){
+        alert('Cadastro inválido: Insira todos os dados solicitados')
+      }else{
+        await axios.post(`http://${IP}:3000/Cadastro`, {
+          nome,
+          cpf,
+          email,
+          senha,
+          numConta,
+        });
+      }
+      
+      
     } catch (error) {
-      console.error("Erro ao atualizar os dados:", error);
-      Alert.alert("Erro ao atualizar os dados");
+      console.error("Erro ao inserir dados", error);
+      Alert.alert("Erro ao inserir dados");
     }
   };
 

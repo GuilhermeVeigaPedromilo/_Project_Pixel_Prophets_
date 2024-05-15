@@ -52,8 +52,8 @@ const db = mysql.createConnection({
       }
       console.log(`${results}`);
       if (results.length <= 0) {
-        console.log(`Inserindo novo usuário no sistema com estes dados: ${nome} - ${cpf}`);
-        const query = `INSERT INTO users (nome, cpf, email, senha, numConta, Saldo, tipo) VALUES (?, ?, ?, SHA1(?), '${cpf}', "1000", "user")`;
+        console.log(`Inserindo novo usuário no sistema com estes dados: ${nome} - ${cpf} - ${numConta}`);
+        const query = `INSERT INTO users (nome, cpf, email, senha, numConta, Saldo, tipo) VALUES (?, ?, ?, SHA1(?), '?', "1000", "user")`;
         db.query(query, [nome, cpf, email, senha, Saldo], (err, results) => {
           if (err) {
             console.error('Erro ao inserir usuário:', err);

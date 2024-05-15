@@ -4,6 +4,7 @@ const cors = require("cors"); // Importe o pacote cors
 const mysql = require('mysql');
 const session = require('express-session');
 const path = require('path');
+const { stringify } = require("querystring");
 
 const app = express();
 
@@ -15,7 +16,7 @@ app.use(bodyParser.json());
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '',
+    senha: '',
     database: 'thepixelbank',
   });
 
@@ -35,6 +36,19 @@ const db = mysql.createConnection({
       saveUninitialized: true,
     })
   );
+
+  app.get("/dados", (req, res) => {
+  db.query((err, data) => {
+    if (err) {
+      console.error("Erro ao ler o arquivo JSON:", err);
+      res.status(500).send("Erro ao ler o arquivo JSON");
+      return;
+    }
+    const jsonData = JSON.parse(data);
+    res.json(jsonData);
+    console.log(jsonData);
+  });
+});
 
   app.post('/Cadastro', (req, res) => {
     const { nome, cpf, email, senha, Saldo, numConta} = req.body
@@ -65,6 +79,60 @@ const db = mysql.createConnection({
         console.log(`O cadastro com estás informações já constam no sistema: ${nome} - ${cpf} - ${numConta}`)
         res.send(`O cadastro com estás informações já constam no sistema: ${nome} - ${cpf} - ${numConta}`);
       }
+    });
+  });
+
+  app.post('/Login', (req, res) => {
+    const { nome, senha, cpf } = req.body;
+    console.log(`${JSON.stringify(req.body)}`);
+  
+    const query = 'SELECT * FROM users WHERE cpf = ? AND senha = SHA1(?)';
+    console.log(`${query}`);
+  
+    // db.query(query, [ nome, senha, cpf ], (err, results) => {
+    db.query(query, [ senha, cpf ], (err, results) => {
+      console.log(`RESULTS: ${JSON.stringify(results)}`)
+      console.log(`SESSION: ${JSON.stringify(req.session)}`)
+      if (err) throw err;
+  
+      if (results.length > 0) {
+        
+        // Autenticação bem-sucedida
+        req.session.loggedin = true;
+        req.session.name = nome;
+  
+        // Verifique o tipo de usuário
+        const tipoUsuario = results[0].tipo;
+  
+        req.session.tipoUsuario = tipoUsuario
+  
+        if (tipoUsuario === 'user') {
+          console.log("Usuario Logado");
+          req.session.loggedin = true;
+          req.session.name = nome;
+        } else if (tipoUsuario === 'Admin') {
+          console.log("Usuario Logado");
+          req.session.loggedin = true;
+          req.session.name = nome;
+        } else {
+          // Tratamento para outros tipos de usuário ou tipo desconhecido
+          res.send('Tipo de usuário desconhecido. <a href="/">Tente novamente</a>');
+        }
+      } else {
+        // Credenciais incorretas
+        console.log(`${JSON.stringify(req)}`);
+
+        res.send('Credenciais Incorretas');
+      }
+    });
+  });
+  
+  
+  // Rota para fazer logout
+  app.get('/logout', (req, res) => {
+    req.session.destroy(() => {
+      res.redirect('/');
+      console.log('Desconectado')
     });
   });
 

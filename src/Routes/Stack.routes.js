@@ -6,13 +6,19 @@ import Perfil from "../pages/Perfil";
 import Login from "../pages/Login"
 import DrawerRoutes from "./Drawer.routes";
 import Cartoes from "../pages/Cartoes";
+import Splash from '../pages/Splash';
 
 const Stack = createNativeStackNavigator();
 
 export default function StackRoutes() {
   return (
       <Stack.Navigator initialRouteName="Splash">
-                <Stack.Screen
+        <Stack.Screen
+          name="Splash"
+          component={Splash}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
           name="Login"
           component={Login}
           options={{ headerShown: false }}

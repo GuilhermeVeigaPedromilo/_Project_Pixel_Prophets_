@@ -1,50 +1,54 @@
-import React, { useState, useEffect } from "react"; //Importacao do useState e do useEffect
-import { View, Modal, TextInput, Text, Pressable, Alert, ScrollView } from "react-native"; //Importacao dos componentes do react-native
-import axios from "axios"; //Importacao do axios
+import React, { useState } from "react";
+import { View, Modal, TextInput, Text, Pressable, Alert, ScrollView } from "react-native";
+import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 
-IP = "10.144.170.78"
+const IP = "10.144.170.78";
 
-import Btn from "../components/ButtonComponent"; // Importacao do componente Btn
-import ImageProps from "../components/ImageComponent"; // Importacao do componente ImageProps
-
-import Styles from "../styles/StyleSheet"; //Importacao do Styles
+import Btn from "../components/ButtonComponent";
+import ImageProps from "../components/ImageComponent";
+import Styles from "../styles/StyleSheet";
 
 export default function LoginModal({ visibleB, OnPressCloseB }) {
-  ;
   const navigation = useNavigation();
 
-  // Banco de dados:
   const [nome, setNome] = useState("");
   const [cpf, setCpf] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const numConta = `${cpf}`
+  const [confsenha, setConfSenha] = useState("");
+  const numConta = `${cpf}`;
 
-  const atualizarDados = async () => {
-    try {
-      if(nome === ''){
-        alert('Cadastro inválido: Insira todos os dados solicitados')
-      }else if(cpf === ''){
-        alert('Cadastro inválido: Insira todos os dados solicitados')
-      }else if(email === ''){
-        alert('Cadastro inválido: Insira todos os dados solicitados')
-      }else if(senha === ''){
-        alert('Cadastro inválido: Insira todos os dados solicitados')
-      }else{
-        await axios.post(`http://${IP}:3000/Cadastro`, {
+  const InserirDados = () => {
+    if (nome === "" || cpf === "" || email === "" || senha === "" || numConta === "") {
+      Alert.alert("Cadastro inválido", "Insira todos os dados solicitados");
+    }else if(confsenha != senha) {
+      Alert.alert('A senha esta diferente');
+      
+    } else {
+      axios.post(`http://${IP}:3000/Cadastro`, {
           nome,
           cpf,
           email,
           senha,
           numConta,
+        })
+        .then(() => {
+          Alert.alert(
+            "Cadastro realizado",
+            "Seu cadastro foi realizado com sucesso!",
+            [
+              {
+                text: "OK",
+                onPress: () => navigation.navigate("Home"),
+              },
+            ]
+          );
+        })
+        .catch((error) => {
+          console.error("Erro ao inserir dados", error);
+          Alert.alert("Erro ao inserir dados");
         });
-      }
-      
-      
-    } catch (error) {
-      console.error("Erro ao inserir dados", error);
-      Alert.alert("Erro ao inserir dados");
     }
   };
 
@@ -61,18 +65,17 @@ export default function LoginModal({ visibleB, OnPressCloseB }) {
                 />
               </Pressable>
             </View>
-            <View style={{ justifyContent: "center", alignItems: "center", }}>
+            <View style={{ justifyContent: "center", alignItems: "center" }}>
               <ImageProps
                 source={require("../assets/images/LogoBlue.png")}
                 style={Styles.ImgLogo}
               />
-
-              <View style={{ alignItems: "center", }} >
+              <View style={{ alignItems: "center" }} >
                 <View style={Styles.formGroup}>
                   <TextInput
                     style={Styles.formInput}
                     value={nome}
-                    onChangeText={setNome} // Corrigido para onChangeText
+                    onChangeText={setNome}
                   />
                   <View style={{ backgroundColor: "#F0EDE9" }}>
                     <Text style={Styles.formLabel}>NOME COMPLETO</Text>
@@ -82,7 +85,8 @@ export default function LoginModal({ visibleB, OnPressCloseB }) {
                   <TextInput
                     style={Styles.formInput}
                     value={cpf}
-                    onChangeText={setCpf} // Corrigido para onChangeText
+                    onChangeText={setCpf}
+                    keyboardType="numeric"
                   />
                   <View style={{ backgroundColor: "#F0EDE9" }}>
                     <Text style={Styles.formLabel}>CPF</Text>
@@ -92,7 +96,8 @@ export default function LoginModal({ visibleB, OnPressCloseB }) {
                   <TextInput
                     style={Styles.formInput}
                     value={email}
-                    onChangeText={setEmail} // Corrigido para onChangeText
+                    onChangeText={setEmail}
+                    keyboardType="email"
                   />
                   <View style={{ backgroundColor: "#F0EDE9" }}>
                     <Text style={Styles.formLabel}>E-MAIL</Text>
@@ -102,21 +107,24 @@ export default function LoginModal({ visibleB, OnPressCloseB }) {
                   <TextInput
                     style={Styles.formInput}
                     value={senha}
-                    onChangeText={setSenha} // Corrigido para onChangeText
+                    onChangeText={setSenha}
+                    keyboardType="password"
                   />
                   <View style={{ backgroundColor: "#F0EDE9" }}>
                     <Text style={Styles.formLabel}>SENHA</Text>
                   </View>
                 </View>
-
-
                 <View style={Styles.formGroup}>
-                  <TextInput style={Styles.formInput} Placeholder="CONFIRMAR SENHA" />
+                  <TextInput
+                    style={Styles.formInput}
+                    value={confsenha}
+                    onChangeText={setConfSenha}
+                    keyboardType="password"
+                  />
                   <View style={{ backgroundColor: "#F0EDE9" }}>
                     <Text style={Styles.formLabel}>CONFIRMAR SENHA</Text>
                   </View>
                 </View>
-
                 <View style={Styles.formGroup}>
                   <Btn
                     TouchStyle={[
@@ -128,7 +136,7 @@ export default function LoginModal({ visibleB, OnPressCloseB }) {
                       { color: "#F0EDE9" },
                     ]}
                     children="Entrar"
-                    OnPress={atualizarDados}
+                    OnPress={InserirDados}
                   />
                 </View>
               </View>

@@ -10,11 +10,13 @@ import InputProps from "../components/InputComponent"; // Importação do Compon
 export default function Perfil() {
   return (
     <View style={Styles.container}>
+      <View style={Styles.centro}>
       <ImageProps
         source={require("../assets/images/LogoBlue.png")}
         style={Styles.ImgLogo}
       />
       <Txt Texto="Seu perfil" TextStyle={Styles.textos} />
+      </View>
     </View>
   );
 }

@@ -8,13 +8,16 @@ import ImageProps from "../components/ImageComponent"; // Importacao do Componen
 import InputProps from "../components/InputComponent"; // Importação do Componente Text Input
 
 export default function Ajuda() {
+  
   return (
     <View style={Styles.container}>
+      <View style={Styles.centro}>
       <ImageProps
         source={require("../assets/images/LogoBlue.png")}
         style={Styles.ImgLogo}
       />
       <Txt Texto="Ajuda" TextStyle={Styles.textos} />
+      </View>
     </View>
   );
 }

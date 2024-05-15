@@ -1,31 +1,80 @@
-import { Text, View, Image, ScrollView } from "react-native";
+import { Text, View, Image, FlatList } from "react-native";
 import Styles from "../styles/StyleSheet"; // Importacao do Styles
+import { Dimensions } from "react-native";
+import { useFonts } from "expo-font";
+
+const SCREEN_WIDTH = Dimensions.get("window").width;
+
+const data = [
+  { id: "1", text1: "Físico", text2: "Débito", source: require("../assets/images/CartaoVert.png"), },
+  { id: "2", text1: "Físico", text2: "Crédito", source: require("../assets/images/CartaoVert.png"), },
+  { id: "3", text1: "Virtual", text2: "Débito", source: require("../assets/images/CartaoVert.png"), },
+  { id: "4", text1: "Virtual", text2: "Crédito", source: require("../assets/images/CartaoVert.png"), },
+
+  // Adicione mais itens conforme necessário
+];
 
 export default function Cartoes() {
- return (
-    <View style={Styles.container}>
-     {/*<Image
-        source={require("../assets/images/LogoBlue.png")}
-        style={Styles.ImgLogo}
-      />
-      <Text style={Styles.textos}>Cartões</Text>
+  const [loaded] = useFonts({
+    "Prompt": require("../assets/fonts/Prompt-Regular.ttf"),
+  });
 
-      <View>
-        <ScrollView horizontal={true}>
-          <Image
-            source={require("../assets/images/CartaoVert.png")}
-            style={Styles.ImgLogo}
-          />
-          <Image
-            source={require("../assets/images/CartaoVert.png")}
-            style={Styles.ImgLogo}
-          />
-          <Image
-            source={require("../assets/images/CartaoVert.png")}
-            style={Styles.ImgLogo}
-          />
-        </ScrollView>
- </View>*/}
+  if (!loaded) {
+    return null;
+  }
+
+  return (
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: "#F0EDE9",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+
+      <View style={{alignItems: "center", marginTop: "15%", marginBottom: "-15%"}}>
+
+      <Image
+        source={require("../assets/images/LogoBlue.png")}
+        style={{ marginTop: 250, width: 200, height: 200 }}
+      />
+      <Text style={Styles.textosCard}>Cartões</Text>
+
+      </View>
+
+      <View style={{ marginTop: 50, marginLeft: 10, flexDirection: "column" }}>
+        <View
+          style={{
+            marginTop: 50,
+            marginRight: 10,
+            borderTopWidth: 2,
+            padding: 5,
+            marginLeft: 10,
+            marginRight: 15,
+            borderTopColor: "#171A4A",
+          }}
+        />
+         
+         <View >
+          <FlatList
+          showsHorizontalScrollIndicator={false}
+          data={data}
+          horizontal={true}
+          style={{ width: SCREEN_WIDTH + 5, height: "30%", padding:"1%" }}
+          renderItem={({ item }) => (
+            <View style={[Styles.card2, {width: SCREEN_WIDTH -230,}]}>
+            <Image
+              source={item.source}
+              style={Styles.card}
+            />
+            <Text style={Styles.details}>{item.text1}</Text>
+            <Text style={Styles.details}>{item.text2}</Text>
+          </View>
+          )}
+        />
+        </View>
+      </View>
     </View>
   );
 }

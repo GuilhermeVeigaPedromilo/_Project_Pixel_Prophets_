@@ -1,6 +1,7 @@
 import { View, ImageBackground, Text } from "react-native"; //Importacao dos componentes do react-native
 import React, { useState, useEffect } from "react"; //Importacao do useState e do useEffect
 import { useNavigation } from "@react-navigation/native"; //Importacao do useNavigation
+import { useFonts } from "expo-font";
 
 import Btn from "../components/ButtonComponent"; //Importacao do componente Btn
 import Styles from "../styles/StyleSheet"; //Importacao do Styles
@@ -11,6 +12,14 @@ export default function First() {
   const [visibleA, setVisibleA] = useState(false);
   const [visibleB, setVisibleB] = useState(false);
   const navigation = useNavigation();
+
+  const [loaded] = useFonts({
+    "Prompt": require("../assets/fonts/Prompt-Regular.ttf"),
+  });
+
+  if (!loaded) {
+    return null;
+  }
 
   return (
     <View>
@@ -42,7 +51,7 @@ export default function First() {
 
         <LoginModal visibleA={visibleA} OnPressCloseA={() => setVisibleA(false)} OnPress={() => {navigation.navigate("Home")}} />
 
-        <CadastroModal visibleB={visibleB} OnPressCloseB={() => setVisibleB(false)}/>
+        <CadastroModal visibleB={visibleB} OnPressCloseB={() => setVisibleB(false)} />
       </ImageBackground>
     </View>
   );

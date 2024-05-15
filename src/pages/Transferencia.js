@@ -73,6 +73,7 @@ export default function Transferencia() {
 
   return (
     <View style={Styles.container}>
+      <View style={{alignItems:'center'}}>
       <ImageProps
         source={require("../assets/images/LogoBlue.png")}
         style={Styles.ImgLogo}
@@ -111,6 +112,7 @@ export default function Transferencia() {
         ValorTransfe={ValTransfe}
         OnPress={() => TransfFinalizada()}
         />
+        </View>
     </View>
   );
 }

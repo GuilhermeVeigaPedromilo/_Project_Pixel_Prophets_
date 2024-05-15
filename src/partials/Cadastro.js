@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"; //Importacao do useState e d
 import { View, Modal, TextInput, Text, Pressable, Alert, ScrollView} from "react-native"; //Importacao dos componentes do react-native
 import axios from "axios"; //Importacao do axios
 import { useNavigation } from "@react-navigation/native"; 
+import { useFonts } from "expo-font";
 
 import Btn from "../components/ButtonComponent"; // Importacao do componente Btn
 import ImageProps from "../components/ImageComponent"; // Importacao do componente ImageProps
@@ -32,6 +33,14 @@ const atualizarDados = async () => {
   }
 };
 
+const [loaded] = useFonts({
+  "Prompt": require("../assets/fonts/Prompt-Regular.ttf"),
+});
+
+if (!loaded) {
+  return null;
+}
+
   return (
     <View>
       <Modal animationType="slide" transparent={true} visible={visibleB}>
@@ -41,7 +50,7 @@ const atualizarDados = async () => {
             <Pressable onPress={OnPressCloseB}>
               <ImageProps
                 source={require("../assets/images/setinha.png")}
-                style={{ marginTop: 20 }}
+                style={{ margin: 20 }}
               />
             </Pressable>
           </View>

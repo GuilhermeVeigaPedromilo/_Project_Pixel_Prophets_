@@ -1,4 +1,5 @@
 import { View, Modal, TextInput, Text, Pressable } from "react-native";
+import { useFonts } from "expo-font";
 
 import Btn from "../components/ButtonComponent";
 import Styles from "../styles/StyleSheet";
@@ -6,6 +7,14 @@ import ImageProps from "../components/ImageComponent";
 import InputProps from "../components/InputComponent";
 
 export default function LoginModal({ visibleA, OnPress, OnPressCloseA }) {
+
+  const [loaded] = useFonts({
+    "Prompt": require("../assets/fonts/Prompt-Regular.ttf"),
+  });
+  
+  if (!loaded) {
+    return null;
+  }
 
   return (
     <View>

@@ -8,13 +8,18 @@ import Styles from "../styles/StyleSheet";
 import ImageProps from "../components/ImageComponent";
 import axios from "axios";
 import { useNavigation, } from "@react-navigation/native";
-const IP = "10.144.170.78";
+const IP = "10.144.170.22";
 
-export default function LoginModal({ visibleA, OnPress, OnPressCloseA }) {
+export default function LoginModal({ visibleA, OnPress, OnPressCloseA, }) {
 
   const navigation = useNavigation('')
   const [cpf, setCpf] = useState("");
   const [senha, setSenha] = useState("");
+
+  useEffect(() => {
+    // Função para carregar os dados ao iniciar o aplicativo
+    carregarDados();
+  }, []);
 
 
   const LoginDados = async () => {
@@ -23,12 +28,6 @@ export default function LoginModal({ visibleA, OnPress, OnPressCloseA }) {
         return Alert.alert(
           "Login",
           "Insira os dados de cadastro",
-          [
-            {
-              text: "OK",
-              onPress: () => navigation.navigate("Home"),
-            },
-          ]
         );
       } else {
         await axios.post(`http://${IP}:3000/Login`, {
@@ -36,11 +35,6 @@ export default function LoginModal({ visibleA, OnPress, OnPressCloseA }) {
           senha,
 
         });
-        useEffect(() => {
-          // Função para carregar os dados ao iniciar o aplicativo
-          carregarDados();
-        }, []);
-      
       }
     } catch (error) {
       console.error("Erro ao inserir dados", error);
@@ -50,7 +44,7 @@ export default function LoginModal({ visibleA, OnPress, OnPressCloseA }) {
 
   const carregarDados = async () => {
     try {
-      const response = await axios.get(`http:/${IP}/:3000/dados`);
+      const response = await axios.get(`http:/${IP}/:3000/DadosLogin`);
       setDados(response.data);
     } catch (error) {
       console.error("Erro ao carregar os dados:", error);

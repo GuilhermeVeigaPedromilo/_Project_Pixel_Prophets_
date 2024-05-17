@@ -3,7 +3,7 @@ import { View, Modal, TextInput, Text, Pressable, Alert, ScrollView } from "reac
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 
-const IP = "10.144.170.78"; // Confirir toda vez que iniciar o projeto
+const IP = "10.144.170.22"; // Confirir toda vez que iniciar o projeto
 
 import Btn from "../components/ButtonComponent";
 import ImageProps from "../components/ImageComponent";
@@ -17,10 +17,9 @@ export default function LoginModal({ visibleB, OnPressCloseB }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [confsenha, setConfSenha] = useState("");
-  const numConta = `${cpf}`;
 
   const InserirDados = () => {
-    if (nome === "" || cpf === "" || email === "" || senha === "" || numConta === "") {
+    if (nome === "" || cpf === "" || email === "" || senha === "") {
       Alert.alert("Cadastro inválido", "Insira todos os dados solicitados");
     }else if(confsenha != senha) {
       Alert.alert('A senha esta diferente');
@@ -30,7 +29,6 @@ export default function LoginModal({ visibleB, OnPressCloseB }) {
           cpf,
           email,
           senha,
-          numConta,
         })
         .then(() => {
           Alert.alert(

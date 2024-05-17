@@ -37,25 +37,10 @@ const db = mysql.createConnection({
     })
   );
 
-  app.get("/dados", (req, res) => {
-  db.query((err, data) => {
-    if (err) {
-      console.error("Erro ao ler o arquivo JSON:", err);
-      res.status(500).send("Erro ao ler o arquivo JSON");
-      return;
-    }
-    const jsonData = JSON.parse(data);
-    res.json(jsonData);
-    console.log(jsonData);
-  });
-});
-
   app.post('/Cadastro', (req, res) => {
     const { nome, cpf, email, senha, Saldo, numConta} = req.body
-    
-    console.log(`${JSON.stringify(req.body)}`);
 
-    // console.log(`Nome:${nome}, CPF:${cpf}, E-mail:${email}, Senha:${senha}`);
+    console.log(`${JSON.stringify(req.body)}`);
 
     const verification = 'SELECT * FROM users WHERE nome = ? OR cpf = ?';
     console.log(`${verification}`);
@@ -67,7 +52,7 @@ const db = mysql.createConnection({
       console.log(`${results}`);
       if (results.length <= 0) {
         console.log(`Inserindo novo usuário no sistema com estes dados: ${nome} - ${cpf} - ${numConta}`);
-        const query = `INSERT INTO users (nome, cpf, email, senha, numConta, Saldo, tipo) VALUES (?, ?, ?, SHA1(?), '?', "1000", "user")`;
+        const query = `INSERT INTO users (nome, cpf, email, senha, numConta, Saldo, tipo) VALUES (?, ?, ?, SHA1(?), '${cpf}', "1000", "user")`;
         db.query(query, [nome, cpf, email, senha, Saldo], (err, results) => {
           if (err) {
             console.error('Erro ao inserir usuário:', err);
@@ -76,56 +61,32 @@ const db = mysql.createConnection({
           }
         });
       } else {
-        console.log(`O cadastro com estás informações já constam no sistema: ${nome} - ${cpf} - ${numConta}`)
-        res.send(`O cadastro com estás informações já constam no sistema: ${nome} - ${cpf} - ${numConta}`);
+        console.log(`O cadastro com estás informações já constam no sistema: ${nome} - ${cpf} `)
+        res.send(`O cadastro com estás informações já constam no sistema: ${nome} - ${cpf} `);
       }
     });
   });
 
-  app.post('/Login', (req, res) => {
-    const { nome, senha, cpf } = req.body;
-    console.log(`${JSON.stringify(req.body)}`);
-  
-    const query = 'SELECT * FROM users WHERE cpf = ? AND senha = SHA1(?)';
-    console.log(`${query}`);
-  
-    // db.query(query, [ nome, senha, cpf ], (err, results) => {
-    db.query(query, [ senha, cpf ], (err, results) => {
-      console.log(`RESULTS: ${JSON.stringify(results)}`)
-      console.log(`SESSION: ${JSON.stringify(req.session)}`)
-      if (err) throw err;
-  
-      if (results.length > 0) {
-        
-        // Autenticação bem-sucedida
-        req.session.loggedin = true;
-        req.session.name = nome;
-  
-        // Verifique o tipo de usuário
-        const tipoUsuario = results[0].tipo;
-  
-        req.session.tipoUsuario = tipoUsuario
-  
-        if (tipoUsuario === 'user') {
-          console.log("Usuario Logado");
-          req.session.loggedin = true;
-          req.session.name = nome;
-        } else if (tipoUsuario === 'Admin') {
-          console.log("Usuario Logado");
-          req.session.loggedin = true;
-          req.session.name = nome;
-        } else {
-          // Tratamento para outros tipos de usuário ou tipo desconhecido
-          res.send('Tipo de usuário desconhecido. <a href="/">Tente novamente</a>');
-        }
+  app.post("/Login", (req, res) => {
+    const { cpf, senha } = req.body;
+    const query = "SELECT * FROM users WHERE cpf = ? AND senha = SHA1(?)";
+    db.query(query, [cpf, senha], (err, results) => {
+      if (err) {
+        console.error("Erro ao realizar login:", err);
+        res
+          .status(500)
+          .send("Erro ao realizar login. Por favor, tente novamente mais tarde.");
       } else {
-        // Credenciais incorretas
-        console.log(`${JSON.stringify(req)}`);
-
-        res.send('Credenciais Incorretas');
+        if (results.length > 0) {
+          res.status(200).send("Login bem-sucedido");
+          console.log(`Login realizado: ${cpf} - ${senha}`)
+        } else {
+          res.status(401).send("Credenciais incorretas");
+        }
       }
     });
   });
+  
   
   
   // Rota para fazer logout

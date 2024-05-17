@@ -1,8 +1,19 @@
 import React from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
-import { DrawerContentScrollView, DrawerItemList } from "@react-navigation/drawer";
+import {
+  DrawerContentScrollView,
+  DrawerItemList,
+} from "@react-navigation/drawer";
+import { useFonts } from "expo-font";
 
 export default function CustomDrawer(props) {
+  const [loaded] = useFonts({
+    Prompt: require("../assets/fonts/Prompt-Regular.ttf"),
+  });
+
+  if (!loaded) {
+    return null;
+  }
   return (
     <DrawerContentScrollView {...props}>
       {/* Cabeçalho Personalizado */}
@@ -44,5 +55,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     marginLeft: 0, // Redefinindo o espaçamento padrão
+    fontFamily: "Prompt",
   },
 });

@@ -47,8 +47,7 @@ const Styles = StyleSheet.create({
   saldo: {
     fontSize: 25,
     color: "#2F2C79",
-    fontWeight: "bold",
-    fontFamily: "Prompt",
+    fontFamily: "PromptBold",
   },
 
   data: {
@@ -89,7 +88,6 @@ const Styles = StyleSheet.create({
   firstButtons: {
     textAlign: "center",
     fontSize: 18,
-    fontFamily: "Prompt",
   },
 
   frtButtons: {
@@ -199,7 +197,6 @@ const Styles = StyleSheet.create({
     paddingRight: 10,
     paddingLeft: 10,
     color: "#2F2C79",
-    fontFamily: "Prompt",
   },
 
   formGroup: {
@@ -207,17 +204,16 @@ const Styles = StyleSheet.create({
   },
 
   card: {
-    width: "90%",
-    height: "84%",
+    width: "100%",
+    height: 150, // Defina uma altura em pixels ou ajuste conforme necessário
     borderRadius: 10,
   },
-
   card2: {
-    height: "45%",
-    flexDirection: "column",
-    margin: "-0.3%",
+    margin: "1%",
     alignItems: "center",
     paddingTop: "1%",
+    width: "60%",
+    // Remova a segunda definição de margin ou ajuste conforme necessário
   },
 
   details: {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"; //Importacao do useState e do useEffect
 import { Button, Text, View, ScrollView, FlatList } from "react-native"; //Importacao dos componentes do react-native
 import { useNavigation } from "@react-navigation/native"; //Importacao do useNavigation
+import { useFonts } from "expo-font";
 
 import Styles from "../styles/StyleSheet"; // Importacao do Styles
 import Txt from "../components/TextComponent"; // Importacao do Component Text
@@ -14,7 +15,7 @@ const data = [
   { id: "4", text: "Foi recebido + R$ 300,00", name: "Ciclano Pereira S" },
   { id: "5", text: "Foi recebido + R$ 25,00", name: "Beltrano Colossenses J" },
   { id: "6", text: "Foi pago - R$ 12,90", name: "Mercadinho Rosalina" },
-  
+
   // Adicione mais itens conforme necessário
 ];
 
@@ -23,7 +24,7 @@ function renderItem({ item }) {
     <View>
       <ImageProps
         source={require("../assets/images/Iconzinho.png")}
-        style={{ width: 50, height: 50, position: "relative", top: 65,  }}
+        style={{ width: 50, height: 50, position: "relative", top: 65 }}
       />
       <View style={Styles.linhald}>
         <Text style={Styles.textossaldo}>{item.text}</Text>
@@ -34,6 +35,15 @@ function renderItem({ item }) {
 }
 
 export default function Extrato() {
+  const [loaded] = useFonts({
+    Prompt: require("../assets/fonts/Prompt-Regular.ttf"),
+    PromptBold: require("../assets/fonts/Prompt-Bold.ttf")
+  });
+
+  if (!loaded) {
+    return null;
+  }
+
   return (
     <View style={Styles.container}>
       <View style={Styles.centro}>
@@ -55,7 +65,7 @@ export default function Extrato() {
 
       <View style={{ flex: 1, marginLeft: 30 }}>
         <FlatList
-        showsVerticalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
           data={data}
           keyExtractor={(item) => item.id}
           renderItem={renderItem}

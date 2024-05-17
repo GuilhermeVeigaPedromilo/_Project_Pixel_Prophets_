@@ -1,25 +1,35 @@
 import React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-
 import { Ionicons } from "@expo/vector-icons";
-
 import RotasTabs from "./BottomTabs.routes";
-
 import Configuracoes from "../pages/Configuracoes";
-
 import Ajuda from "../pages/Ajuda"; //Importacao da Pagina Ajuda
-
 import Perfil from "../pages/Perfil"; // Importacao da Pagina Perfil
-
 import CustomDrawer from "../components/CustomDrawer";
+import { useFonts } from "expo-font";
+import {
+  DrawerContentScrollView,
+  DrawerItemList,
+} from "@react-navigation/drawer";
 
 const Drawer = createDrawerNavigator();
 
 function CustomDrawerIcon({ color, iconName }) {
   return <Ionicons size={28} color={color} name={iconName} />;
 }
+
+
 export default function RotasDrawer() {
   const fulano = "Fulano";
+
+  const [loaded] = useFonts({
+    Prompt: require("../assets/fonts/Prompt-Regular.ttf"),
+  });
+
+  if (!loaded) {
+    return null;
+  }
+
   return (
     <Drawer.Navigator
       drawerContent={CustomDrawer}

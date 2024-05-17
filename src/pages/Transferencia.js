@@ -5,6 +5,7 @@ import Txt from "../components/TextComponent";
 import Btn from "../components/ButtonComponent";
 import ImageProps from "../components/ImageComponent";
 import { TransferenciaConclusao } from "../partials/Transferencia";
+import { useFonts } from "expo-font";
 
 import Styles from "../styles/StyleSheet";
 import * as LocalAuthentication from "expo-local-authentication";
@@ -60,59 +61,66 @@ export default function Transferencia() {
   }
 
   const TransfFinalizada = () => {
-    return Alert.alert(
-      "Transferência finalizada",
-      [
-        {
-          text: "OK",
-          onPress: () => navigation.navigate("Home"),
-        },
-      ]
-    );
+    return Alert.alert("Transferência finalizada", [
+      {
+        text: "OK",
+        onPress: () => navigation.navigate("Home"),
+      },
+    ]);
+  };
+
+  const [loaded] = useFonts({
+    Prompt: require("../assets/fonts/Prompt-Regular.ttf"),
+  });
+
+  if (!loaded) {
+    return null;
   }
 
   return (
     <View style={Styles.container}>
-      <View style={{alignItems:'center'}}>
-      <ImageProps
-        source={require("../assets/images/LogoBlue.png")}
-        style={Styles.ImgLogo}
-      />
-
-      <View style={{ width: 300, }}>
-        <Txt Texto="Para quem você deseja fazer o transferência?" TextStyle={Styles.textos} />
-      </View>
-
-      <View style={Styles.formGroup} >
-        <TextInput style={Styles.formInput} Placeholder="CPF" />
-        <View style={{ backgroundColor: "#F0EDE9" }}>
-          <Text style={[Styles.formLabel, { fontSize: 11, }]}>CPF, CELULAR, E-MAIL OU CHAVE ALEATÓRIA</Text>
-        </View>
+      <View style={{ alignItems: "center" }}>
         <ImageProps
-          source={require("../assets/images/QRCode.png")}
-          style={{ width: 300, height: 118, borderRadius: 10, marginTop: 50, }}
+          source={require("../assets/images/LogoBlue.png")}
+          style={Styles.ImgLogo}
+        />
+
+        <View style={{ width: 300 }}>
+          <Txt
+            Texto="Para quem você deseja fazer o transferência?"
+            TextStyle={Styles.textos}
+          />
+        </View>
+
+        <View style={Styles.formGroup}>
+          <TextInput style={Styles.formInput} Placeholder="CPF" />
+          <View style={{ backgroundColor: "#F0EDE9" }}>
+            <Text style={[Styles.formLabel, { fontSize: 11, fontFamily: "Prompt", }]}>
+              CPF, CELULAR, E-MAIL OU CHAVE ALEATÓRIA
+            </Text>
+          </View>
+          <ImageProps
+            source={require("../assets/images/QRCode.png")}
+            style={{ width: 300, height: 118, borderRadius: 10, marginTop: 50 }}
+          />
+        </View>
+
+        <Btn
+          OnPress={() => setVisible(true)}
+          TouchStyle={[
+            Styles.frtButtons,
+            { backgroundColor: "#2F2C79", marginRight: 10 },
+          ]}
+          letras={[Styles.firstButtons, { color: "#F5E2CF", fontFamily: "Prompt" }]}
+          children="Continuar"        />
+
+        <TransferenciaConclusao
+          visible={visible}
+          NumeroConta={NumConta}
+          ValorTransfe={ValTransfe}
+          OnPress={() => TransfFinalizada()}
         />
       </View>
-
-      <Btn 
-        OnPress={() => setVisible(true)} 
-        TouchStyle={[
-          Styles.frtButtons,
-          { backgroundColor: "#2F2C79", marginRight: 10 },
-        ]}
-        letras={[
-          Styles.firstButtons,
-          { color: "#F0EDE9" },
-        ]} children="Continuar"
-      />
-                    
-      <TransferenciaConclusao
-        visible={visible}
-        NumeroConta={NumConta}
-        ValorTransfe={ValTransfe}
-        OnPress={() => TransfFinalizada()}
-        />
-        </View>
     </View>
   );
 }

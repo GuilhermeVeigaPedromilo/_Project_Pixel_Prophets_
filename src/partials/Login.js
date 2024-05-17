@@ -1,8 +1,6 @@
 
 import { useState, useEffect } from "react";
 import { View, Modal, TextInput, Text, Pressable, Alert } from "react-native";
-
-import { View, Modal, TextInput, Text, Pressable } from "react-native";
 import { useFonts } from "expo-font";
 
 import Btn from "../components/ButtonComponent";
@@ -22,9 +20,18 @@ export default function LoginModal({ visibleA, OnPress, OnPressCloseA }) {
   const LoginDados = async () => {
     try {
       if (cpf === '' || senha === '') {
-        alert('Cadastro inválido: Insira todos os dados solicitados');
+        return Alert.alert(
+          "Login",
+          "Insira os dados de cadastro",
+          [
+            {
+              text: "OK",
+              onPress: () => navigation.navigate("Home"),
+            },
+          ]
+        );
       } else {
-        await axios.post(`http://${IP}:3000/Cadastro`, {
+        await axios.post(`http://${IP}:3000/Login`, {
           cpf,
           senha,
 

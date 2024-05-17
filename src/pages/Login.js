@@ -1,7 +1,6 @@
 import { View, ImageBackground, Text } from "react-native"; //Importacao dos componentes do react-native
 import React, { useState, useEffect } from "react"; //Importacao do useState e do useEffect
 import { useNavigation } from "@react-navigation/native"; //Importacao do useNavigation
-import { useFonts } from "expo-font";
 
 import Btn from "../components/ButtonComponent"; //Importacao do componente Btn
 import Styles from "../styles/StyleSheet"; //Importacao do Styles

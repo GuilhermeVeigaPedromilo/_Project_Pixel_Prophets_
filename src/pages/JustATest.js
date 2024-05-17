@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+{/*import React, { useState } from 'react';
 import { TextInput } from 'react-native';
+
 
 const MyComponent = () => {
   const [formattedText, setFormattedText] = useState('');
@@ -35,4 +36,4 @@ const MyComponent = () => {
   );
 };
 
-export default MyComponent;
+export default MyComponent;*/}

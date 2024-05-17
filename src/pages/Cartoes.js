@@ -3,7 +3,7 @@ import Styles from "../styles/StyleSheet"; // Importacao do Styles
 import { Dimensions } from "react-native";
 import { useFonts } from "expo-font";
 
-const SCREEN_WIDTH = Dimensions.get("window").width;
+//const SCREEN_WIDTH = Dimensions.get("window").width;
 
 const data = [
   { id: "1", text1: "Físico", text2: "Débito", source: require("../assets/images/CartaoVert.png"), },
@@ -61,9 +61,9 @@ export default function Cartoes() {
           showsHorizontalScrollIndicator={false}
           data={data}
           horizontal={true}
-          style={{ width: SCREEN_WIDTH + 5, height: "30%", padding:"1%" }}
+          style={{ height: "30%", padding:"1%" }}
           renderItem={({ item }) => (
-            <View style={[Styles.card2, {width: SCREEN_WIDTH -230,}]}>
+            <View style={Styles.card2}>
             <Image
               source={item.source}
               style={Styles.card}

@@ -10,7 +10,7 @@ import ImageProps from "../components/ImageComponent";
 import Styles from "../styles/StyleSheet";
 
 export default function LoginModal({ visibleB, OnPressCloseB }) {
-  {/*const navigation = useNavigation();
+  const navigation = useNavigation();
 
   const [nome, setNome] = useState("");
   const [cpf, setCpf] = useState("");
@@ -48,7 +48,7 @@ export default function LoginModal({ visibleB, OnPressCloseB }) {
           console.error("Erro ao inserir dados", error);
           Alert.alert("Erro ao inserir dados");
         });
-    }*/}
+    }
   };
 
   return (
@@ -144,4 +144,5 @@ export default function LoginModal({ visibleB, OnPressCloseB }) {
         </ScrollView>
       </Modal>
     </View>
-  );
+  
+  )}

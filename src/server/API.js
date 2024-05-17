@@ -79,7 +79,7 @@ const db = mysql.createConnection({
       } else {
         if (results.length > 0) {
           res.status(200).send("Login bem-sucedido");
-          console.log(`Login realizado: ${cpf} - ${senha}`)
+          console.log(`Login realizado pelo: ${cpf} - ${senha}`)
         } else {
           res.status(401).send("Credenciais incorretas");
         }

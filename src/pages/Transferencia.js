@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { TextInput, Button, View, Alert, Text } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import Txt from "../components/TextComponent";
-import Btn from "../components/ButtonComponent";
-import ImageProps from "../components/ImageComponent";
-import { TransferenciaConclusao } from "../partials/Transferencia";
-import { useFonts } from "expo-font";
+import React, { useEffect, useState } from "react";//Importacao do React, useState e do useEffect
+import { TextInput, Button, View, Alert, Text } from "react-native";//Importacao dos componentes do react-native
+import { useNavigation } from "@react-navigation/native";//Importacao do useNavigation
 
-import Styles from "../styles/StyleSheet";
-import * as LocalAuthentication from "expo-local-authentication";
+import Txt from "../components/TextComponent";//Importacao do Txt
+import Btn from "../components/ButtonComponent";//Importacao do Btn
+import ImageProps from "../components/ImageComponent";//Importacao da ImageProps
+
+import { TransferenciaConclusao } from "../partials/Transferencia";//Importacao da TransferenciaConclusao
+
+import { useFonts } from "expo-font";//Importacao do useFonts
+
+import Styles from "../styles/StyleSheet";//Importacao do Styles
+
+import * as LocalAuthentication from "expo-local-authentication";//Importacao do LocalAuthentication
 
 export default function Transferencia() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

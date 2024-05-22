@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";//Importacao do React, useEffect e do useState
 import {
   Button,
   Text,
@@ -7,11 +7,13 @@ import {
   FlatList,
   Image,
   ScrollView,
-} from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import Styles from "../styles/StyleSheet";
-import Txt from "../components/TextComponent";
-import ImageProps from "../components/ImageComponent";
+} from "react-native";//Importacao dos componentes do react-native
+import { useNavigation } from "@react-navigation/native";//Importacao do useNavigation
+
+import Styles from "../styles/StyleSheet";//Importacao do Styles
+
+import Txt from "../components/TextComponent";//Importacao do Txt
+import ImageProps from "../components/ImageComponent";//Importacao da ImageProps
 
 export default function Settings() {
 

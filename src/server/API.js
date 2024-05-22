@@ -1,16 +1,23 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors"); // Importe o pacote cors
+const express = require('express');
+const bodyParser = require('body-parser');
 const mysql = require('mysql');
+const cors = require('cors');
 const session = require('express-session');
-const path = require('path');
-const { stringify } = require("querystring");
 
 const app = express();
 
-app.use(cors()); // Adicione o middleware cors
+app.use(cors({
+    origin: 'http://localhost:8081', // substitua com a URL do seu frontend
+    credentials: true // para permitir envio de cookies do frontend
+}));
 
 app.use(bodyParser.json());
+app.use(session({
+    secret: 'secret-key',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false } // Set secure: true if using https
+}));
 
 // Configurar a conexão com o banco de dados MySQL
 const db = mysql.createConnection({
@@ -71,23 +78,27 @@ const db = mysql.createConnection({
     const { cpf, senha } = req.body;
     const query = "SELECT * FROM users WHERE cpf = ? AND senha = SHA1(?)";
     db.query(query, [cpf, senha], (err, results) => {
-      if (err) {
-        console.error("Erro ao realizar login:", err);
-        res
-          .status(500)
-          .send("Erro ao realizar login. Por favor, tente novamente mais tarde.");
+      if (err) throw err;
+      if (results.length > 0) {
+          req.session.user = results[0];
+          res.status(200).send(results[0]);
+          //res.status(200).send("Login bem-sucedido");
+          console.log(`Login realizado pelo ${JSON.stringify(req.session.user)}: ${cpf} - ${senha}`)
       } else {
-        if (results.length > 0) {
-          res.status(200).send("Login bem-sucedido");
-          console.log(`Login realizado pelo: ${cpf} - ${senha}`)
-        } else {
           res.status(401).send("Credenciais incorretas");
-        }
       }
     });
   });
-  
-  
+
+// Rota para obter dados do usuário logado
+app.get('/user', (req, res) => {
+    if (JSON.stringify(req.session.user)) {
+        res.status(200).send(JSON.stringify(req.session.user));
+    } else {
+        res.status(401).send('Not authenticated');
+    }
+});
+ 
   
   // Rota para fazer logout
   app.get('/logout', (req, res) => {

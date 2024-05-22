@@ -1,4 +1,4 @@
-import { TouchableOpacity, Text } from "react-native";
+import { TouchableOpacity, Text } from "react-native";//Importacao dos componentes do react-native
 
 export default function Btn({
   children,

@@ -129,6 +129,14 @@ npx expo install expo-font @expo-google-fonts/prompt
 
 <br>
 
+<b>Uma entrada de texto simples e eficaz com máscara para ReactNative em iOS, Android e Web. Nada de sofisticado, é basicamente uma função JavaScript que permite usar máscaras personalizadas facilmente.</b>
+
+```
+npm install react-native-mask-input
+```
+
+<br>
+
 <b>Para iniciar o aplicativo, utilize:</b>
 
 ```

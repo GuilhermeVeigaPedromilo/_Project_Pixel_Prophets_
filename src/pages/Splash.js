@@ -1,7 +1,7 @@
-import { StyleSheet } from "react-native";
-import { Video, ResizeMode } from "expo-av";
-import { CommonActions, useNavigation } from "@react-navigation/native";
-import { useEffect } from "react";
+import { StyleSheet } from "react-native";//Importacao do StyleSheet
+import { Video, ResizeMode } from "expo-av";//Importacao dos componentes do expo-av
+import { CommonActions, useNavigation } from "@react-navigation/native";//Importacao do CmmonActions e do useNavigation
+import { useEffect } from "react";//Importacao do useEffect
 
 export default function Splash() {
   const navigation = useNavigation()
@@ -12,7 +12,7 @@ export default function Splash() {
         index: 0,
         routes: [{name: "Login"}]
       }))
-    }, 5000);
+    }, 5500);
   }, [])
 
   return (

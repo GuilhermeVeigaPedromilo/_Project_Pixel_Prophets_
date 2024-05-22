@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react"; //Importacao do useState e do useEffect
-import { Button, Text, View, ScrollView, FlatList } from "react-native"; //Importacao dos componentes do react-native
 import { useNavigation } from "@react-navigation/native"; //Importacao do useNavigation
-import { useFonts } from "expo-font";
+import { Button, Text, View, ScrollView, FlatList } from "react-native"; //Importacao dos componentes do react-native
+
+import { useFonts } from "expo-font";//Importacao do useFonts
 
 import Styles from "../styles/StyleSheet"; // Importacao do Styles
-import Txt from "../components/TextComponent"; // Importacao do Component Text
-import ImageProps from "../components/ImageComponent"; // Importacao do Componente Imagem
-import InputProps from "../components/InputComponent"; // Importação do Componente Text Input
+
+import Txt from "../components/TextComponent"; // Importacao do Txt
+import ImageProps from "../components/ImageComponent"; // Importacao da ImageProps
+import InputProps from "../components/InputComponent"; // Importação do InputProps
 
 const data = [
   { id: "1", text: "Foi recebido + R$ 300,00", name: "Ciclano Pereira S" },

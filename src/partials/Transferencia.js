@@ -1,14 +1,15 @@
-import React from "react";
-import { View, Modal } from "react-native";
+import React from "react";//Importacao do React
+import { View, Modal } from "react-native";//Importacao dos componentes do react-native
+import { useNavigation } from "@react-navigation/native";//Importacao do useNavigation
 
-import { useNavigation } from "@react-navigation/native";
-import { useFonts } from "expo-font";
+import { useFonts } from "expo-font";//Importacao do useFonts
 
-import Btn from "../components/ButtonComponent";
-import Styles from "../styles/StyleSheet";
-import ImageProps from "../components/ImageComponent";
-import Txt from "../components/TextComponent";
-import InputProps from "../components/InputComponent";
+import Styles from "../styles/StyleSheet";//Importacao do Styles
+
+import Btn from "../components/ButtonComponent";//Importacao do Btn
+import ImageProps from "../components/ImageComponent";//Importacao da ImageProps
+import Txt from "../components/TextComponent";//Importacao do Txt
+import InputProps from "../components/InputComponent";//Importacao do InputProps
 
 function TransferenciaConfirmacao({ visible, OnPress }) {
   const navigation = useNavigation();

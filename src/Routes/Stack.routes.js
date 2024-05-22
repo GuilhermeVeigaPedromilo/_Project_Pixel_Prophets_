@@ -1,46 +1,20 @@
 // Arquivo Stack.routes.js
-import React, {useState, useEffect} from "react";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React, {useState, useEffect} from "react";//Importacao do useState e do useEffect
+import { createNativeStackNavigator } from "@react-navigation/native-stack";//Importacao do createNativeStackNavigator
+import AsyncStorage from "@react-native-async-storage/async-storage";//Importacao do AsyncStorage
+import axios from "axios";//Importacao do axi
 
-import Perfil from "../pages/Perfil";
-import Login from "../pages/Login"
-import DrawerRoutes from "./Drawer.routes";
-import Cartoes from "../pages/Cartoes";
-import Splash from '../pages/Splash';
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "axios";
+import Perfil from "../pages/Perfil";//Importacao da pagina Perfil
+import Login from "../pages/Login"//Importacao da pagina Login
+import DrawerRoutes from "./Drawer.routes";//Importacao do Drawer
+import Cartoes from "../pages/Cartoes";//Importacao da pagina Cartoes
+import Splash from '../pages/Splash';//Importacao do Splash
+import Preferencias from "../pages/Preferências";//Importacao da pagina Preferencias
+import Privacidade from "../pages/Privacidade";//Importacao da pagina Privacidade
 
 const Stack = createNativeStackNavigator();
 
 export default function StackRoutes() {
-  
-  const [userToken, setUserToken] = useState(false);
-
-  useEffect(() => {
-    checkToken();
-  }, []);
-
-  async function checkToken() {
-    const tokenSalvo = await AsyncStorage.getItem("token");
-    if (tokenSalvo !== null) {
-      console.log(`Sessão confirmada = ${tokenSalvo}`)
-      setUserToken(true);
-    }
-  }
-
-  const limparAsyncStorage = async () => {
-    try {
-      await AsyncStorage.clear();
-      console.log("AsyncStorage limpo com sucesso!");
-      setUserToken(true);
-    } catch (error) {
-      console.log("Erro ao limpar AsyncStorage:", error);
-    }
-  };
-
-  const handleLogout = () => {
-    limparAsyncStorage();
-  };
 
   return (
       <Stack.Navigator initialRouteName="Splash">
@@ -53,14 +27,12 @@ export default function StackRoutes() {
           name="Login"
           component={Login}
           options={{ headerShown: false }}
-          initialParams={{setUserToken: setUserToken}}
         />
 
         <Stack.Screen
           name="Home"
           component={DrawerRoutes}
           options={{ headerShown: false }}
-          initialParams={{handleLogout: handleLogout}}
         />
         <Stack.Screen
           name="Perfil"
@@ -70,6 +42,16 @@ export default function StackRoutes() {
         <Stack.Screen
           name="Cartoes"
           component={Cartoes}
+          options={{ headerShown: false }}
+        />
+         <Stack.Screen
+          name="Preferência"
+          component={Preferencias}
+          options={{ headerShown: false }}
+        />
+         <Stack.Screen
+          name="Privacidade"
+          component={Privacidade}
           options={{ headerShown: false }}
         />
         <Stack.Screen

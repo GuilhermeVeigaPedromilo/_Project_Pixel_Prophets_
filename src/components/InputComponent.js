@@ -1,18 +1,18 @@
-import { TextInput } from "react-native";
+import { TextInput } from "react-native";//Importacao dos componentes do react-native
 
 export default function InputProps({
-  InputStyle,
-  Placeholder,
-  TypeTeclado,
+  style,
+  placeholder,
+  keyboardType,
   onChangeText,
   value,
   secureTextEntry,
 }) {
   return (
     <TextInput
-      style={InputStyle}
-      placeholder={Placeholder}
-      keyboardType={TypeTeclado}
+      style={style}
+      placeholder={placeholder}
+      keyboardType={keyboardType}
       onChangeText={onChangeText}
       secureTextEntry={secureTextEntry}
       value={value}

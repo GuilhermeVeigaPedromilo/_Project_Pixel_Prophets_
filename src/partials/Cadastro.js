@@ -1,25 +1,17 @@
-import React, { useState } from "react";
-import {
-  View,
-  Modal,
-  TextInput,
-  Text,
-  Pressable,
-  Alert,
-  ScrollView,
-} from "react-native";
-import axios from "axios";
-import { useNavigation } from "@react-navigation/native";
-import { useFonts } from "expo-font";
+import React, { useState } from "react";//Importacao do React e do useState
+import {View, Modal, TextInput, Text, Pressable, Alert, ScrollView } from "react-native";//Importacao dos componentes do react-native
+import axios from "axios";//Importacao do axios
 
-const IP = "10.144.170.28"; // Confirir toda vez que iniciar o projeto
+import { useFonts } from "expo-font";//Importacao do useFonts
 
-import Btn from "../components/ButtonComponent";
-import ImageProps from "../components/ImageComponent";
-import Styles from "../styles/StyleSheet";
+import Btn from "../components/ButtonComponent";//Importacao do Btn
+import ImageProps from "../components/ImageComponent";//Importacao da ImageProps
+
+import Styles from "../styles/StyleSheet";//Importacao do Styles
+
+const API_URL = 'http://10.144.170.66:3000';//Constante da URL
 
 export default function LoginModal({ visibleB, OnPressCloseB }) {
-  const navigation = useNavigation();
 
   const [nome, setNome] = useState("");
   const [cpf, setCpf] = useState("");
@@ -27,37 +19,18 @@ export default function LoginModal({ visibleB, OnPressCloseB }) {
   const [senha, setSenha] = useState("");
   const [confsenha, setConfSenha] = useState("");
 
-  const InserirDados = () => {
+  const handleRegister = async () => {
+    const newUser = { nome, senha, email, cpf, };
+    await axios.post(`${API_URL}/Cadastro`, newUser);
     if (nome === "" || cpf === "" || email === "" || senha === "") {
       Alert.alert("Cadastro inválido", "Insira todos os dados solicitados");
     } else if (confsenha != senha) {
       Alert.alert("A senha esta diferente");
     } else {
-      axios
-        .post(`http://${IP}:3000/Cadastro`, {
-          nome,
-          cpf,
-          email,
-          senha,
-        })
-        .then(() => {
-          Alert.alert(
-            "Cadastro realizado",
-            "Seu cadastro foi realizado com sucesso!",
-            [
-              {
-                text: "OK",
-                onPress: () => navigation.navigate("Home"),
-              },
-            ]
-          );
-        })
-        .catch((error) => {
-          console.error("Erro ao inserir dados", error);
-          Alert.alert("Erro ao inserir dados");
-        });
+      await axios.post(`${API_URL}/Cadastro`, newUser);
+      console.log(`Cadastro realizado: ${nome} - ${senha} - ${email} - ${cpf}`)
     }
-  };
+};
 
   const [loaded] = useFonts({
     Prompt: require("../assets/fonts/Prompt-Regular.ttf"),
@@ -124,7 +97,7 @@ export default function LoginModal({ visibleB, OnPressCloseB }) {
                       style={Styles.formInput}
                       value={senha}
                       onChangeText={setSenha}
-                      keyboardType="password"
+                      keyboardType="numeric"
                     />
                     <View style={{ backgroundColor: "#F0EDE9" }}>
                       <Text style={Styles.formLabel}>SENHA</Text>
@@ -135,7 +108,7 @@ export default function LoginModal({ visibleB, OnPressCloseB }) {
                       style={Styles.formInput}
                       value={confsenha}
                       onChangeText={setConfSenha}
-                      keyboardType="password"
+                      keyboardType="numeric"
                     />
                     <View style={{ backgroundColor: "#F0EDE9" }}>
                       <Text style={Styles.formLabel}>CONFIRMAR SENHA</Text>
@@ -147,9 +120,9 @@ export default function LoginModal({ visibleB, OnPressCloseB }) {
                         Styles.frtButtons,
                         { backgroundColor: "#2F2C79", marginRight: 10 },
                       ]}
-                      letras={[Styles.firstButtons, { color: "#F0EDE9" }]}
+                      letras={[Styles.firstButtons, { color: "#F5E2CF" }]}
                       children="Entrar"
-                      OnPress={InserirDados}
+                      OnPress={handleRegister}
                     />
                   </View>
                 </View>

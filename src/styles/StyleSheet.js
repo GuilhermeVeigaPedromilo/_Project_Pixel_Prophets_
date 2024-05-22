@@ -10,6 +10,7 @@ const Styles = StyleSheet.create({
     flex: 1, // Cobrir todo o espaço
     backgroundColor: "#F0EDE9",
     justifyContent: "center", // Justificar todo o conteudo
+    alignItems: "center",
   },
 
   containerTwo: {
@@ -189,6 +190,7 @@ const Styles = StyleSheet.create({
     borderColor: "#2F2C79",
     backgroundColor: "#2F2C7900",
     color: "#2F2C79",
+    fontFamily: "Prompt",
   },
 
   formLabel: {
@@ -240,6 +242,24 @@ const Styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+
+  linha:{
+    backgroundColor: "#2F2C79",
+    height: 2,
+    width: "90%",
+    marginTop: 20,
+  },
+
+  header:{
+    justifyContent: "center", 
+    alignItems: "center", 
+    marginTop: "15%",
+  },
+
+  formEverything:{
+    alignItems:"center"
+  }
+
 });
 
 export default Styles;

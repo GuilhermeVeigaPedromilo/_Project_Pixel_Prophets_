@@ -3,6 +3,7 @@ import { Button, Text, View, Modal } from "react-native"; //Importacao dos compo
 import { useNavigation } from "@react-navigation/native"; //Importacao do useNavigation
 
 import Styles from "../styles/StyleSheet"; // Importacao do Styles
+
 import Txt from "../components/TextComponent"; // Importacao do Component Text
 import ImageProps from "../components/ImageComponent"; // Importacao do Componente Imagem
 import InputProps from "../components/InputComponent"; // Importação do Componente Text Input

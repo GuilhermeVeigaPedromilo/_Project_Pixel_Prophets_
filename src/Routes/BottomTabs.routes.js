@@ -1,6 +1,9 @@
-import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons } from "@expo/vector-icons";
+import React from "react";//Importacao do React
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";//Importacao do createBottomTabNavigation
+
+import { Ionicons } from "@expo/vector-icons";//Importacao do Ionicons
+
+import Styles from "../styles/StyleSheet";//Importacao do Styles
 
 import Home from "../pages/Home"; // Importacao da Pagina Home
 
@@ -8,7 +11,7 @@ import Transferencia from "../pages/Transferencia"; // Importacao da Pagina Tran
 
 import Extrato from "../pages/Extrato"; // Importacao da Pagina Extrato
 
-import Cartoes from "../pages/Cartoes";
+import Cartoes from "../pages/Cartoes";//Importacao da pagina Cartoes
 
 import {
   TransferenciaConfirmacao,
@@ -19,7 +22,7 @@ const Tab = createBottomTabNavigator();
 
 export default function RotasTabs() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator >
       <Tab.Screen
         name="Home"
         component={Home}

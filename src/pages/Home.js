@@ -1,32 +1,61 @@
+import React, {useState, useEffect} from "react";//Importacao do React, do useState e do useEffect
 import { Text, View, Pressable, FlatList } from "react-native"; //Importacao dos componentes do react-native
-import { useNavigation } from "@react-navigation/native"; //Importacao do useNavigation
-import { useFonts } from "expo-font";
+import axios from "axios";//Importacao do axios
+
+import { useFonts } from "expo-font";//Importacao do useFonts
+import { Ionicons } from "@expo/vector-icons";//Importacao do Ionicons
 
 import Styles from "../styles/StyleSheet"; //Importacao do Styles
-import ImageProps from "../components/ImageComponent"; //Importacao do componente ImageProps
 
-export default function Home() {
-  const navigation = useNavigation();
+import ImageProps from "../components/ImageComponent"; //Importacao do ImageProps
 
-  const data = [
+const API_URL = 'http://10.144.170.66:3000';//Constante da URL
+
+export default function Home({navigation}) {
+  const [user, setUser] = useState(null);
+
+
+  useEffect(() => {
+      fetchUser();
+  }, []);
+
+  const fetchUser = async () => {
+      try {
+          const response = await axios.get(`${API_URL}/user`, { withCredentials: true });
+          setUser(JSON.stringify(response.data));
+          console.log(`${JSON.stringify(response.data)}`)
+          console.log(user);
+      } catch (err) {
+          console.log(err);
+          navigation.navigate('Login');
+      }
+  };
+
+  const handleLogout = () => {
+      setUser(null);
+      navigation.navigate('Login');
+  };
+
+
+  const flatData = [
     {
       key: "1",
-      image: require("../assets/images/pagar.png"),
+      image: "cash",
       text: "Pagar",
     },
     {
       key: "2",
-      image: require("../assets/images/cartao.png"),
+      image: "card",
       text: "Cartões",
     },
     {
       key: "3",
-      image: require("../assets/images/extratos.png"),
+      image: "receipt",
       text: "Extrato",
     },
     {
       key: "4",
-      image: require("../assets/images/extratos.png"),
+      image: "wallet",
       text: "Poupança",
     },
   ];
@@ -50,7 +79,7 @@ export default function Home() {
             />
 
             <Text style={{ color: "white", marginLeft: 10, marginTop: 15, fontFamily: "Prompt" }}>
-              Saldo Disponível:{""}
+            Saldo disponível
             </Text>
           </View>
 
@@ -61,7 +90,7 @@ export default function Home() {
 
         <FlatList
           showsHorizontalScrollIndicator={false}
-          data={data}
+          data={flatData}
           horizontal
           renderItem={({ item }) => (
             <Pressable
@@ -69,10 +98,7 @@ export default function Home() {
               onPress={() => navigation.navigate("Cartoes")}
             >
               <View style={{ flexDirection: "row" }}>
-                <ImageProps
-                  source={item.image}
-                  style={{ width: 30, height: 30, marginTop: 10 }}
-                />
+              <Ionicons name={item.image} margim size={28} color="#F0EDE9" />
               </View>
               <Text
                 style={{

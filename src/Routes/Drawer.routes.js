@@ -1,16 +1,16 @@
-import React from "react";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import { Ionicons } from "@expo/vector-icons";
-import RotasTabs from "./BottomTabs.routes";
-import Configuracoes from "../pages/Configuracoes";
+import React from "react";//Importacao do React
+import { createDrawerNavigator } from "@react-navigation/drawer";//Importacao do createDrawerNavigator
+
+import RotasTabs from "./BottomTabs.routes";//Importacao do Tabs
+import CustomDrawer from "../components/CustomDrawer";//Importacao do CustomDrawer
+import {  DrawerContentScrollView,  DrawerItemList} from "@react-navigation/drawer";//Importacao do DawerContentScrollView e do DrawerItemList
+
+import Configuracoes from "../pages/Configuracoes";//Importacao da pagina Configuracoes
 import Ajuda from "../pages/Ajuda"; //Importacao da Pagina Ajuda
 import Perfil from "../pages/Perfil"; // Importacao da Pagina Perfil
-import CustomDrawer from "../components/CustomDrawer";
-import { useFonts } from "expo-font";
-import {
-  DrawerContentScrollView,
-  DrawerItemList,
-} from "@react-navigation/drawer";
+
+import { Ionicons } from "@expo/vector-icons";//Importacao do Ionicons
+import { useFonts } from "expo-font";//Importacao do useFonts
 
 const Drawer = createDrawerNavigator();
 
@@ -20,7 +20,6 @@ function CustomDrawerIcon({ color, iconName }) {
 
 
 export default function RotasDrawer() {
-  const fulano = "Fulano";
 
   const [loaded] = useFonts({
     Prompt: require("../assets/fonts/Prompt-Regular.ttf"),
@@ -43,7 +42,7 @@ export default function RotasDrawer() {
         headerTitleStyle: { color: "white" },
         headerStyle: { backgroundColor: "#171A4A" },
         headerTintColor: "#F0EDE9",
-        headerTitle: "Oi",
+        headerTitle: "Olá, Pixel Prophets",
         drawerIcon: ({ color }) => {
           let iconName;
           switch (route.name) {

@@ -14,17 +14,18 @@ export default function LoginModal({ visibleA, OnPressCloseA, setCpf, setSenha, 
 
   
  
-{/*  const [loaded] = useFonts({
+  const [loaded] = useFonts({
     "Prompt": require("../assets/fonts/Prompt-Regular.ttf"),
   });
-  
+
   if (!loaded) {
     return null;
-  }*/}
+  }
 
   return (
     <View>
       <Modal animationType="slide" transparent={true} visible={visibleA}>
+      <View style={{backgroundColor: "#F0EDE9", flex: 1}}>
         <View style={Styles.section}>
           <View>
             <Pressable onPress={OnPressCloseA}>
@@ -71,6 +72,7 @@ export default function LoginModal({ visibleA, OnPressCloseA, setCpf, setSenha, 
               </View>
             </View>
           </View>
+        </View>
         </View>
       </Modal>
     </View>

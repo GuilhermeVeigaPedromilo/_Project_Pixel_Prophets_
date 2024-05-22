@@ -88,6 +88,7 @@ const Styles = StyleSheet.create({
   firstButtons: {
     textAlign: "center",
     fontSize: 18,
+    fontFamily: "Prompt",
   },
 
   frtButtons: {
@@ -95,6 +96,7 @@ const Styles = StyleSheet.create({
     height: 45,
     borderRadius: 10,
     justifyContent: "center",
+    fontFamily: "Prompt",
   },
 
   caixauser: {
@@ -197,6 +199,7 @@ const Styles = StyleSheet.create({
     paddingRight: 10,
     paddingLeft: 10,
     color: "#2F2C79",
+    fontFamily: "Prompt",
   },
 
   formGroup: {
@@ -204,13 +207,13 @@ const Styles = StyleSheet.create({
   },
 
   card: {
-    width: '100%',
+    width: "100%",
     height: 150, // Defina uma altura em pixels ou ajuste conforme necessário
     borderRadius: 10,
   },
   card2: {
     margin: 10, // Ajuste conforme necessário
-    alignItems: 'center',
+    alignItems: "center",
     paddingTop: 10, // Ajuste conforme necessário
     width: 200, // Ajuste conforme necessário para obter o layout desejado
   },

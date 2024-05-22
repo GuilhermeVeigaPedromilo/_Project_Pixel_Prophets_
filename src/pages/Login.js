@@ -1,7 +1,7 @@
 import { View, ImageBackground, Text, Alert } from "react-native"; //Importacao dos componentes do react-native
 import React, { useState, useEffect } from "react"; //Importacao do useState e do useEffect
 import { useNavigation } from "@react-navigation/native"; //Importacao do useNavigation
-const IP = "10.144.170.22";
+const IP = "10.144.170.28";
 
 import Btn from "../components/ButtonComponent"; //Importacao do componente Btn
 import Styles from "../styles/StyleSheet"; //Importacao do Styles
@@ -9,8 +9,10 @@ import LoginModal from "../partials/Login"; //Importacao do Modal de Login
 import CadastroModal from "../partials/Cadastro"; //Importacao do Modal de Cadastro
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFonts } from "expo-font";
+import { StatusBar } from "expo-status-bar";
 
-export default function First({route,}) {
+export default function First({ route }) {
   const [visibleA, setVisibleA] = useState(false);
   const [visibleB, setVisibleB] = useState(false);
   const navigation = useNavigation();
@@ -18,19 +20,18 @@ export default function First({route,}) {
   const [cpf, setCpf] = useState("");
   const [senha, setSenha] = useState("");
 
-{/*  useEffect(() => {
+  {
+    /*  useEffect(() => {
     // Função para carregar os dados ao iniciar o aplicativo
     carregarDados();
   }, []);
-*/}
+*/
+  }
 
   const LoginDados = async () => {
     try {
-      if (cpf === '' || senha === '') {
-        return Alert.alert(
-          "PixelBank-Login",
-          "Insira os dados de cadastro",
-        );
+      if (cpf === "" || senha === "") {
+        return Alert.alert("PixelBank-Login", "Insira os dados de cadastro");
       } else {
         const response = await axios.post(`http://${IP}:3000/Login`, {
           cpf,
@@ -49,7 +50,8 @@ export default function First({route,}) {
     }
   };
 
- {/* const carregarDados = async () => {
+  {
+    /* const carregarDados = async () => {
     try {
       const response = await axios.get(`http:/${IP}/:3000/DadosLogin`);
       setDados(response.data);
@@ -59,19 +61,30 @@ export default function First({route,}) {
 
 
 
-  };*/}
+  };*/
+  }
 
-
-{/*  const [loaded] = useFonts({
+  {
+    /*  const [loaded] = useFonts({
     "Prompt": require("../assets/fonts/Prompt-Regular.ttf"),
   });
 
   if (!loaded) {
     return null;
-  }*/}
+  }*/
+  }
+
+  const [loaded] = useFonts({
+    Prompt: require("../assets/fonts/Prompt-Regular.ttf"),
+  });
+
+  if (!loaded) {
+    return null;
+  }
 
   return (
     <View>
+      <StatusBar />
       <ImageBackground
         source={require("../assets/images/Fundo1.png")}
         style={{ width: "100%", height: "100%", justifyContent: "flex-end" }}
@@ -98,9 +111,21 @@ export default function First({route,}) {
           />
         </View>
 
-        <LoginModal setCpf={setCpf} setSenha={setSenha} LoginDados={LoginDados} visibleA={visibleA} OnPressCloseA={() => setVisibleA(false)} OnPress={() => {navigation.navigate("Home")}} />
+        <LoginModal
+          setCpf={setCpf}
+          setSenha={setSenha}
+          LoginDados={LoginDados}
+          visibleA={visibleA}
+          OnPressCloseA={() => setVisibleA(false)}
+          OnPress={() => {
+            navigation.navigate("Home");
+          }}
+        />
 
-        <CadastroModal visibleB={visibleB} OnPressCloseB={() => setVisibleB(false)} />
+        <CadastroModal
+          visibleB={visibleB}
+          OnPressCloseB={() => setVisibleB(false)}
+        />
       </ImageBackground>
     </View>
   );

@@ -204,16 +204,15 @@ const Styles = StyleSheet.create({
   },
 
   card: {
-    width: "100%",
+    width: '100%',
     height: 150, // Defina uma altura em pixels ou ajuste conforme necessário
     borderRadius: 10,
   },
   card2: {
-    margin: "1%",
-    alignItems: "center",
-    paddingTop: "1%",
-    width: "60%",
-    // Remova a segunda definição de margin ou ajuste conforme necessário
+    margin: 10, // Ajuste conforme necessário
+    alignItems: 'center',
+    paddingTop: 10, // Ajuste conforme necessário
+    width: 200, // Ajuste conforme necessário para obter o layout desejado
   },
 
   details: {

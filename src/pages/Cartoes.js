@@ -1,9 +1,6 @@
 import { Text, View, Image, FlatList } from "react-native";
 import Styles from "../styles/StyleSheet"; // Importacao do Styles
-import { Dimensions } from "react-native";
 import { useFonts } from "expo-font";
-
-//const SCREEN_WIDTH = Dimensions.get("window").width;
 
 const data = [
   {
@@ -62,7 +59,7 @@ export default function Cartoes() {
         <Text style={Styles.textosCard}>Cartões</Text>
       </View>
 
-      <View style={{ marginTop: 50, marginLeft: 10, flexDirection: "column" }}>
+      <View style={{ marginTop: 50, marginLeft: 10, flex: 1, width: "100%" }}>
         <View
           style={{
             marginTop: 50,
@@ -74,18 +71,19 @@ export default function Cartoes() {
             borderTopColor: "#171A4A",
           }}
         />
-          <FlatList
-  showsHorizontalScrollIndicator={false}
-  data={data}
-  horizontal={true}
-  renderItem={({ item }) => (
-    <View style={Styles.card2}>
-      <Image source={item.source} style={Styles.card} />
-      <Text style={Styles.details}>{item.text1}</Text>
-      <Text style={Styles.details}>{item.text2}</Text>
-    </View>
-  )}
-/>
+        <FlatList
+          showsHorizontalScrollIndicator={false}
+          data={data}
+          horizontal={true}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <View style={Styles.card2}>
+              <Image source={item.source} style={Styles.card} />
+              <Text style={Styles.details}>{item.text1}</Text>
+              <Text style={Styles.details}>{item.text2}</Text>
+            </View>
+          )}
+        />
       </View>
     </View>
   );

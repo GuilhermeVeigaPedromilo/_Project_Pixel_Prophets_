@@ -19,7 +19,7 @@ export default function Splash() {
       <Video
         style={StyleSheet.absoluteFill}
         resizeMode={ResizeMode.COVER}
-        source={require("../../assets/Splash1.mp4")}
+        source={require("../assets/videos/Splash.mp4")}
         isLooping={true}
         shouldPlay={true}
       />

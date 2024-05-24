@@ -7,7 +7,7 @@ import Line from "../components/LineComponent"//Importacao do Line
 import { useFonts } from "expo-font";//Importacao do useFonts
 import { Ionicons } from "@expo/vector-icons";//Importacao do Ionicons
 
-export default function Preferencias() {
+export default function Poupanca() {
   const [loaded] = useFonts({
     Prompt: require("../assets/fonts/Prompt-Regular.ttf"),
   });
@@ -23,7 +23,7 @@ export default function Preferencias() {
           source={require("../assets/images/LogoBlue.png")}
           style={Styles.ImgLogo}
         />
-        <Text style={Styles.textosCard}>Preferências</Text>
+        <Text style={Styles.textosCard}>Poupança</Text>
       </View>
 
       <Line/>

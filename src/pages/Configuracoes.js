@@ -28,16 +28,14 @@ export default function Configuracoes({navigation}) {
             source={require("../assets/images/LogoBlue.png")}
             style={Styles.ImgLogo}
           />
-          <Txt Texto="Configurações" TextStyle={Styles.textos} />
-
+        <Text style={Styles.textos}>Configurações</Text>
         </View>
-        <View style={{alignItems: 'center'}}>
+        <View style={{width: "100%" }}>
         <View style={Styles.linhaabx}>
           <Pressable style={{ flexDirection: "row" }}
            onPress={() => navigation.navigate("Perfil")}>
             <Ionicons size={28} color="#E8C39E" name="person" />
-            <Txt Texto="Perfil de usuário" TextStyle={Styles.textosconfig} />
-
+            <Text  style={Styles.textosconfig}>Perfil de usuário</Text>
           </Pressable>
         </View>
 
@@ -45,7 +43,7 @@ export default function Configuracoes({navigation}) {
           <Pressable style={{ flexDirection: "row" }}
            onPress={() => navigation.navigate("Preferencia")}>
             <Ionicons size={28} color="#E8C39E" name="extension-puzzle" />
-            <Txt Texto="Preferências" TextStyle={Styles.textosconfig} />
+            <Text  style={Styles.textosconfig}>Preferências</Text>
           </Pressable>
         </View>
 
@@ -53,7 +51,7 @@ export default function Configuracoes({navigation}) {
           <Pressable style={{ flexDirection: "row" }}
            onPress={() => navigation.navigate("Privacidade")}>
             <Ionicons size={28} color="#E8C39E" name="shield-checkmark" />
-            <Txt Texto="Privacidade e segurança" TextStyle={Styles.textosconfig} />
+            <Text  style={Styles.textosconfig}>Privacidade e segurança</Text>
           </Pressable>
         </View>
       </View>

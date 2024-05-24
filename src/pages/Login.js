@@ -10,6 +10,7 @@ import Styles from "../styles/StyleSheet"; //Importacao do Styles
 
 import { useFonts } from "expo-font";//Importacao do useFonts
 import { StatusBar } from "expo-status-bar";//Importacao do StatusBar
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const API_URL = 'http://10.144.170.66:3000';//Constante da URL
 
@@ -21,22 +22,29 @@ export default function First({ navigation }) {
   const [error, setError] = useState('');
 
   const handleLogin = async () => {
+    try {
+      const response = await axios.post(
+        `${API_URL}/Login`,
+        { cpf, senha },
+        { withCredentials: true }
+      );
+
+           // Salvar dados do usuário no AsyncStorage
+           await AsyncStorage.setItem('userSession', JSON.stringify({
+            cpfUser: cpf,
+            senhaUser: senha,
+            respUser: response.data
+          }));
+          console.log(JSON.stringify(response.data))
+      navigation.navigate("RotasDrawer", {
+        screen: "Home",
+        params: { cpfUser: cpf, senhaUser: senha, respUser: response.data },
+      });
       
-      try {
-          const response = await axios.post(`${API_URL}/Login`, { cpf, senha }, { withCredentials: true });
-          setCpf(response.data.cpf);
-          setSenha(response.data.senha);
-
-          console.log(`CPF ${cpf}`)
-          console.log(`Response: ${response.data}`)
-
-          navigation.navigate('Home');
-
-      } catch (err) {
-          setError('Invalid credentials');
-      }
+    } catch (err) {
+      setError("Invalid credentials");
+    }
   };
-
   const [loaded] = useFonts({
     Prompt: require("../assets/fonts/Prompt-Regular.ttf"),
   });

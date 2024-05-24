@@ -21,16 +21,16 @@ export default function Privacidade() {
       <View style={{ alignItems: "center"}}>
         <Image
           source={require("../assets/images/LogoBlue.png")}
-          style={{  width: 200, height: 200 }}
+          style={Styles.ImgLogo}
         />
         <Text style={Styles.textosCard}>Privacidade</Text>
       </View>
 
       <Line/>
 
-      <View style={{justifyContent: "center", alignItems: "center", marginTop: "30%"}}>
+      <View style={Styles.viewconstrucao}>
         <Text style={Styles.textosCard}>Página em construção</Text>
-        <Ionicons name="build" margim size={58} color="#171A4a" />
+        <Ionicons name="build" margim size={100} color="#171A4a" />
       </View>
     </View>
   );

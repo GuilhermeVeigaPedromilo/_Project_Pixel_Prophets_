@@ -29,6 +29,7 @@ export default function LoginModal({ visibleB, OnPressCloseB }) {
     } else {
       await axios.post(`${API_URL}/Cadastro`, newUser);
       console.log(`Cadastro realizado: ${nome} - ${senha} - ${email} - ${cpf}`)
+      
     }
 };
 
@@ -121,7 +122,7 @@ export default function LoginModal({ visibleB, OnPressCloseB }) {
                         { backgroundColor: "#2F2C79", marginRight: 10 },
                       ]}
                       letras={[Styles.firstButtons, { color: "#F5E2CF" }]}
-                      children="Entrar"
+                      children="Cadastrar"
                       OnPress={handleRegister}
                     />
                   </View>

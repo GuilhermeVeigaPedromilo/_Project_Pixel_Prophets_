@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react"; //Importacao do useState e do useEffect
 import { useNavigation } from "@react-navigation/native"; //Importacao do useNavigation
-import { Button, Text, View, ScrollView, FlatList } from "react-native"; //Importacao dos componentes do react-native
+import { Pressable, Text, View, ScrollView, FlatList } from "react-native"; //Importacao dos componentes do react-native
 
 import { useFonts } from "expo-font";//Importacao do useFonts
+import { Ionicons } from "@expo/vector-icons";//Importacao do Ionicons
 
 import Styles from "../styles/StyleSheet"; // Importacao do Styles
 
@@ -37,6 +38,7 @@ function renderItem({ item }) {
 }
 
 export default function Extrato() {
+  const navigation = useNavigation();
   const [loaded] = useFonts({
     Prompt: require("../assets/fonts/Prompt-Regular.ttf"),
     PromptBold: require("../assets/fonts/Prompt-Bold.ttf")
@@ -53,16 +55,16 @@ export default function Extrato() {
           source={require("../assets/images/LogoBlue.png")}
           style={Styles.ImgLogo}
         />
-        <Txt Texto="Extrato" TextStyle={Styles.textos} />
+        <Text style={Styles.textos}>Extrato</Text>
       </View>
 
       <View style={Styles.linhaabx}>
-        <Txt Texto="Saldo em conta:" TextStyle={Styles.textossaldo} />
-        <Txt Texto="R$ 28.000,00" TextStyle={Styles.saldo} />
+        <Text style={Styles.textossaldo}>Saldo em conta:</Text>
+        <Text style={Styles.saldo}>R$ 28.000,00</Text>
       </View>
 
       <View style={Styles.linhaabx}>
-        <Txt Texto="03/05/2024" TextStyle={Styles.data} />
+        <Text style={Styles.data}>03/05/2024</Text>
       </View>
 
       <View style={{ flex: 1, marginLeft: 30 }}>
@@ -73,6 +75,12 @@ export default function Extrato() {
           renderItem={renderItem}
         />
       </View>
+      <View style={Styles.tabs}>
+  <Pressable onPress={() => navigation.navigate("Home")}><Ionicons name="home" size={28} color="#F5E2CF" /></Pressable>
+  <Pressable onPress={() => navigation.navigate("Transferencia")}><Ionicons name="cash" size={28} color="#F5E2CF" /></Pressable>
+  <Pressable onPress={() => navigation.navigate("Cartoes")}><Ionicons name="card" size={28} color="#F5E2CF" /></Pressable>
+  <Pressable onPress={() => navigation.navigate("Extrato")}><Ionicons name="receipt" size={28} color="#F5E2CF" /></Pressable>
+</View>
     </View>
   );
 }

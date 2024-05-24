@@ -156,7 +156,7 @@ const Styles = StyleSheet.create({
     margin: 18,
   },
   quadradocontainer: {
-    marginTop: "3%",
+    marginTop: "7%",
     width: "95%",
     height: "25%",
     backgroundColor: "#171A4A",
@@ -164,7 +164,7 @@ const Styles = StyleSheet.create({
     borderRadius: 10,
   },
   quadradocontainer2: {
-    marginTop: 20,
+    marginTop: "15%",
     width: "35%",
     height: "15%",
     backgroundColor: "#000020",
@@ -258,8 +258,30 @@ const Styles = StyleSheet.create({
 
   formEverything:{
     alignItems:"center"
-  }
-
+  },
+  tabscartoes:{
+    flexDirection: 'row', 
+     justifyContent: 'space-around',
+     alignItems: 'center',
+     backgroundColor: '#171A4A',
+     width: '100%',
+     height: '5%',
+     position: "absolute",
+     top: "95%",
+  },
+  tabs:{
+    flexDirection: 'row', 
+     justifyContent: 'space-around',
+     alignItems: 'center',
+     backgroundColor: '#171A4A',
+     width: '100%',
+     height: '5%',
+  },
+  viewconstrucao:{
+   justifyContent: "center",
+   alignItems: "center",
+   marginTop: "30%",
+  },
 });
 
 export default Styles;

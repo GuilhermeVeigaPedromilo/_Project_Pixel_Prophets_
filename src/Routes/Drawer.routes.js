@@ -1,16 +1,17 @@
-import React from "react";//Importacao do React
+import React, {useState, useEffect} from "react";//Importacao do React
 import { createDrawerNavigator } from "@react-navigation/drawer";//Importacao do createDrawerNavigator
-
-import RotasTabs from "./BottomTabs.routes";//Importacao do Tabs
 import CustomDrawer from "../components/CustomDrawer";//Importacao do CustomDrawer
 import {  DrawerContentScrollView,  DrawerItemList} from "@react-navigation/drawer";//Importacao do DawerContentScrollView e do DrawerItemList
 
 import Configuracoes from "../pages/Configuracoes";//Importacao da pagina Configuracoes
 import Ajuda from "../pages/Ajuda"; //Importacao da Pagina Ajuda
 import Perfil from "../pages/Perfil"; // Importacao da Pagina Perfil
+import Login from "../pages/Login"//Importacao da pagina Login
 
 import { Ionicons } from "@expo/vector-icons";//Importacao do Ionicons
 import { useFonts } from "expo-font";//Importacao do useFonts
+import Home from "../pages/Home";
+import { useNavigation } from "@react-navigation/native";
 
 const Drawer = createDrawerNavigator();
 
@@ -18,8 +19,11 @@ function CustomDrawerIcon({ color, iconName }) {
   return <Ionicons size={28} color={color} name={iconName} />;
 }
 
-
 export default function RotasDrawer() {
+  
+const navigation = useNavigation()
+
+  const [user, setUser] = useState(null);
 
   const [loaded] = useFonts({
     Prompt: require("../assets/fonts/Prompt-Regular.ttf"),
@@ -28,6 +32,17 @@ export default function RotasDrawer() {
   if (!loaded) {
     return null;
   }
+
+  const handleLogout = async () => {
+    try{
+      const setUser = await axios.get(`${API_URL}/logout`)
+      navigation.navigate("Login");
+      console.log(`${setUser}`)
+    } catch (err) {
+      console.log('Não foi possível sair da sua conta');
+    }
+
+  };
 
   return (
     <Drawer.Navigator
@@ -65,10 +80,11 @@ export default function RotasDrawer() {
         },
       })}
     >
-      <Drawer.Screen name="Home" component={RotasTabs} />
+      <Drawer.Screen name="Home" component={Home} />
       <Drawer.Screen name="Perfil" component={Perfil} />
       <Drawer.Screen name="Configurações" component={Configuracoes} />
       <Drawer.Screen name="Ajuda" component={Ajuda} />
+     {/* <Drawer.Screen name="Sair" component={handleLogout} />*/}
     </Drawer.Navigator>
   );
 }

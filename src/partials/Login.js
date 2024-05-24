@@ -52,6 +52,7 @@ export default function LoginModal({ visibleA, OnPressCloseA, setCpf, setSenha, 
                 <TextInput 
                   style={Styles.formInput}  
                   onChangeText={ setSenha } 
+                  keyboardType="numeric"
                 />
                 <View style={{ backgroundColor: "#F0EDE9" }}>
                   <TextComponent style={Styles.formLabel} texto="SENHA"/>

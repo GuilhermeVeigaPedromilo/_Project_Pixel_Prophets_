@@ -86,6 +86,7 @@ const db = mysql.createConnection({
           console.log(`Login realizado pelo ${JSON.stringify(req.session.user)}: ${cpf} - ${senha}`)
       } else {
           res.status(401).send("Credenciais incorretas");
+          console.log('401')
       }
     });
   });
@@ -103,7 +104,6 @@ app.get('/user', (req, res) => {
   // Rota para fazer logout
   app.get('/logout', (req, res) => {
     req.session.destroy(() => {
-      res.redirect('/');
       console.log('Desconectado')
     });
   });

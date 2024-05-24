@@ -1,4 +1,5 @@
-import { Text, View, Image } from "react-native";//Importacao dos componentes do react-native
+import { Text, View, Image, Pressable } from "react-native";//Importacao dos componentes do react-native
+import { useNavigation } from "@react-navigation/native";//Importacao do useNavigation
 
 import Styles from "../styles/StyleSheet"; // Importacao do Styles
 
@@ -8,6 +9,7 @@ import { useFonts } from "expo-font";//Importacao do useFonts
 import { Ionicons } from "@expo/vector-icons";//Importacao do Ionicons
 
 export default function Cartoes() {
+  const navigation = useNavigation();
   const [loaded] = useFonts({
     Prompt: require("../assets/fonts/Prompt-Regular.ttf"),
   });
@@ -21,17 +23,23 @@ export default function Cartoes() {
       <View style={{ alignItems: "center"}}>
         <Image
           source={require("../assets/images/LogoBlue.png")}
-          style={{  width: 200, height: 200 }}
+          style={Styles.ImgLogo}
         />
         <Text style={Styles.textosCard}>Cartões</Text>
       </View>
 
       <Line/>
 
-      <View style={{justifyContent: "center", alignItems: "center", marginTop: "30%"}}>
+      <View style={Styles.viewconstrucao}>
         <Text style={Styles.textosCard}>Página em construção</Text>
-        <Ionicons name="build" margim size={58} color="#171A4a" />
+        <Ionicons name="build-outline" margim size={100} color="#171A4a" />
       </View>
+      <View style={Styles.tabscartoes}>
+  <Pressable onPress={() => navigation.navigate("Home")}><Ionicons name="home" size={28} color="#F5E2CF" /></Pressable>
+  <Pressable onPress={() => navigation.navigate("Transferencia")}><Ionicons name="cash" size={28} color="#F5E2CF" /></Pressable>
+  <Pressable onPress={() => navigation.navigate("Cartoes")}><Ionicons name="card" size={28} color="#F5E2CF" /></Pressable>
+  <Pressable onPress={() => navigation.navigate("Extrato")}><Ionicons name="receipt" size={28} color="#F5E2CF" /></Pressable>
+</View>
     </View>
   );
 }

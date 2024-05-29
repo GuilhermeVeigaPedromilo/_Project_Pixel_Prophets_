@@ -41,7 +41,7 @@ export default function Configuracoes({navigation}) {
 
         <View style={Styles.linhaabx}>
           <Pressable style={{ flexDirection: "row" }}
-           onPress={() => navigation.navigate("Preferencia")}>
+           onPress={() => navigation.navigate("Preferencias")}>
             <Ionicons size={28} color="#E8C39E" name="extension-puzzle" />
             <Text  style={Styles.textosconfig}>Preferências</Text>
           </Pressable>

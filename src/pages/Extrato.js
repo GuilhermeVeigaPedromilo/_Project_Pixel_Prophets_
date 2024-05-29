@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react"; //Importacao do useState e do useEffect
 import { useNavigation } from "@react-navigation/native"; //Importacao do useNavigation
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Pressable, Text, View, ScrollView, FlatList } from "react-native"; //Importacao dos componentes do react-native
+
+const API_URL = 'http://10.144.170.66:3000';
 
 import { useFonts } from "expo-font";//Importacao do useFonts
 import { Ionicons } from "@expo/vector-icons";//Importacao do Ionicons
@@ -10,6 +14,7 @@ import Styles from "../styles/StyleSheet"; // Importacao do Styles
 import Txt from "../components/TextComponent"; // Importacao do Txt
 import ImageProps from "../components/ImageComponent"; // Importacao da ImageProps
 import InputProps from "../components/InputComponent"; // Importação do InputProps
+import Rodape from "../partials/Rodapé"; //Importacao do Rodape
 
 const data = [
   { id: "1", text: "Foi recebido + R$ 300,00", name: "Ciclano Pereira S" },
@@ -21,6 +26,8 @@ const data = [
 
   // Adicione mais itens conforme necessário
 ];
+
+
 
 function renderItem({ item }) {
   return (
@@ -37,8 +44,46 @@ function renderItem({ item }) {
   );
 }
 
-export default function Extrato() {
+export default function Extrato({route}) {
   const navigation = useNavigation();
+  const [user, setUser] = useState(null);
+  const [cpfUser, setCpfUser] = useState('');
+  const [senhaUser, setSenhaUser] = useState('');
+  const [respUser, setRespUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadSession = async () => {
+      try {
+        const session = await AsyncStorage.getItem('userSession');
+        if (session) {
+          const { cpfUser, senhaUser, respUser } = JSON.parse(session);
+          setCpfUser(cpfUser);
+          setSenhaUser(senhaUser);
+          setRespUser(respUser);
+        }
+      } catch (error) {
+        console.log('Failed to load session', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadSession();
+    fetchUser();
+  }, []);
+
+  const fetchUser = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/user`, {
+        withCredentials: true,
+      });
+      // Se necessário, você pode fazer algo com a resposta
+    } catch (err) {
+      console.log(err);
+      navigation.navigate("Login");
+    }
+  };
   const [loaded] = useFonts({
     Prompt: require("../assets/fonts/Prompt-Regular.ttf"),
     PromptBold: require("../assets/fonts/Prompt-Bold.ttf")
@@ -60,7 +105,7 @@ export default function Extrato() {
 
       <View style={Styles.linhaabx}>
         <Text style={Styles.textossaldo}>Saldo em conta:</Text>
-        <Text style={Styles.saldo}>R$ 28.000,00</Text>
+        <Text style={Styles.saldo}>{`R$ ${respUser.Saldo}`}</Text>
       </View>
 
       <View style={Styles.linhaabx}>
@@ -75,12 +120,7 @@ export default function Extrato() {
           renderItem={renderItem}
         />
       </View>
-      <View style={Styles.tabs}>
-  <Pressable onPress={() => navigation.navigate("Home")}><Ionicons name="home" size={28} color="#F5E2CF" /></Pressable>
-  <Pressable onPress={() => navigation.navigate("Transferencia")}><Ionicons name="cash" size={28} color="#F5E2CF" /></Pressable>
-  <Pressable onPress={() => navigation.navigate("Cartoes")}><Ionicons name="card" size={28} color="#F5E2CF" /></Pressable>
-  <Pressable onPress={() => navigation.navigate("Extrato")}><Ionicons name="receipt" size={28} color="#F5E2CF" /></Pressable>
-</View>
+      <Rodape />
     </View>
   );
 }

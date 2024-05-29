@@ -1,22 +1,39 @@
-import React, { useEffect, useState } from "react";//Importacao do React, useState e do useEffect
-import { Button, Text, View, Modal } from "react-native";//Importacao dos componentes do react-native
-import { useNavigation } from "@react-navigation/native";//importacao do useNavigation
+import { Text, View, Image, Pressable } from "react-native";//Importacao dos componentes do react-native
 
 import Styles from "../styles/StyleSheet"; // Importacao do Styles
 
-import Txt from "../components/TextComponent"; // Importacao do Txt
-import ImageProps from "../components/ImageComponent"; // Importacao da ImageProps
+import Line from "../components/LineComponent"//Importacao do Line
+import Rodape from "../partials/Rodapé"; //Importacao do Rodape
+
+import { useFonts } from "expo-font";//Importacao do useFonts
+import { Ionicons } from "@expo/vector-icons";//Importacao do Ionicons
 
 export default function Perfil() {
+  const [loaded] = useFonts({
+    Prompt: require("../assets/fonts/Prompt-Regular.ttf"),
+  });
+
+  if (!loaded) {
+    return null;
+  }
+
   return (
     <View style={Styles.container}>
-      <View style={Styles.centro}>
-      <ImageProps
-        source={require("../assets/images/LogoBlue.png")}
-        style={Styles.ImgLogo}
-      />
-      <Txt Texto="Seu perfil" TextStyle={Styles.textos} />
+      <View style={{ alignItems: "center"}}>
+        <Image
+          source={require("../assets/images/LogoBlue.png")}
+          style={Styles.ImgLogo}
+        />
+        <Text style={Styles.textosCard}>Perfil</Text>
       </View>
+
+      <Line/>
+
+      <View style={Styles.viewconstrucao}>
+        <Text style={Styles.textosCard}>Página em construção</Text>
+        <Ionicons name="build-outline" margim size={100} color="#171A4a" />
+      </View>
+      <Rodape />
     </View>
   );
 }

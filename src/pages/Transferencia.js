@@ -4,8 +4,7 @@ import { useNavigation } from "@react-navigation/native";//Importacao do useNavi
 import axios from "axios"; //Importacao do axios
 const API_URL = 'http://10.144.170.66:3000';//Constante da URL
 
-import Txt from "../components/TextComponent";//Importacao do Txt
-import Btn from "../components/ButtonComponent";//Importacao do Btn
+import Rodape from "../partials/Rodapé"; //Importacao do Rodape
 import ImageProps from "../components/ImageComponent";//Importacao da ImageProps
 
 import { TransferenciaConclusao } from "../partials/Transferencia";//Importacao da TransferenciaConclusao
@@ -16,13 +15,12 @@ import { Ionicons } from "@expo/vector-icons";//Importacao do Ionicons
 import Styles from "../styles/StyleSheet";//Importacao do Styles
 
 import * as LocalAuthentication from "expo-local-authentication";//Importacao do LocalAuthentication
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";//Importacao do AsyncStorage
+import Btn from "../components/ButtonComponent";
 
 export default function Transferencia({route}) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [visible, setVisible] = useState(false); // Define visible state
-  const [NumConta, setNumCont] = useState("");
-  const [ValTransfe, setValTransfe] = useState("");
   const navigation = useNavigation();
   const [user, setUser] = useState(null);
   const [cpfUser, setCpfUser] = useState('');
@@ -122,36 +120,58 @@ export default function Transferencia({route}) {
     return null;
   }
 
+  const [ValTransfe, setValTransfe] = useState("");  
+  const [numConta, setNumContDestino] = useState("");
+
+  const [error, setError] = useState('');
+
+  const SelectConta = async () => {
+    try {
+         const response = await axios.post(
+        `${API_URL}/SelectConta`,
+        { numConta },
+        { withCredentials: true }
+      );
+          console.log(`SelectConta: ${JSON.stringify(response)}`)
+           // Salvar dados do usuário no AsyncStorage
+           await AsyncStorage.setItem('userContaSession', JSON.stringify({
+            respUserConta: numConta,
+            respUserSelect: response.data,
+          }));
+          setVisible(true);
+        } catch (err) {
+          setError('Conta inexistente')
+          console.log('Erro, conta inexistente')
+        }
+  };
+
   return (
     <View style={Styles.container}>
-      <View style={{ alignItems: "center" }}>
+      <View style={Styles.transferpagina}>
         <ImageProps
           source={require("../assets/images/LogoBlue.png")}
           style={Styles.ImgLogo}
         />
-
-        <View style={{ width: 300 }}>
-          <Txt
-            Texto="Para quem você deseja fazer o transferência?"
-            TextStyle={Styles.textos}
-          />
-        </View>
-
+        <Text>{error}</Text>
         <View style={Styles.formGroup}>
-          <TextInput style={Styles.formInput} Placeholder="CPF" />
-          <View style={{ backgroundColor: "#F0EDE9" }}>
+          <TextInput style={Styles.formInput} onChangeText={setNumContDestino} keyboardType="numeric" />
+          <View style={{ backgroundColor: "#F0EDE9" }} >
             <Text style={[Styles.formLabel, { fontSize: 11, fontFamily: "Prompt", }]}>
-              CPF, CELULAR, E-MAIL OU CHAVE ALEATÓRIA
+              INSIRA O NÚMERO DA CONTA 
             </Text>
           </View>
-          <ImageProps
-            source={require("../assets/images/QRCode.png")}
-            style={{ width: 300, height: 118, borderRadius: 10, marginTop: 50 }}
-          />
+        </View>
+        <View style={Styles.formGroup}>
+          <TextInput style={Styles.formInput} onChangeText={setValTransfe} keyboardType="numeric"/>
+          <View style={{ backgroundColor: "#F0EDE9" }}>
+            <Text style={[Styles.formLabel, { fontSize: 11, fontFamily: "Prompt", }]}>
+              INSIRA O VALOR PARA TRANSFERÊNCIA 
+            </Text>
+          </View>
         </View>
 
         <Btn
-          OnPress={() => setVisible(true)}
+          OnPress={SelectConta}
           TouchStyle={[
             Styles.frtButtons,
             { backgroundColor: "#2F2C79", marginRight: 10 },
@@ -161,17 +181,13 @@ export default function Transferencia({route}) {
 
         <TransferenciaConclusao
           visible={visible}
-          NumeroConta={NumConta}
           ValorTransfe={ValTransfe}
-          OnPress={() => TransfFinalizada()}
+          OnPressClose={() => setVisible(false)}
+          
         />
+      
       </View>
-      <View style={Styles.tabs}>
-  <Pressable onPress={() => navigation.navigate("Home")}><Ionicons name="home" size={28} color="#F5E2CF" /></Pressable>
-  <Pressable onPress={() => navigation.navigate("Transferencia")}><Ionicons name="cash" size={28} color="#F5E2CF" /></Pressable>
-  <Pressable onPress={() => navigation.navigate("Cartoes")}><Ionicons name="card" size={28} color="#F5E2CF" /></Pressable>
-  <Pressable onPress={() => navigation.navigate("Extrato")}><Ionicons name="receipt" size={28} color="#F5E2CF" /></Pressable>
-</View>
+      <Rodape />
     </View>
   );
 }

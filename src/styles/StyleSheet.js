@@ -282,6 +282,23 @@ const Styles = StyleSheet.create({
    alignItems: "center",
    marginTop: "30%",
   },
+  construcaopagina:{
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    height: "95%"
+  },
+  transferpagina:{
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    height: "95%"
+  },
+  viewsetinha: {
+    position: "absolute",
+    top: "5%", 
+    left: "3%",
+  },
 });
 
 export default Styles;

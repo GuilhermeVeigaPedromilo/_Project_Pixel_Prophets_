@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, Pressable, FlatList, ImageBackground, ActivityIndicator } from "react-native";
+import { Text, View, Pressable, FlatList, ImageBackground, ActivityIndicator, ScrollView } from "react-native";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import { useFonts } from "expo-font";
 import { Ionicons } from "@expo/vector-icons";
+
 import Styles from "../styles/StyleSheet";
+
 import ImageProps from "../components/ImageComponent";
+import Rodape from "../partials/Rodapé"; //Importacao do Rodape
 
 const API_URL = 'http://10.144.170.66:3000';
 
@@ -91,8 +95,8 @@ export default function Home({ route }) {
   }
 
   return (
-    <View style={{ flex: 1 }}>
-      <View style={{ alignItems: "center", flexDirection: "column" }}>
+    <View style={{ flex: 1,alignItems: "center", flexDirection: "column",   }}>
+   
         <View style={Styles.quadradocontainer}>
           <View style={{ flexDirection: "row" }}>
             <ImageProps
@@ -152,21 +156,17 @@ export default function Home({ route }) {
             marginTop: "2%",
           }}
         ></View>
-        <View style={{ width: '100%', height: '35%', padding: "2%" }} >
+        <View style={{ width: '100%', height: '30%', padding: "2%", marginBottom: '15%' }} >
           <ImageBackground
             source={require("../assets/images/cartaozica.png")}
             style={{ height: '100%', width: "100%" }}
           >
-            <Text style={{ color: 'white', fontSize: 22, marginLeft: '6.5%', marginTop: "2%" }}>{respUser.nome}</Text>
+            <Text style={{ color: 'white', fontSize: 22, marginLeft: '6.5%', marginTop: "2%" }}>{respUser.numConta}</Text>
+            <Text style={{ color: 'white', fontSize: 22, marginLeft: '6.5%', marginTop: "25%" }}>{respUser.nome}</Text>
           </ImageBackground>
         </View>
-      </View>
-      <View style={Styles.tabscartoes}>
-        <Pressable onPress={() => navigation.navigate("Home")}><Ionicons name="home" size={28} color="#F5E2CF" /></Pressable>
-        <Pressable onPress={() => navigation.navigate("Transferencia")}><Ionicons name="cash" size={28} color="#F5E2CF" /></Pressable>
-        <Pressable onPress={() => navigation.navigate("Cartoes")}><Ionicons name="card" size={28} color="#F5E2CF" /></Pressable>
-        <Pressable onPress={() => navigation.navigate("Extrato")}><Ionicons name="receipt" size={28} color="#F5E2CF" /></Pressable>
-      </View>
+    
+      <Rodape />
     </View>
   );
 }

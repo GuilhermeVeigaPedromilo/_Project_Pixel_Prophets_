@@ -81,7 +81,7 @@ const navigation = useNavigation()
       })}
     >
       <Drawer.Screen name="Home" component={Home} />
-      <Drawer.Screen name="Perfil" component={Perfil} />
+      {/*<Drawer.Screen name="Perfil" component={Perfil} />*/}
       <Drawer.Screen name="Configurações" component={Configuracoes} />
       <Drawer.Screen name="Ajuda" component={Ajuda} />
      {/* <Drawer.Screen name="Sair" component={handleLogout} />*/}

@@ -46,7 +46,7 @@ export default function StackRoutes() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="Preferência"
+          name="Preferencias"
           component={Preferencias}
           options={{ headerShown: false }}
         />
@@ -74,11 +74,15 @@ export default function StackRoutes() {
             headerShown: false,
           }}
         />
-        <Stack.Screen name="Ajuda" component={Ajuda} options={{
-          headerShown: false,
+        <Stack.Screen name="Ajuda"
+         component={Ajuda}
+         options={{
+         headerShown: false,
         }} />
-        <Stack.Screen name="Configurações" component={Configuracoes} options={{
-          headerShown: false,
+        <Stack.Screen name="Configurações" 
+        component={Configuracoes} 
+        options={{
+        headerShown: false,
         }} />
         <Stack.Screen
           name="RotasDrawer"

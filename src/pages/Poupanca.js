@@ -1,8 +1,9 @@
-import { Text, View, Image } from "react-native";//Importacao dos componentes do react-native
+import { Text, View, Image, Pressable } from "react-native";//Importacao dos componentes do react-native
 
 import Styles from "../styles/StyleSheet"; // Importacao do Styles
 
 import Line from "../components/LineComponent"//Importacao do Line
+import Rodape from "../partials/Rodapé"; //Importacao do Rodape
 
 import { useFonts } from "expo-font";//Importacao do useFonts
 import { Ionicons } from "@expo/vector-icons";//Importacao do Ionicons
@@ -32,6 +33,7 @@ export default function Poupanca() {
         <Text style={Styles.textosCard}>Página em construção</Text>
         <Ionicons name="build" margim size={100} color="#171A4a" />
       </View>
+      <Rodape />
     </View>
   );
 }

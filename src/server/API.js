@@ -59,7 +59,7 @@ const db = mysql.createConnection({
       console.log(`${results}`);
       if (results.length <= 0) {
         console.log(`Inserindo novo usuário no sistema com estes dados: ${nome} - ${cpf} - ${numConta}`);
-        const query = `INSERT INTO users (nome, cpf, email, senha, numConta, Saldo, tipo) VALUES (?, ?, ?, SHA1(?), '${cpf}', "1000", "user")`;
+        const query = `INSERT INTO users (nome, cpf, email, senha, numConta, Saldo, tipo) VALUES (?, ?, ?, SHA1(?), '${cpf}', "1000.00", "user")`;
         db.query(query, [nome, cpf, email, senha, Saldo], (err, results) => {
           if (err) {
             console.error('Erro ao inserir usuário:', err);
@@ -91,6 +91,22 @@ const db = mysql.createConnection({
     });
   });
 
+  app.post('/SelectConta', (req, res) => {
+    const {numConta} = req.body;
+    const query = "SELECT * FROM users WHERE numConta = ?";
+    console.log(`ENDPOINT /SelectConta: ${JSON.stringify(req.body)}`);
+    db.query(query, [numConta], (err, results) => {
+      if (err) throw err;
+      if (results.length > 0) {
+        console.log(`Conta destino: ${JSON.stringify(results)}: ${numConta}`)
+        res.send(results);
+      } else {
+        res.status(401).send("Conta inexistente");
+        console.log('401')
+      }
+    })
+  })
+
 // Rota para obter dados do usuário logado
 app.get('/user', (req, res) => {
     if (JSON.stringify(req.session.user)) {
@@ -98,8 +114,7 @@ app.get('/user', (req, res) => {
     } else {
         res.status(401).send('Not authenticated');
     }
-});
- 
+}); 
   
   // Rota para fazer logout
   app.get('/logout', (req, res) => {

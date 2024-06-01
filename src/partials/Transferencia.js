@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";//Importacao do React
 import { View, Modal, Text, Pressable, Image} from "react-native";//Importacao dos componentes do react-native
 import { useNavigation } from "@react-navigation/native";//Importacao do useNavigation
 
-const API_URL = 'http://10.144.170.66:3000';//Constante da URL
+
 
 import { useFonts } from "expo-font";//Importacao do useFonts
 
@@ -113,7 +113,7 @@ function TransferenciaConclusao({
 
   const fetchUser = async () => {
     try {
-      const response = await axios.get(`${API_URL}/user`, {
+      const response = await axios.get(`${process.env.API_URL}/user`, {
         withCredentials: true,
       });
       // Se necessário, você pode fazer algo com a resposta

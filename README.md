@@ -171,5 +171,5 @@ npm init -y
 <b>Instale os pacotes necessários<b>
 
 ```
-npm install express cors body-parser mysql express-server php phpmyadmin
+npm install express cors body-parser mysql2 express-server php phpmyadmin
 ```

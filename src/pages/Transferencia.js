@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";//Importacao do React, useSta
 import { TextInput, Pressable, View, Alert, Text } from "react-native";//Importacao dos componentes do react-native
 import { useNavigation } from "@react-navigation/native";//Importacao do useNavigation
 import axios from "axios"; //Importacao do axios
-const API_URL = 'http://10.144.170.66:3000';//Constante da URL
+
 
 import Rodape from "../partials/Rodapé"; //Importacao do Rodape
 import ImageProps from "../components/ImageComponent";//Importacao da ImageProps
@@ -88,7 +88,7 @@ export default function Transferencia({route}) {
 
   const fetchUser = async () => {
     try {
-      const response = await axios.get(`${API_URL}/user`, {
+      const response = await axios.get(`${process.env.API_URL}/user`, {
         withCredentials: true,
       });
       // Se necessário, você pode fazer algo com a resposta
@@ -103,14 +103,14 @@ export default function Transferencia({route}) {
     navigation.navigate("Home");
   }
 
-  const TransfFinalizada = () => {
+{ /* const TransfFinalizada = () => {
     return Alert.alert("Transferência finalizada", [
       {
         text: "OK",
         onPress: () => navigation.navigate("Home"),
       },
     ]);
-  };
+  };*/}
 
   const [loaded] = useFonts({
     Prompt: require("../assets/fonts/Prompt-Regular.ttf"),
@@ -128,7 +128,7 @@ export default function Transferencia({route}) {
   const SelectConta = async () => {
     try {
          const response = await axios.post(
-        `${API_URL}/SelectConta`,
+        `${process.env.API_URL}/SelectConta`,
         { numConta },
         { withCredentials: true }
       );

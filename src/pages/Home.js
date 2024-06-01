@@ -12,7 +12,8 @@ import Styles from "../styles/StyleSheet";
 import ImageProps from "../components/ImageComponent";
 import Rodape from "../partials/Rodapé"; //Importacao do Rodape
 
-const API_URL = 'http://10.144.170.66:3000';
+const API_URL = 'http://192.168.0.132:3000';//Constante da URL
+
 
 export default function Home({ route }) {
   const navigation = useNavigation();

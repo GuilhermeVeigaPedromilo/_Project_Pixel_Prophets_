@@ -4,7 +4,7 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Pressable, Text, View, ScrollView, FlatList } from "react-native"; //Importacao dos componentes do react-native
 
-const API_URL = 'http://10.144.170.66:3000';
+
 
 import { useFonts } from "expo-font";//Importacao do useFonts
 import { Ionicons } from "@expo/vector-icons";//Importacao do Ionicons

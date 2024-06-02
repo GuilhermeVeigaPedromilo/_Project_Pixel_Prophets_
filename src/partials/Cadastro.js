@@ -1,6 +1,7 @@
 import React, { useState } from "react";//Importacao do React e do useState
 import {View, Modal, TextInput, Text, Pressable, Alert, ScrollView } from "react-native";//Importacao dos componentes do react-native
 import axios from "axios";//Importacao do axios
+import { useNavigation } from "@react-navigation/native";
 
 import { useFonts } from "expo-font";//Importacao do useFonts
 
@@ -9,7 +10,7 @@ import ImageProps from "../components/ImageComponent";//Importacao da ImageProps
 
 import Styles from "../styles/StyleSheet";//Importacao do Styles
 
-const API_URL = 'http://192.168.0.132:3000';//Constante da URL
+const API_URL = 'http://192.168.15.132:3000';//Constante da URL
 
 export default function LoginModal({ visibleB, OnPressCloseB }) {
 
@@ -18,6 +19,7 @@ export default function LoginModal({ visibleB, OnPressCloseB }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [confsenha, setConfSenha] = useState("");
+  const navigation = useNavigation();
 
   const handleRegister = async () => {
     const newUser = { nome, senha, email, cpf, };
@@ -27,8 +29,14 @@ export default function LoginModal({ visibleB, OnPressCloseB }) {
     } else if (confsenha != senha) {
       Alert.alert("A senha esta diferente");
     } else {
+      try{
       await axios.post(`${API_URL}/Cadastro`, newUser);
+      navigation.navigate('Splash');
       console.log(`Cadastro realizado: ${nome} - ${senha} - ${email} - ${cpf}`)
+      
+      } catch (err) {
+        console.log(err, "Erro")
+      }
       
     }
 };

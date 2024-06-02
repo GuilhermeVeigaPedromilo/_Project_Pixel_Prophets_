@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";//Importacao do React
 import { View, Modal, Text, Pressable, Image} from "react-native";//Importacao dos componentes do react-native
 import { useNavigation } from "@react-navigation/native";//Importacao do useNavigation
 
+const API_URL = 'http://192.168.15.132:3000';//Constante da URL
 
 
 import { useFonts } from "expo-font";//Importacao do useFonts
@@ -65,63 +66,32 @@ function TransferenciaConclusao({
 }) {
 
     const navigation = useNavigation();
-  const [user, setUser] = useState(null);
-  const [cpfUser, setCpfUser] = useState('');
-  const [senhaUser, setSenhaUser] = useState('');
-  const [respUser, setRespUser] = useState('')
-  const [respUserConta, setRespUserConta] = useState(null);
-  const [respUserSelect, setRespUserSelect] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [loadingSelect, setLoadingSelect] = useState(true)
+    const [user, setUser] = useState(null);
+    const [cpfUser, setCpfUser] = useState('');
+    const [senhaUser, setSenhaUser] = useState('');
+    const [respUser, setRespUser] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const loadSession = async () => {
-      try {
-        const session = await AsyncStorage.getItem('userSession');
-        if (session) {
-          const { cpfUser, senhaUser, respUser } = JSON.parse(session);
-          setCpfUser(cpfUser);
-          setSenhaUser(senhaUser);
-          setRespUser(respUser);
+    useEffect(() => {
+      const loadSession = async () => {
+        try {
+          const session = await AsyncStorage.getItem('userSession');
+          if (session) {
+            const { cpfUser, senhaUser, respUser } = JSON.parse(session);
+            setCpfUser(cpfUser);
+            setSenhaUser(senhaUser);
+            setRespUser(respUser);
+          }
+        } catch (error) {
+          console.log('Failed to load session', error);
+        } finally {
+          setLoading(false);
         }
-      } catch (error) {
-        console.log('Failed to load session', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+      };
+  
+      loadSession();
+    }, []);
 
-    const loadSessionConta = async () => {
-      try {
-        const session = await AsyncStorage.getItem('userContaSession');
-        if (session) {
-          const { respUserConta, respUserSelect } = JSON.parse(session);
-          setRespUserConta(respUserConta);
-          setRespUserSelect(respUserSelect);
-        }
-      } catch (error) {
-        console.log('Failed to load session', error);
-      } finally {
-        setLoadingSelect(false);
-      }
-    };
-
-    loadSession();
-    fetchUser();
-    loadSessionConta();
-  }, []);
-
-  const fetchUser = async () => {
-    try {
-      const response = await axios.get(`${process.env.API_URL}/user`, {
-        withCredentials: true,
-      });
-      // Se necessário, você pode fazer algo com a resposta
-    } catch (err) {
-      console.log(err);
-      navigation.navigate("Login");
-    }
-  };
 
   return (
     <View>
@@ -139,6 +109,7 @@ function TransferenciaConclusao({
 
 
       <View style={Styles.formEverything} >
+      <Text>{}</Text> {/*Puxar informações da conta destino*/}
         <Text>{ValorTransfe}</Text>
         <View style={Styles.formGroup}>
           <ButtonComponent

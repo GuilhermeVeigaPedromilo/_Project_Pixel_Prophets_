@@ -3,6 +3,8 @@ import { TextInput, Pressable, View, Alert, Text } from "react-native";//Importa
 import { useNavigation } from "@react-navigation/native";//Importacao do useNavigation
 import axios from "axios"; //Importacao do axios
 
+const API_URL = 'http://192.168.15.132:3000';//Constante da URL
+
 
 import Rodape from "../partials/Rodapé"; //Importacao do Rodape
 import ImageProps from "../components/ImageComponent";//Importacao da ImageProps
@@ -88,7 +90,7 @@ export default function Transferencia({route}) {
 
   const fetchUser = async () => {
     try {
-      const response = await axios.get(`${process.env.API_URL}/user`, {
+      const response = await axios.get(`${API_URL}/user`, {
         withCredentials: true,
       });
       // Se necessário, você pode fazer algo com a resposta
@@ -128,7 +130,7 @@ export default function Transferencia({route}) {
   const SelectConta = async () => {
     try {
          const response = await axios.post(
-        `${process.env.API_URL}/SelectConta`,
+        `${API_URL}/SelectConta`,
         { numConta },
         { withCredentials: true }
       );
@@ -171,7 +173,7 @@ export default function Transferencia({route}) {
         </View>
 
         <Btn
-          OnPress={SelectConta}
+        OnPress={SelectConta}
           TouchStyle={[
             Styles.frtButtons,
             { backgroundColor: "#2F2C79", marginRight: 10 },

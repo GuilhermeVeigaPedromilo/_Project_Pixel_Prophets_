@@ -17,6 +17,7 @@ import Transferencia from "../pages/Transferencia";//Importacao da pagina Transf
 import Ajuda from "../pages/Ajuda";//Importacao da pagina Ajuda
 import Configuracoes from "../pages/Configuracoes";//Importacao da pagina Configuracoes
 import Poupanca from "../pages/Poupanca";//Importacao da pagina Poupanca
+import { TransferenciaConclusao } from "../partials/Transferencia";
 
 const Stack = createNativeStackNavigator();
 
@@ -63,6 +64,13 @@ export default function StackRoutes() {
         <Stack.Screen
           name="Transferencia"
           component={Transferencia}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="TransferenciaConclusao"
+          component={TransferenciaConclusao}
           options={{
             headerShown: false,
           }}

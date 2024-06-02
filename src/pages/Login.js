@@ -12,7 +12,7 @@ import { useFonts } from "expo-font";//Importacao do useFonts
 import { StatusBar } from "expo-status-bar";//Importacao do StatusBar
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const API_URL = 'http://192.168.15.132:3000';//Constante da URL
+const API_URL = 'http://192.168.43.51:3000';//Constante da URL
 
 export default function First({ navigation }) {
   const [visibleA, setVisibleA] = useState(false);

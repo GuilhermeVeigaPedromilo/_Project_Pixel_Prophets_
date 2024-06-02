@@ -115,6 +115,15 @@ app.get('/user', (req, res) => {
         res.status(401).send('Not authenticated');
     }
 }); 
+
+// Rota para obter dados do usuário logado
+app.get('/SelectUserConta', (req, res) => {
+  if (JSON.stringify(results)) {
+      res.status(200).send(JSON.stringify(results));
+  } else {
+      res.status(401).send('Conta não encontrada');
+  }
+}); 
   
   // Rota para fazer logout
   app.get('/logout', (req, res) => {

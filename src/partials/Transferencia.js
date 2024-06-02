@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";//Importacao do React
 import { View, Modal, Text, Pressable, Image} from "react-native";//Importacao dos componentes do react-native
 import { useNavigation } from "@react-navigation/native";//Importacao do useNavigation
 
-const API_URL = 'http://192.168.15.132:3000';//Constante da URL
+const API_URL = 'http://192.168.43.51:3000';//Constante da URL
 
 
 import { useFonts } from "expo-font";//Importacao do useFonts
@@ -58,72 +58,105 @@ function TransferenciaConfirmacao({ visible, OnPress }) {
   );
 }
 
-function TransferenciaConclusao({
-  visible,
-  ValorTransfe,
-  numContaDestino,
-  OnPressClose,
-}) {
+function TransferenciaConclusao({route}) {
+  const navigation = useNavigation();
+  const [user, setUser] = useState(null);
+  const [cpfUser, setCpfUser] = useState('');
+  const [senhaUser, setSenhaUser] = useState('');
+  const [respUser, setRespUser] = useState(null);
+  const [respUserConta, setRespUserConta] = useState('');
+  const [respValTransfe, setRespValTransfe] = useState(""); 
+  const [respUserSelect, setRespUserSelect] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [currentDate, setCurrentDate] = useState('');
 
-    const navigation = useNavigation();
-    const [user, setUser] = useState(null);
-    const [cpfUser, setCpfUser] = useState('');
-    const [senhaUser, setSenhaUser] = useState('');
-    const [respUser, setRespUser] = useState(null);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-      const loadSession = async () => {
-        try {
-          const session = await AsyncStorage.getItem('userSession');
-          if (session) {
-            const { cpfUser, senhaUser, respUser } = JSON.parse(session);
-            setCpfUser(cpfUser);
-            setSenhaUser(senhaUser);
-            setRespUser(respUser);
-          }
-        } catch (error) {
-          console.log('Failed to load session', error);
-        } finally {
-          setLoading(false);
+  useEffect(() => {
+    const loadSession = async () => {
+      try {
+        const session = await AsyncStorage.getItem('userSession');
+        if (session) {
+          const { cpfUser, senhaUser, respUser } = JSON.parse(session);
+          setCpfUser(cpfUser);
+          setSenhaUser(senhaUser);
+          setRespUser(respUser);
         }
-      };
-  
-      loadSession();
-    }, []);
+        loadContaSelect
+      } catch (error) {
+        console.log('Failed to load session', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    const loadContaSelect = async () => {
+      try {
+        const session = await AsyncStorage.getItem('userContaSession');
+        if (session) {
+          const { respUserConta, respValTransfe, respUserSelect } = JSON.parse(session);
+          setRespUserConta(respUserConta);
+          setRespValTransfe(respValTransfe);
+          setRespUserSelect(respUserSelect);
+        }
+      } catch (errorB) {
+        console.log('Failed to load session', errorB);
+      } finally {
+        setLoading(false);
+      }
+    };
 
+    loadSession();
+    loadContaSelect();
+    setCurrentDate(new Date().toLocaleString()); // Set the current date and time
+  }, []);
+
+  const DeletarConaSelect = async () => {
+    try {
+      const session = await AsyncStorage.removeItem('userContaSession');
+      console.log('Select Delete');
+      navigation.navigate('Transferencia');
+    }
+    catch (err)
+    {console.log('Erro delete: ', err)}
+  }
 
   return (
-    <View>
-    <Modal animationType="slide" transparent={true} visible={visible}>
-    <View style={Styles.container}>
-    <View style={Styles.section}>
-      <View>
-        <Pressable onPress={OnPressClose}>
-          <Image
-            source={require("../assets/images/setinha.png")}
-            style={{ margin: 20 }}
-          />
-        </Pressable>
-      </View>
+        <View style={Styles.container}>
+          <View style={Styles.section}>
+            <View>
+              <Pressable onPress={DeletarConaSelect}>
+                <Image
+                  source={require("../assets/images/setinha.png")}
+                  style={{ margin: 20 }}
+                />
+              </Pressable>
+            </View>
 
-
-      <View style={Styles.formEverything} >
-      <Text>{}</Text> {/*Puxar informações da conta destino*/}
-        <Text>{ValorTransfe}</Text>
-        <View style={Styles.formGroup}>
-          <ButtonComponent
-            TouchStyle={[ Styles.frtButtons, { backgroundColor: "#2F2C79", marginRight: 10 }]}
-            letras={[Styles.firstButtons, { color: "#F5E2CF" }]}
-            children="Entrar"
-            
-          />
-        </View>
-      </View>
-    </View>
-  </View>
-  </Modal>
-  </View>
+            <View style={{alignItems: 'center', margin: '10%', gap: 30}} >
+            <ImageProps
+          source={require("../assets/images/LogoBlue.png")}
+          style={Styles.ImgLogo}
+        />
+              <View style={{width: '95%'}} >
+              <Text style={{fontSize: 25,}} >{respUserConta}<Text style={{fontSize: 12}}>{` (${respUserSelect.nome})`}</Text></Text>
+              <View style={{ backgroundColor: 'black', width: '100%', height: 1, }}></View>
+              </View>
+              <View style={{width: '95%'}} >
+              <Text style={{fontSize: 25}} >{`R$${respValTransfe}`}</Text>
+              <View style={{ backgroundColor: 'black', width: '100%', height: 1, }}></View>
+              </View>
+              <View style={{width: '95%'}} >
+              <Text style={{fontSize: 25}} >Data: <Text style={{fontSize: 20}}>{currentDate}</Text></Text>
+              <View style={{ backgroundColor: 'black', width: '100%', height: 1, }}></View>
+              </View>
+              </View>
+              <View style={[Styles.formGroup, {alignItems: 'center'}]}>
+                <ButtonComponent
+                  TouchStyle={[Styles.frtButtons, { backgroundColor: "#2F2C79", marginRight: 10 }]}
+                  letras={[Styles.firstButtons, { color: "#F5E2CF" }]}
+                  children="Pagar"
+                />
+              </View>
+            </View>
+          </View>
   );
 }
 

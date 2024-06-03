@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from "react";//Importacao do React
-import { View, Modal, Text, Pressable, Image} from "react-native";//Importacao dos componentes do react-native
+import React, { useState, useEffect } from "react";//Importacao do React
+import { View, Modal, Text, Pressable, Image } from "react-native";//Importacao dos componentes do react-native
 import { useNavigation } from "@react-navigation/native";//Importacao do useNavigation
 
-const API_URL = 'http://192.168.43.51:3000';//Constante da URL
+const API_URL = 'http://192.168.1.68:3000';//Constante da URL
 
 
 import { useFonts } from "expo-font";//Importacao do useFonts
@@ -14,7 +14,8 @@ import ImageProps from "../components/ImageComponent";//Importacao da ImageProps
 import InputProps from "../components/InputComponent";//Importacao do InputProps
 import ButtonComponent from "../components/ButtonComponent";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { axios } from "axios";
+import axios from "axios";
+import Comprovante from "./Comprovante";
 
 function TransferenciaConfirmacao({ visible, OnPress }) {
   const navigation = useNavigation();
@@ -58,17 +59,18 @@ function TransferenciaConfirmacao({ visible, OnPress }) {
   );
 }
 
-function TransferenciaConclusao({route}) {
+function TransferenciaConclusao({ route }) {
   const navigation = useNavigation();
   const [user, setUser] = useState(null);
   const [cpfUser, setCpfUser] = useState('');
   const [senhaUser, setSenhaUser] = useState('');
   const [respUser, setRespUser] = useState(null);
   const [respUserConta, setRespUserConta] = useState('');
-  const [respValTransfe, setRespValTransfe] = useState(""); 
+  const [respValTransfe, setRespValTransfe] = useState("");
   const [respUserSelect, setRespUserSelect] = useState('');
   const [loading, setLoading] = useState(true);
   const [currentDate, setCurrentDate] = useState('');
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const loadSession = async () => {
@@ -108,55 +110,92 @@ function TransferenciaConclusao({route}) {
     setCurrentDate(new Date().toLocaleString()); // Set the current date and time
   }, []);
 
-  const DeletarConaSelect = async () => {
+  const DeletarContaSelect = async () => {
     try {
       const session = await AsyncStorage.removeItem('userContaSession');
       console.log('Select Delete');
       navigation.navigate('Transferencia');
     }
-    catch (err)
-    {console.log('Erro delete: ', err)}
+    catch (err) { console.log('Erro delete: ', err) }
+  }
+
+  async function updateUserA() {
+    const Saldo = parseFloat(respUser.Saldo) - parseFloat(respValTransfe)
+    try {
+      const response = await axios.put(
+        `${API_URL}/updateUserA/${respUser.id}`,
+        { Saldo }
+      );
+      console.log(`UPDATE SALDO: ${respUser.id}`)
+    } catch (error) {
+      console.log(`Erro ao atualizar SaldoA: ${error}`);
+    }
+  }
+
+  async function updateUserB() {
+    const Saldo = parseFloat(respUserSelect.Saldo) + parseFloat(respValTransfe)
+    try {
+      const response = await axios.put(
+        `${API_URL}/updateUserB/${respUserSelect.id}`,
+        { Saldo }
+      );
+      console.log(`UPDATE SALDO: ${respUserSelect.id}`)
+    } catch (error) {
+      console.log(`Erro ao atualizar SalsoB: ${error}`);
+    }
+  }
+
+  const runFunctions = async () => {
+    try {
+      await Promise.all([updateUserA()], [updateUserB()]);
+      console.log('Sucesso Transferência')
+      setVisible(true);
+    } catch {
+      console.log('Erro ao atualizar saldo');
+    }
   }
 
   return (
-        <View style={Styles.container}>
-          <View style={Styles.section}>
-            <View>
-              <Pressable onPress={DeletarConaSelect}>
-                <Image
-                  source={require("../assets/images/setinha.png")}
-                  style={{ margin: 20 }}
-                />
-              </Pressable>
-            </View>
+    <View style={Styles.container}>
+      <View style={Styles.section}>
+        <View>
+          <Pressable onPress={DeletarContaSelect}>
+            <Image
+              source={require("../assets/images/setinha.png")}
+              style={{ margin: 20 }}
+            />
+          </Pressable>
+        </View>
 
-            <View style={{alignItems: 'center', margin: '10%', gap: 30}} >
-            <ImageProps
-          source={require("../assets/images/LogoBlue.png")}
-          style={Styles.ImgLogo}
-        />
-              <View style={{width: '95%'}} >
-              <Text style={{fontSize: 25,}} >{respUserConta}<Text style={{fontSize: 12}}>{` (${respUserSelect.nome})`}</Text></Text>
-              <View style={{ backgroundColor: 'black', width: '100%', height: 1, }}></View>
-              </View>
-              <View style={{width: '95%'}} >
-              <Text style={{fontSize: 25}} >{`R$${respValTransfe}`}</Text>
-              <View style={{ backgroundColor: 'black', width: '100%', height: 1, }}></View>
-              </View>
-              <View style={{width: '95%'}} >
-              <Text style={{fontSize: 25}} >Data: <Text style={{fontSize: 20}}>{currentDate}</Text></Text>
-              <View style={{ backgroundColor: 'black', width: '100%', height: 1, }}></View>
-              </View>
-              </View>
-              <View style={[Styles.formGroup, {alignItems: 'center'}]}>
-                <ButtonComponent
-                  TouchStyle={[Styles.frtButtons, { backgroundColor: "#2F2C79", marginRight: 10 }]}
-                  letras={[Styles.firstButtons, { color: "#F5E2CF" }]}
-                  children="Pagar"
-                />
-              </View>
-            </View>
+        <View style={{ alignItems: 'center', margin: '10%', gap: 30 }} >
+          <ImageProps
+            source={require("../assets/images/LogoBlue.png")}
+            style={Styles.ImgLogo}
+          />
+          <View style={{ width: '95%' }} >
+            <Text style={{ fontSize: 25, }} >{respUserConta}<Text style={{ fontSize: 12 }}>{` (${respUserSelect.nome})`}</Text></Text>
+            <View style={{ backgroundColor: 'black', width: '100%', height: 1, }}></View>
           </View>
+          <View style={{ width: '95%' }} >
+            <Text style={{ fontSize: 25 }} >{`R$${respValTransfe}`}</Text>
+            <View style={{ backgroundColor: 'black', width: '100%', height: 1, }}></View>
+          </View>
+          <View style={{ width: '95%' }} >
+            <Text style={{ fontSize: 25 }} >Data: <Text style={{ fontSize: 20 }}>{currentDate}</Text></Text>
+            <View style={{ backgroundColor: 'black', width: '100%', height: 1, }}></View>
+          </View>
+        </View>
+        <View style={[Styles.formGroup, { alignItems: 'center' }]}>
+          <ButtonComponent
+            TouchStyle={[Styles.frtButtons, { backgroundColor: "#2F2C79", marginRight: 10 }]}
+            letras={[Styles.firstButtons, { color: "#F5E2CF" }]}
+            children="Pagar"
+            OnPress={runFunctions}
+          />
+          <Comprovante visible={visible} />
+        </View>
+      </View>
+    </View>
   );
 }
 

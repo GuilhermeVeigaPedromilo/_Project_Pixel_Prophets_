@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql2');
@@ -21,10 +22,10 @@ app.use(session({
 
 // Configurar a conexão com o banco de dados MySQL
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '123123123',
-    database: 'thepixelbank',
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
   });
 
   db.connect((err) => {
@@ -123,7 +124,52 @@ app.get('/SelectUserConta', (req, res) => {
   } else {
       res.status(401).send('Conta não encontrada');
   }
-}); 
+});
+
+// Rota para atualizar usuário
+app.put("/updateUserA/:id", (req, res) => {
+  const id = req.params.id;
+  const { Saldo } = req.body;
+  const query = "UPDATE users SET Saldo = ? WHERE id = ?";
+  db.query(query, [Saldo, id], (err, result) => {
+    if (err) {
+      console.error("Erro ao atualizar Saldo do usuárioA:", err);
+      res.status(500).send("Erro ao atualizar usuário");
+    } else {
+      console.log("UsuárioA atualizado com sucesso");
+      res.send(result);
+    }
+  });
+});
+
+// Rota para atualizar usuário
+app.put("/updateUserB/:id", (req, res) => {
+  const id = req.params.id;
+  const { Saldo } = req.body;
+  const query = "UPDATE users SET Saldo = ? WHERE id = ?";
+  db.query(query, [Saldo, id], (err, result) => {
+    if (err) {
+      console.error("Erro ao atualizar Saldo do usuárioB:", err);
+      res.status(500).send("Erro ao atualizar usuário");
+    } else {
+      console.log("UsuárioB atualizado com sucesso");
+      res.send(result);
+    }
+  });
+});
+
+// Rota para armazenar um extrato
+app.post("/Comprovante", (req, res) => {
+  const {numContaSaida, nomeSaida, Valor, numContaEntrada, nomeEntrada, Data} = req.body
+  const query = "INSERT INTO extrato (numContaSaida, nomeSaida, Valor, numContaEntrada, nomeEntrada, Data) VALUES (?, ?, ?, ?, ?, ?)"
+          db.query(query, [numContaSaida, nomeSaida, Valor, numContaEntrada, nomeEntrada, Data], (err, results) => {
+          if (err) {
+            console.error('Erro ao armazenar extrato:', err);
+          } else {
+            console.error('Sucesso');
+          }
+    })
+})
   
   // Rota para fazer logout
   app.get('/logout', (req, res) => {

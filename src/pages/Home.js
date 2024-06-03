@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,  } from "react";
 import { Text, View, Pressable, FlatList, ImageBackground, ActivityIndicator, ScrollView } from "react-native";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useIsFocused } from '@react-navigation/native';
 
 import { useFonts } from "expo-font";
 import { Ionicons } from "@expo/vector-icons";
@@ -12,7 +13,7 @@ import Styles from "../styles/StyleSheet";
 import ImageProps from "../components/ImageComponent";
 import Rodape from "../partials/Rodapé"; //Importacao do Rodape
 
-const API_URL = 'http://192.168.43.51:3000';//Constante da URL
+const API_URL = 'http://192.168.1.68:3000';//Constante da URL
 
 
 export default function Home({ route }) {
@@ -22,6 +23,7 @@ export default function Home({ route }) {
   const [senhaUser, setSenhaUser] = useState('');
   const [respUser, setRespUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     const loadSession = async () => {
@@ -41,8 +43,9 @@ export default function Home({ route }) {
     };
 
     loadSession();
-    fetchUser();
-  }, []);
+    if (isFocused){
+    fetchUser();}
+  }, [isFocused]);
 
   const fetchUser = async () => {
     try {

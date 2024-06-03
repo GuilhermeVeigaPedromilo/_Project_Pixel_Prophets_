@@ -13,7 +13,7 @@ import Styles from "../styles/StyleSheet";
 import ImageProps from "../components/ImageComponent";
 import Rodape from "../partials/Rodapé"; //Importacao do Rodape
 
-const API_URL = 'http://192.168.1.68:3000';//Constante da URL
+const API_URL = 'http://192.168.0.177:3000';//Constante da URL
 
 
 export default function Home({ route }) {

@@ -162,19 +162,37 @@ app.put("/updateUserB/:id", (req, res) => {
 app.post("/Comprovante", (req, res) => {
   const {numContaSaida, nomeSaida, Valor, numContaEntrada, nomeEntrada, Data} = req.body
   const query = "INSERT INTO extrato (numContaSaida, nomeSaida, Valor, numContaEntrada, nomeEntrada, Data) VALUES (?, ?, ?, ?, ?, ?)"
-          db.query(query, [numContaSaida, nomeSaida, Valor, numContaEntrada, nomeEntrada, Data], (err, results) => {
+          db.query(query, [numContaSaida, nomeSaida, Valor, numContaEntrada, nomeEntrada, Data], (err, result) => {
           if (err) {
             console.error('Erro ao armazenar extrato:', err);
           } else {
-            console.error('Sucesso');
+            console.error('Sucesso extrato: ', query);
+            res.send(result)
           }
     })
 })
+
+app.get("/SelectExtrato", (req, res) => {
+  const { nome } = req.query; // obter o nome do usuário dos parâmetros da requisição
+  const query = nome ? 'SELECT * FROM extrato WHERE nomeSaida = ? OR nomeEntrada = ?' : 'SELECT * FROM extrato';
+  const params = nome ? [nome, nome] : [];
+
+  db.query(query, params, (err, result) => {
+      if (err) {
+          console.error('SELECT EXTRATO ERROR', err);
+          res.status(500).send('Erro ao obter extrato');
+      } else {
+          res.send(result);
+          console.log('SELECT EXTRATO OK', { result });
+      }
+  });
+});
+
   
   // Rota para fazer logout
   app.get('/logout', (req, res) => {
     req.session.destroy(() => {
-      console.log('Desconectado')
+      console.log('Desconectado...')
     });
   });
 

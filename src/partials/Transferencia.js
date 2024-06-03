@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";//Importacao do React
 import { View, Modal, Text, Pressable, Image } from "react-native";//Importacao dos componentes do react-native
 import { useNavigation } from "@react-navigation/native";//Importacao do useNavigation
 
-const API_URL = 'http://192.168.1.68:3000';//Constante da URL
+const API_URL = 'http://192.168.0.177:3000';//Constante da URL
 
 
 import { useFonts } from "expo-font";//Importacao do useFonts
@@ -15,7 +15,6 @@ import InputProps from "../components/InputComponent";//Importacao do InputProps
 import ButtonComponent from "../components/ButtonComponent";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-import Comprovante from "./Comprovante";
 
 function TransferenciaConfirmacao({ visible, OnPress }) {
   const navigation = useNavigation();
@@ -149,7 +148,7 @@ function TransferenciaConclusao({ route }) {
     try {
       await Promise.all([updateUserA()], [updateUserB()]);
       console.log('Sucesso Transferência')
-      setVisible(true);
+      navigation.navigate("Comprovante");
     } catch {
       console.log('Erro ao atualizar saldo');
     }
@@ -192,7 +191,6 @@ function TransferenciaConclusao({ route }) {
             children="Pagar"
             OnPress={runFunctions}
           />
-          <Comprovante visible={visible} />
         </View>
       </View>
     </View>

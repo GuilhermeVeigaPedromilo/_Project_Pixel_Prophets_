@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";//Importacao do React
 import { View, Modal, Text, Pressable, Image } from "react-native";//Importacao dos componentes do react-native
 import { useNavigation } from "@react-navigation/native";//Importacao do useNavigation
 
-const API_URL = 'http://192.168.1.68:3000';//Constante da URL
+const API_URL = 'http://192.168.0.177:3000';//Constante da URL
 
 
 import { useFonts } from "expo-font";//Importacao do useFonts
@@ -16,9 +16,9 @@ import ButtonComponent from "../components/ButtonComponent";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
-function Comprovante({ route, visible }) {
+function Comprovante({route}) {
     const navigation = useNavigation();
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState('');
     const [cpfUser, setCpfUser] = useState('');
     const [senhaUser, setSenhaUser] = useState('');
     const [respUser, setRespUser] = useState('');
@@ -82,38 +82,35 @@ function Comprovante({ route, visible }) {
         catch (err) { console.log('Erro delete: ', err) }
       }
 
-      const RestartAsync = async () => {
-        try {
-          await Promise.all([DeletarContaSelect(), DeletarSessionUser()])
-          console.log('RestartAsync');
-          const response = await runExtrato()
-          navigation.navigate("Home");
-        }
-        catch (err) { console.log('Erro restart: ', err) }
-      }
-
       const runExtrato = async () => {
+        const numContaEntrada = respUser.numConta
+        const numContaSaida = respUserSelect.numConta
+        const Valor = respValTransfe
+        const nomeEntrada = respUser.nome
+        const nomeSaida = respUserSelect.nome
+        const Data = currentDate
         try {
-            const numContaEntrada = respUser.numConta
-            const numContaSaida = respUserSelect.nome
-            const Valor = respValTransfe
-            const nomeEntrada = respUser.nome
-            const nomeSaida = respUserSelect.nome
-            const Data = currentDate
             const arquivado = await axios.post(`${API_URL}/Comprovante`, 
                 {numContaEntrada, numContaSaida, Valor, nomeEntrada, nomeSaida, Data}
             )
             console.log('Arquivado com sucesso: ', arquivado)
-            navigation.navigate('Home');
         }
         catch (err) {
             console.log('Erro para arquivar o comprovante')
         }
       }
 
+      const RestartAsync = async () => {
+        try {
+          await Promise.all([DeletarContaSelect(), DeletarSessionUser()])
+          console.log('RestartAsync');
+          runExtrato()
+          navigation.navigate("Home");
+        }
+        catch (err) { console.log('Erro restart: ', err) }
+      }
+
     return (
-        <View>
-            <Modal animationType='slide' visible={visible} >
       <View style={Styles.container}>
         <View style={Styles.section}>
           <View>
@@ -147,8 +144,6 @@ function Comprovante({ route, visible }) {
             </View>
           </View>
         </View>
-      </View>
-      </Modal>
       </View>
     );
   }

@@ -10,7 +10,7 @@ import ImageProps from "../components/ImageComponent";//Importacao da ImageProps
 
 import Styles from "../styles/StyleSheet";//Importacao do Styles
 
-const API_URL = 'http://192.168.1.68:3000';//Constante da URL
+const API_URL = 'http://192.168.0.177:3000';//Constante da URL
 
 export default function LoginModal({ visibleB, OnPressCloseB }) {
 

@@ -1,56 +1,25 @@
-import React, { useEffect, useState } from "react"; //Importacao do useState e do useEffect
-import { useNavigation } from "@react-navigation/native"; //Importacao do useNavigation
+import React, { useEffect, useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Pressable, Text, View, ScrollView, FlatList } from "react-native"; //Importacao dos componentes do react-native
+import { Text, View, FlatList } from "react-native";
 
+const API_URL = 'http://192.168.0.177:3000';
 
+import { useFonts } from "expo-font";
+import Styles from "../styles/StyleSheet";
 
-import { useFonts } from "expo-font";//Importacao do useFonts
-import { Ionicons } from "@expo/vector-icons";//Importacao do Ionicons
+import ImageProps from "../components/ImageComponent";
+import Rodape from "../partials/Rodapé";
 
-import Styles from "../styles/StyleSheet"; // Importacao do Styles
-
-import Txt from "../components/TextComponent"; // Importacao do Txt
-import ImageProps from "../components/ImageComponent"; // Importacao da ImageProps
-import InputProps from "../components/InputComponent"; // Importação do InputProps
-import Rodape from "../partials/Rodapé"; //Importacao do Rodape
-
-const data = [
-  { id: "1", text: "Foi recebido + R$ 300,00", name: "Ciclano Pereira S" },
-  { id: "2", text: "Foi recebido + R$ 25,00", name: "Beltrano Colossenses J" },
-  { id: "3", text: "Foi pago - R$ 12,90", name: "Mercadinho Rosalina" },
-  { id: "4", text: "Foi recebido + R$ 300,00", name: "Ciclano Pereira S" },
-  { id: "5", text: "Foi recebido + R$ 25,00", name: "Beltrano Colossenses J" },
-  { id: "6", text: "Foi pago - R$ 12,90", name: "Mercadinho Rosalina" },
-
-  // Adicione mais itens conforme necessário
-];
-
-
-
-function renderItem({ item }) {
-  return (
-    <View>
-      <ImageProps
-        source={require("../assets/images/Iconzinho.png")}
-        style={{ width: 50, height: 50, position: "relative", top: 65 }}
-      />
-      <View style={Styles.linhald}>
-        <Text style={Styles.textossaldo}>{item.text}</Text>
-        <Text style={Styles.textosbeges}>{item.name}</Text>
-      </View>
-    </View>
-  );
-}
-
-export default function Extrato({route}) {
+export default function Extrato({ route }) {
   const navigation = useNavigation();
   const [user, setUser] = useState(null);
   const [cpfUser, setCpfUser] = useState('');
   const [senhaUser, setSenhaUser] = useState('');
-  const [respUser, setRespUser] = useState(null);
+  const [respUser, setRespUser] = useState({});
   const [loading, setLoading] = useState(true);
+  const [extrato, setExtrato] = useState([]);
 
   useEffect(() => {
     const loadSession = async () => {
@@ -61,6 +30,7 @@ export default function Extrato({route}) {
           setCpfUser(cpfUser);
           setSenhaUser(senhaUser);
           setRespUser(respUser);
+          await SelectExtrato(respUser.nome);
         }
       } catch (error) {
         console.log('Failed to load session', error);
@@ -68,22 +38,21 @@ export default function Extrato({route}) {
         setLoading(false);
       }
     };
-
     loadSession();
-    fetchUser();
   }, []);
 
-  const fetchUser = async () => {
+  const SelectExtrato = async (nome) => {
     try {
-      const response = await axios.get(`${API_URL}/user`, {
+      const response = await axios.get(`${API_URL}/SelectExtrato`, {
+        params: { nome },
         withCredentials: true,
       });
-      // Se necessário, você pode fazer algo com a resposta
+      setExtrato(response.data);
     } catch (err) {
-      console.log(err);
-      navigation.navigate("Login");
+      console.log('SELECT ERROR: ', err);
     }
   };
+
   const [loaded] = useFonts({
     Prompt: require("../assets/fonts/Prompt-Regular.ttf"),
     PromptBold: require("../assets/fonts/Prompt-Bold.ttf")
@@ -91,6 +60,21 @@ export default function Extrato({route}) {
 
   if (!loaded) {
     return null;
+  }
+
+  function renderItem({ item }) {
+    return (
+      <View>
+        <ImageProps
+          source={require("../assets/images/Iconzinho.png")}
+          style={{ width: 50, height: 50, position: "relative", top: 65 }}
+        />
+        <View style={Styles.linhald}>
+          <Text style={Styles.textossaldo}>{item.Valor > 0 ? `Foi recebido + R$ ${item.Valor}` : `Foi pago - R$ ${Math.abs(item.Valor)}`}</Text>
+          <Text style={Styles.textosbeges}>{item.nomeSaida === respUser.nome ? item.nomeEntrada : item.nomeSaida}</Text>
+        </View>
+      </View>
+    );
   }
 
   return (
@@ -108,15 +92,11 @@ export default function Extrato({route}) {
         <Text style={Styles.saldo}>{`R$ ${respUser.Saldo}`}</Text>
       </View>
 
-      <View style={Styles.linhaabx}>
-        <Text style={Styles.data}>03/05/2024</Text>
-      </View>
-
       <View style={{ flex: 1, marginLeft: 30 }}>
         <FlatList
           showsVerticalScrollIndicator={false}
-          data={data}
-          keyExtractor={(item) => item.id}
+          data={extrato}
+          keyExtractor={(item) => item.id.toString()}
           renderItem={renderItem}
         />
       </View>

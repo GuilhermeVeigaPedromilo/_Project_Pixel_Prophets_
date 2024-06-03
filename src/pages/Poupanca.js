@@ -1,5 +1,5 @@
 import { Text, View, Image, Pressable } from "react-native";//Importacao dos componentes do react-native
-
+const API_URL = 'http://192.168.0.177:3000';//Constante da URL
 import Styles from "../styles/StyleSheet"; // Importacao do Styles
 
 import Line from "../components/LineComponent"//Importacao do Line

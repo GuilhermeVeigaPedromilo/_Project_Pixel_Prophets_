@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";//Importacao do React
 import { createDrawerNavigator } from "@react-navigation/drawer";//Importacao do createDrawerNavigator
 import CustomDrawer from "../components/CustomDrawer";//Importacao do CustomDrawer
 import {  DrawerContentScrollView,  DrawerItemList} from "@react-navigation/drawer";//Importacao do DawerContentScrollView e do DrawerItemList
-
+const API_URL = 'http://192.168.0.177:3000';//Constante da URL
 import Configuracoes from "../pages/Configuracoes";//Importacao da pagina Configuracoes
 import Ajuda from "../pages/Ajuda"; //Importacao da Pagina Ajuda
 import Perfil from "../pages/Perfil"; // Importacao da Pagina Perfil
@@ -12,6 +12,7 @@ import { Ionicons } from "@expo/vector-icons";//Importacao do Ionicons
 import { useFonts } from "expo-font";//Importacao do useFonts
 import Home from "../pages/Home";
 import { useNavigation } from "@react-navigation/native";
+import { Button } from "react-native";
 
 const Drawer = createDrawerNavigator();
 
@@ -35,14 +36,29 @@ const navigation = useNavigation()
 
   const handleLogout = async () => {
     try{
-      const setUser = await axios.get(`${API_URL}/logout`)
-      navigation.navigate("Login");
-      console.log(`${setUser}`)
+      const logout = await axios.get(`${API_URL}/logout`)
     } catch (err) {
       console.log('Não foi possível sair da sua conta');
     }
-
   };
+
+  const DeslogarSessionUser = async () => {
+    try {
+      const sessionlogout = await AsyncStorage.removeItem('userContaSession',);
+      console.log('Conta deslogada');
+    }
+    catch (err) { console.log('Erro ao sair da conta: ', err) }
+  }
+
+  const Logout = async () => {
+    try {
+      await Promise.all([handleLogout(), DeslogarSessionUser()]);
+      console.log('Conta deslogada totalmente');
+      navigation.navigate('Login');
+    } catch (err) {
+      console.log('Erro: ', err)
+    }
+  }
 
   return (
     <Drawer.Navigator

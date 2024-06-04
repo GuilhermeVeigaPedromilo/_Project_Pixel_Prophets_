@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"; //Importacao do useState e do useEffect
 import { Image, Text, View, Pressable } from "react-native"; //Importacao dos componentes do react-native
 import { useNavigation } from "@react-navigation/native"; //Importacao do useNavigation
-const API_URL = 'http://192.168.0.177:3000';//Constante da URL
+const API_URL = 'http://192.168.0.189:3000';//Constante da URL
 import Rodape from "../partials/Rodapé"; //Importacao do Rodape
 import Line from "../components/LineComponent"
 

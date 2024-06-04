@@ -12,7 +12,7 @@ import { useFonts } from "expo-font";//Importacao do useFonts
 import { StatusBar } from "expo-status-bar";//Importacao do StatusBar
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const API_URL = 'http://192.168.0.177:3000';//Constante da URL
+const API_URL = 'http://192.168.0.189:3000';//Constante da URL
 
 export default function First({ navigation }) {
   const [visibleA, setVisibleA] = useState(false);
@@ -36,6 +36,7 @@ export default function First({ navigation }) {
             respUser: response.data
           }));
           console.log(JSON.stringify(response.data))
+          setVisibleA(false);
       navigation.navigate("RotasDrawer", {
         screen: "Home",
         params: { cpfUser: cpf, senhaUser: senha, respUser: response.data },

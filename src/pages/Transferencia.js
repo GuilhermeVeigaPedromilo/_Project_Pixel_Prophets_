@@ -3,7 +3,7 @@ import { TextInput, Pressable, View, Alert, Text } from "react-native"; // Impor
 import { useNavigation } from "@react-navigation/native"; // Importação do useNavigation
 import axios from "axios"; // Importação do axios
 
-const API_URL = 'http://192.168.0.177:3000'; // Constante da URL
+const API_URL = 'http://192.168.0.189:3000'; // Constante da URL
 
 import Rodape from "../partials/Rodapé"; // Importação do Rodape
 import ImageProps from "../components/ImageComponent"; // Importação da ImageProps
@@ -99,12 +99,11 @@ export default function Transferencia({ route }) {
 
   const [ValTransfe, setValTransfe] = useState(null);  
   const [numConta, setNumContDestino] = useState(null);
-  const [error, setError] = useState('');
+  const [error, setError] = useState(null);
   const [respUserConta, setRespUserConta] = useState(null);
   const [respUserSelect, setRespUserSelect] = useState(null);
 
   const SelectConta = async () => {
-    if (ValTransfe => respUser.Saldo) {
     try {
       const response = await axios.post(
         `${API_URL}/SelectConta`,
@@ -124,9 +123,6 @@ export default function Transferencia({ route }) {
       setError('Conta inexistente')
       console.log('Erro, conta inexistente', err)
     }
-  } else {
-    Alert.alert('Saldo insuficiente');
-  }
   };
 
   return (
@@ -136,7 +132,7 @@ export default function Transferencia({ route }) {
           source={require("../assets/images/LogoBlue.png")}
           style={Styles.ImgLogo}
         />
-        <Text>{error}</Text>
+        <Text style={{marginBottom: 15, color: 'red'}}>{error}</Text>
         <View style={Styles.formGroup}>
           <TextInput style={Styles.formInput} onChangeText={setNumContDestino} keyboardType="numeric" />
           <View style={{ backgroundColor: "#F0EDE9" }} >

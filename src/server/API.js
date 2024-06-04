@@ -70,7 +70,7 @@ const db = mysql.createConnection({
         });
       } else {
         console.log(`O cadastro com estás informações já constam no sistema: ${nome} - ${cpf} `)
-        res.send(`O cadastro com estás informações já constam no sistema: ${nome} - ${cpf} `);
+        res.send(`O cadastro com estás informações já constam no sistema: ${nome} - ${cpf} `, 200);
       }
     });
   });
@@ -193,6 +193,7 @@ app.get("/SelectExtrato", (req, res) => {
   app.get('/logout', (req, res) => {
     req.session.destroy(() => {
       console.log('Desconectado...')
+      res.send(200);
     });
   });
 

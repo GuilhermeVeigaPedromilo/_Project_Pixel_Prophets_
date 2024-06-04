@@ -4,7 +4,7 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Text, View, FlatList } from "react-native";
 
-const API_URL = 'http://192.168.0.177:3000';
+const API_URL = 'http://192.168.0.189:3000';
 
 import { useFonts } from "expo-font";
 import Styles from "../styles/StyleSheet";
@@ -92,7 +92,7 @@ export default function Extrato({ route }) {
         <Text style={Styles.saldo}>{`R$ ${respUser.Saldo}`}</Text>
       </View>
 
-      <View style={{ flex: 1, marginLeft: 30 }}>
+      <View style={{ flex: 1, alignItems: 'center' }}>
         <FlatList
           showsVerticalScrollIndicator={false}
           data={extrato}

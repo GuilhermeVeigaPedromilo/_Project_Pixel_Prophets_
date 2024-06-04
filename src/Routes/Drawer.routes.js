@@ -1,18 +1,18 @@
 import React, {useState, useEffect} from "react";//Importacao do React
 import { createDrawerNavigator } from "@react-navigation/drawer";//Importacao do createDrawerNavigator
 import CustomDrawer from "../components/CustomDrawer";//Importacao do CustomDrawer
-import {  DrawerContentScrollView,  DrawerItemList} from "@react-navigation/drawer";//Importacao do DawerContentScrollView e do DrawerItemList
-const API_URL = 'http://192.168.0.177:3000';//Constante da URL
+const API_URL = 'http://192.168.0.189:3000';//Constante da URL
 import Configuracoes from "../pages/Configuracoes";//Importacao da pagina Configuracoes
 import Ajuda from "../pages/Ajuda"; //Importacao da Pagina Ajuda
 import Perfil from "../pages/Perfil"; // Importacao da Pagina Perfil
 import Login from "../pages/Login"//Importacao da pagina Login
-
 import { Ionicons } from "@expo/vector-icons";//Importacao do Ionicons
 import { useFonts } from "expo-font";//Importacao do useFonts
 import Home from "../pages/Home";
 import { useNavigation } from "@react-navigation/native";
-import { Button } from "react-native";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 const Drawer = createDrawerNavigator();
 
@@ -44,16 +44,15 @@ const navigation = useNavigation()
 
   const DeslogarSessionUser = async () => {
     try {
-      const sessionlogout = await AsyncStorage.removeItem('userContaSession',);
-      console.log('Conta deslogada');
+      const sessionlogout = await AsyncStorage.removeItem('userSession',);
     }
     catch (err) { console.log('Erro ao sair da conta: ', err) }
   }
 
   const Logout = async () => {
     try {
-      await Promise.all([handleLogout(), DeslogarSessionUser()]);
-      console.log('Conta deslogada totalmente');
+      const logout = await Promise.all([handleLogout(), DeslogarSessionUser()]);
+      console.log('Conta deslogada totalmente', logout);
       navigation.navigate('Login');
     } catch (err) {
       console.log('Erro: ', err)
@@ -100,6 +99,7 @@ const navigation = useNavigation()
       {/*<Drawer.Screen name="Perfil" component={Perfil} />*/}
       <Drawer.Screen name="Configurações" component={Configuracoes} />
       <Drawer.Screen name="Ajuda" component={Ajuda} />
+      <Drawer.Screen name="Sair" component={Logout} />
      {/* <Drawer.Screen name="Sair" component={handleLogout} />*/}
     </Drawer.Navigator>
   );

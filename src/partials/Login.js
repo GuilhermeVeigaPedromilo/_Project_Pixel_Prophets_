@@ -41,7 +41,7 @@ export default function LoginModal({ visibleA, OnPressCloseA, setCpf, setSenha, 
                 <TextInput 
                   style={Styles.formInput} 
                   onChangeText={setCpf} 
-                  keyboardType="numeric" 
+                  keyboardType="numeric"
                 />
                 <View style={{ backgroundColor: "#F0EDE9" }}>
                   <Text style={Styles.formLabel} texto="">CPF</Text>
@@ -52,7 +52,7 @@ export default function LoginModal({ visibleA, OnPressCloseA, setCpf, setSenha, 
                 <TextInput 
                   style={Styles.formInput}  
                   onChangeText={ setSenha } 
-                  keyboardType="numeric"
+                  secureTextEntry={true}
                 />
                 <View style={{ backgroundColor: "#F0EDE9" }}>
                   <TextComponent style={Styles.formLabel} texto="SENHA"/>

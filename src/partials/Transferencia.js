@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";//Importacao do React
-import { View, Modal, Text, Pressable, Image } from "react-native";//Importacao dos componentes do react-native
+import { View, Modal, Text, Pressable, Image, Alert } from "react-native";//Importacao dos componentes do react-native
 import { useNavigation } from "@react-navigation/native";//Importacao do useNavigation
 
-const API_URL = 'http://192.168.0.177:3000';//Constante da URL
+const API_URL = 'http://192.168.0.189:3000';//Constante da URL
 
 
 import { useFonts } from "expo-font";//Importacao do useFonts
@@ -154,6 +154,23 @@ function TransferenciaConclusao({ route }) {
     }
   }
 
+  const Concluir = () => { 
+  return Alert.alert(
+    `${respUser.nome}`,
+    "Tem certeza que deseja concluir a transferência?",
+    [
+      {
+        text: "CANCEL",
+        onPress: DeletarContaSelect,
+      },
+      {
+        text: "OK",
+        onPress: runFunctions,
+      },
+    ]
+  );
+}
+
   return (
     <View style={Styles.container}>
       <View style={Styles.section}>
@@ -189,7 +206,7 @@ function TransferenciaConclusao({ route }) {
             TouchStyle={[Styles.frtButtons, { backgroundColor: "#2F2C79", marginRight: 10 }]}
             letras={[Styles.firstButtons, { color: "#F5E2CF" }]}
             children="Pagar"
-            OnPress={runFunctions}
+            OnPress={Concluir}
           />
         </View>
       </View>

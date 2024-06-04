@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";//Importacao do React
 import { View, Modal, Text, Pressable, Image } from "react-native";//Importacao dos componentes do react-native
 import { useNavigation } from "@react-navigation/native";//Importacao do useNavigation
 
-const API_URL = 'http://192.168.0.177:3000';//Constante da URL
+const API_URL = 'http://192.168.0.189:3000';//Constante da URL
 
 
 import { useFonts } from "expo-font";//Importacao do useFonts
@@ -76,7 +76,7 @@ function Comprovante({route}) {
 
       const DeletarSessionUser = async () => {
         try {
-          const session = await AsyncStorage.removeItem('userContaSession',);
+          const session = await AsyncStorage.removeItem('userSession',);
           console.log('DeleteCont');
         }
         catch (err) { console.log('Erro delete: ', err) }
@@ -102,9 +102,9 @@ function Comprovante({route}) {
 
       const RestartAsync = async () => {
         try {
+          runExtrato()
           await Promise.all([DeletarContaSelect(), DeletarSessionUser()])
           console.log('RestartAsync');
-          runExtrato()
           navigation.navigate("Home");
         }
         catch (err) { console.log('Erro restart: ', err) }
@@ -127,6 +127,7 @@ function Comprovante({route}) {
               source={require("../assets/images/LogoBlue.png")}
               style={{width: 100, height: 60,}}
             />
+            <Text>Transferência finalizada</Text>
            <View style={{ width: '95%' }} >
             <Text style={{ fontSize: 15, }} >Valor de transferência: <Text style={{fontWeight: 'bold' }} >{`R$${respValTransfe}`}</Text></Text>
             </View>

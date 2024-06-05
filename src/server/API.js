@@ -65,12 +65,13 @@ const db = mysql.createConnection({
           if (err) {
             console.error('Erro ao inserir usuário:', err);
           } else {
+            res.send(200)
             console.error('Sucesso');
           }
         });
       } else {
         console.log(`O cadastro com estás informações já constam no sistema: ${nome} - ${cpf} `)
-        res.send(`O cadastro com estás informações já constam no sistema: ${nome} - ${cpf} `, 200);
+        res.send(201);
       }
     });
   });
@@ -172,18 +173,33 @@ app.post("/Comprovante", (req, res) => {
     })
 })
 
-app.get("/SelectExtrato", (req, res) => {
-  const { nome } = req.query; // obter o nome do usuário dos parâmetros da requisição
-  const query = nome ? 'SELECT * FROM extrato WHERE nomeSaida = ? OR nomeEntrada = ?' : 'SELECT * FROM extrato';
-  const params = nome ? [nome, nome] : [];
 
-  db.query(query, params, (err, result) => {
+// Rota para selecionar extrato do usuário pelo nome de entrada
+app.get("/SelectExtratoEntrada", (req, res) => {
+  const { nome } = req.query;
+  const query = 'SELECT * FROM extrato WHERE nomeEntrada = ?';
+  db.query(query, [nome], (err, result) => {
       if (err) {
-          console.error('SELECT EXTRATO ERROR', err);
+          console.error('SELECT EXTRATO ERROR:', err);
           res.status(500).send('Erro ao obter extrato');
       } else {
-          res.send(result);
-          console.log('SELECT EXTRATO OK', { result });
+          res.status(200).send(result);
+          console.log('SELECT EXTRATO OK:', { result });
+      }
+  });
+});
+
+// Rota para selecionar extrato do usuário pelo nome de saída
+app.get("/SelectExtratoSaida", (req, res) => {
+  const { nome } = req.query;
+  const query = 'SELECT * FROM extrato WHERE nomeSaida = ?';
+  db.query(query, [nome], (err, result) => {
+      if (err) {
+          console.error('SELECT EXTRATO ERROR:', err);
+          res.status(500).send('Erro ao obter extrato');
+      } else {
+          res.status(200).send(result);
+          console.log('SELECT EXTRATO OK:', { result });
       }
   });
 });

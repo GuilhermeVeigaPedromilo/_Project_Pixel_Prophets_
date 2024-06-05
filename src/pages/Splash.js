@@ -4,8 +4,9 @@ import { CommonActions, useNavigation } from "@react-navigation/native";//Import
 import { useEffect } from "react";//Importacao do useEffect
 
 export default function Splash() {
-  const navigation = useNavigation()
+  const navigation = useNavigation();//Define o navigation
 
+  //Constante do useEffect
   useEffect(() => {
     setTimeout(() => {
       navigation.dispatch(CommonActions.reset({

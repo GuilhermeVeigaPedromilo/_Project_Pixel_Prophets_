@@ -1,26 +1,28 @@
-import React, { useState, useEffect } from "react";
-import { Text, View, Pressable, FlatList, ImageBackground, ActivityIndicator } from "react-native";
-import axios from "axios";
-import { useNavigation } from "@react-navigation/native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useIsFocused } from '@react-navigation/native';
-import { useFonts } from "expo-font";
-import { Ionicons } from "@expo/vector-icons";
+import React, { useState, useEffect } from "react";//Importacao do React, do useState e do useEffect
+import { Text, View, Pressable, FlatList, ImageBackground, ActivityIndicator } from "react-native";//Importacao dos componentes do react native
+import axios from "axios";//Importacao do axios
+import { useNavigation, useIsFocused } from "@react-navigation/native";//Importacao do useNavigation e do useIsFocused
+import AsyncStorage from "@react-native-async-storage/async-storage";//Importacao do AsyncStorage
 
-import Styles from "../styles/StyleSheet";
-import ImageProps from "../components/ImageComponent";
-import Rodape from "../partials/Rodapé";
+import { useFonts } from "expo-font";//Importacao do useFonts
+import { Ionicons } from "@expo/vector-icons";//Importacao do Ionicons
 
-const API_URL = 'http://192.168.0.189:3000'; // Constante da URL
+import Styles from "../styles/StyleSheet";//Importacao do Styles
+
+import ImageProps from "../components/ImageComponent";//Importacao do ImageProps
+import Rodape from "../partials/Rodapé";//Importacao do Rodape
+
+const API_URL = 'http://10.144.170.31:3000'; // Constante da URL
 
 export default function Home({ route }) {
-  const navigation = useNavigation();
-  const [cpfUser, setCpfUser] = useState(null);
-  const [senhaUser, setSenhaUser] = useState(null);
-  const [respUser, setRespUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const isFocused = useIsFocused();
+  const navigation = useNavigation();//Define o navigation
+  const [cpfUser, setCpfUser] = useState(null);//Define o cpfUser
+  const [senhaUser, setSenhaUser] = useState(null);//Define o senhaUser
+  const [respUser, setRespUser] = useState(null);//Define o respUser
+  const [loading, setLoading] = useState(true);//Define o loading
+  const isFocused = useIsFocused();//Define o isFocused
 
+  //Constante do useEffect
   useEffect(() => {
     const clearSession = async () => {
       try {
@@ -60,6 +62,7 @@ export default function Home({ route }) {
     }
   };
 
+  //Constante do Flatlist
   const flatData = [
     { key: "1", image: "cash", text: "Pagar", rota: () => navigation.navigate("Transferencia") },
     { key: "2", image: "card", text: "Cartões", rota: () => navigation.navigate("Cartoes") },
@@ -67,6 +70,7 @@ export default function Home({ route }) {
     { key: "4", image: "wallet", text: "Poupança", rota: () => navigation.navigate("Poupanca") }
   ];
 
+  //Constante das Fontes
   const [loaded] = useFonts({ "Prompt": require("../assets/fonts/Prompt-Regular.ttf") });
 
   if (!loaded || loading) {
@@ -89,26 +93,30 @@ export default function Home({ route }) {
         </View>
       </View>
 
+{/* Começo Flatlist  */}
       <FlatList
         showsHorizontalScrollIndicator={false}
         data={flatData}
         horizontal
         renderItem={({ item }) => (
-          <Pressable style={[Styles.quadradocontainer2, { width: 150, height: 100 }]} onPress={item.rota}>
-            <View style={{ flexDirection: "row" }}>
-              <Ionicons name={item.image} size={28} color="#F0EDE9" />
-            </View>
-            <Text style={{ color: "white", textAlign: "center", fontSize: 20, marginBottom: 10, marginTop: "2%", fontFamily: "Prompt" }}>
+          <Pressable  onPress={item.rota}>
+            <View  style={[Styles.quadradocontainer2, { width: 200, height: 120, flexDirection: 'column' }]}>
+              <Ionicons name={item.image} size={32} color="#F0EDE9" />
+              <Text style={{ color: "white", textAlign: "center", fontSize: 20, fontFamily: "Prompt" }}>
               {item.text}
             </Text>
+            </View>
+            
           </Pressable>
         )}
       />
 
-      <Text style={{ color: "#000020", textAlign: "center", fontSize: 20, fontFamily: "Prompt", marginTop: "5%" }}>Cartão</Text>
+{/* Fim da Flatlist */}
+
+      <Text style={{ color: "#000020", textAlign: "center", fontSize: 20, fontFamily: "Prompt", marginTop: "3%" }}>Cartão</Text>
       <View style={{ width: "96%", height: 3, backgroundColor: "#171A4A", marginBottom: "4%", borderRadius: 10, marginTop: "2%" }}></View>
       <View style={{ width: '100%', height: '30%', padding: "2%", marginBottom: '15%' }} >
-        <ImageBackground source={require("../assets/images/cartaozica.png")} style={{ height: '100%', width: "100%" }}>
+        <ImageBackground source={require("../assets/images/cartaozica.png")} style={{ height: '98%', width: "100%" }}>
           <Text style={{ color: 'white', fontSize: 22, marginLeft: '6.5%', marginTop: "2%" }}>{respUser.numConta}</Text>
           <Text style={{ color: 'white', fontSize: 22, marginLeft: '6.5%', marginTop: "25%" }}>{respUser.nome}</Text>
         </ImageBackground>

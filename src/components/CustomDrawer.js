@@ -18,11 +18,11 @@ export default function CustomDrawer(props) {
       <View style={styles.header}>
         <TouchableOpacity onPress={() => props.navigation.navigate("Perfil")}>
           <Image
-            source={require("../assets/images/Logo1.png")}
+            source={require("../assets/images/LogoPB.png")}
             style={styles.avatar}
           />
         </TouchableOpacity>
-        <Text style={styles.headerText}>Bem-vindo!</Text>
+        <Text style={styles.headerText}>Pixel Bank</Text>
       </View>
 
       {/* Itens do Menu Personalizados */}

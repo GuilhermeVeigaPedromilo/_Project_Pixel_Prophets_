@@ -1,7 +1,7 @@
 import React, { useState } from "react";//Importacao do React e do useState
 import {View, Modal, TextInput, Text, Pressable, Alert, ScrollView } from "react-native";//Importacao dos componentes do react-native
 import axios from "axios";//Importacao do axios
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";//Importacao do useNavigation
 
 import { useFonts } from "expo-font";//Importacao do useFonts
 
@@ -10,30 +10,34 @@ import ImageProps from "../components/ImageComponent";//Importacao da ImageProps
 
 import Styles from "../styles/StyleSheet";//Importacao do Styles
 
-const API_URL = 'http://192.168.0.189:3000';//Constante da URL
+const API_URL = 'http://10.144.170.31:3000';//Constante da URL
 
 export default function LoginModal({ visibleB, OnPressCloseB }) {
 
-  const [nome, setNome] = useState("");
-  const [cpf, setCpf] = useState("");
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
-  const [confsenha, setConfSenha] = useState("");
-  const navigation = useNavigation();
+  const [nome, setNome] = useState(null);//Define o nome
+  const [cpf, setCpf] = useState(null);//Define o cpf
+  const [email, setEmail] = useState(null);//Define o email
+  const [senha, setSenha] = useState(null);//Define a senha
+  const [confsenha, setConfSenha] = useState(null);//Define o confsenha
+  const navigation = useNavigation();//Define o iaon
 
+  //Constante do Cadastro
   const handleRegister = async () => {
     const newUser = { nome, senha, email, cpf, };
-    await axios.post(`${API_URL}/Cadastro`, newUser);
     if (nome === "" || cpf === "" || email === "" || senha === "") {
       Alert.alert("Cadastro inválido", "Insira todos os dados solicitados");
     } else if (confsenha != senha) {
       Alert.alert("A senha esta diferente");
     } else {
       try{
-      await axios.post(`${API_URL}/Cadastro`, newUser);
+      const response = await axios.post(`${API_URL}/Cadastro`, newUser);
+      if (response.status == 201) {
+        alert('Cadastros com estas informações no sistema já constam');
+      } else {
+      alert('Cadastro concluído')
       navigation.navigate('Splash');
       console.log(`Cadastro realizado: ${nome} - ${senha} - ${email} - ${cpf}`)
-      
+      }
       } catch (err) {
         console.log(err, "Erro")
       }
@@ -41,6 +45,7 @@ export default function LoginModal({ visibleB, OnPressCloseB }) {
     }
 };
 
+//Constante das Fontes
   const [loaded] = useFonts({
     Prompt: require("../assets/fonts/Prompt-Regular.ttf"),
   });
@@ -106,7 +111,6 @@ export default function LoginModal({ visibleB, OnPressCloseB }) {
                       style={Styles.formInput}
                       value={senha}
                       onChangeText={setSenha}
-                      keyboardType="numeric"
                     />
                     <View style={{ backgroundColor: "#F0EDE9" }}>
                       <Text style={Styles.formLabel}>SENHA</Text>
@@ -117,7 +121,6 @@ export default function LoginModal({ visibleB, OnPressCloseB }) {
                       style={Styles.formInput}
                       value={confsenha}
                       onChangeText={setConfSenha}
-                      keyboardType="numeric"
                     />
                     <View style={{ backgroundColor: "#F0EDE9" }}>
                       <Text style={Styles.formLabel}>CONFIRMAR SENHA</Text>

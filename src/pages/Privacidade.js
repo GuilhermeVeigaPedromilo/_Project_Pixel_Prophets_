@@ -1,14 +1,16 @@
 import { Text, View, Image, Pressable } from "react-native";//Importacao dos componentes do react-native
-const API_URL = 'http://192.168.0.189:3000';//Constante da URL
+const API_URL = 'http://10.144.170.31:3000';//Constante da URL
 import Styles from "../styles/StyleSheet"; // Importacao do Styles
-
 import Line from "../components/LineComponent"//Importacao do Line
 import Rodape from "../partials/Rodapé"; //Importacao do Rodape
+import { useNavigation } from "@react-navigation/native";//Importacao do useNavigation
 
 import { useFonts } from "expo-font";//Importacao do useFonts
 import { Ionicons } from "@expo/vector-icons";//Importacao do Ionicons
 
 export default function Privacidade() {
+  const navigation = useNavigation()
+  //Constante das Fontes
   const [loaded] = useFonts({
     Prompt: require("../assets/fonts/Prompt-Regular.ttf"),
   });

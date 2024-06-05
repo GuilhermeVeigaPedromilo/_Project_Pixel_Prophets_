@@ -26,6 +26,27 @@ const Styles = StyleSheet.create({
     fontFamily: "Prompt",
   },
 
+  textosextrato: {
+    fontSize: 19,
+    color: "#2F2C79",
+    fontFamily: "Prompt",
+    textAlign: "center"
+  },
+
+  textosComprovante: {
+    fontSize: 18,
+    paddingBottom: 20,
+    color: "#171A4A",
+    fontFamily: "Prompt",
+  },
+
+  linhaComprovante: {
+    width: '95%' , 
+    borderBottomColor: "#171A4A", 
+    borderBottomWidth: 1,
+    marginTop: "10%",
+  },
+
   textosCard: {
     fontSize: 22,
     color: "#2F2C79",
@@ -33,6 +54,12 @@ const Styles = StyleSheet.create({
   },
 
   textossaldo: {
+    fontSize: 17,
+    color: "#2F2C79",
+    fontFamily: "Prompt",
+  },
+
+  textosextrato: {
     fontSize: 17,
     color: "#2F2C79",
     fontFamily: "Prompt",
@@ -48,7 +75,7 @@ const Styles = StyleSheet.create({
   saldo: {
     fontSize: 25,
     color: "#2F2C79",
-    fontFamily: "PromptBold",
+    fontFamily: "Prompt",
   },
 
   data: {

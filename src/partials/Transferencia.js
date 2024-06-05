@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";//Importacao do React
 import { View, Modal, Text, Pressable, Image, Alert } from "react-native";//Importacao dos componentes do react-native
 import { useNavigation } from "@react-navigation/native";//Importacao do useNavigation
+import axios from "axios";//Importacao do axios
+import AsyncStorage from "@react-native-async-storage/async-storage";//Importacao do AsyncStorage
 
-const API_URL = 'http://192.168.0.189:3000';//Constante da URL
-
+const API_URL = 'http://10.144.170.31:3000';//Constante da URL
 
 import { useFonts } from "expo-font";//Importacao do useFonts
 
@@ -12,15 +13,10 @@ import Styles from "../styles/StyleSheet";//Importacao do Styles
 import Btn from "../components/ButtonComponent";//Importacao do Btn
 import ImageProps from "../components/ImageComponent";//Importacao da ImageProps
 import InputProps from "../components/InputComponent";//Importacao do InputProps
-import ButtonComponent from "../components/ButtonComponent";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "axios";
+import ButtonComponent from "../components/ButtonComponent";//Importacao do ButtonComponent
 
 function TransferenciaConfirmacao({ visible, OnPress }) {
-  const navigation = useNavigation();
-
-
-
+  const navigation = useNavigation();//Define o navigati
   return (
     <View>
       <Modal animationType="slide" transparent={true} visible={visible}>

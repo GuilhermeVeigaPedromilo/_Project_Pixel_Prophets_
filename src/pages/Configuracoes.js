@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";  //Importacao do useState e do useEffect
 import { useNavigation } from "@react-navigation/native"; //Importacao do useNavigation
 import { Button, Text, View, Pressable } from "react-native"; //Importacao dos componentes do react-native
-const API_URL = 'http://192.168.0.189:3000';//Constante da URL
+const API_URL = 'http://10.144.170.31:3000';//Constante da URL
 import { Ionicons } from "@expo/vector-icons"; //Importacao do Ionicons
 import { useFonts } from "expo-font";//Importacao do useFonts
 

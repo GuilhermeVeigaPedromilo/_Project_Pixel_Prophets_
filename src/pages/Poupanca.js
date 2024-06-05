@@ -1,5 +1,5 @@
 import { Text, View, Image, Pressable } from "react-native";//Importacao dos componentes do react-native
-const API_URL = 'http://192.168.0.189:3000';//Constante da URL
+const API_URL = 'http://10.144.170.31:3000';//Constante da URL
 import Styles from "../styles/StyleSheet"; // Importacao do Styles
 
 import Line from "../components/LineComponent"//Importacao do Line
@@ -9,6 +9,7 @@ import { useFonts } from "expo-font";//Importacao do useFonts
 import { Ionicons } from "@expo/vector-icons";//Importacao do Ionicons
 
 export default function Poupanca() {
+  //Constante das Fontes
   const [loaded] = useFonts({
     Prompt: require("../assets/fonts/Prompt-Regular.ttf"),
   });

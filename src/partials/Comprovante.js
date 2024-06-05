@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";//Importacao do React
-import { View, Modal, Text, Pressable, Image } from "react-native";//Importacao dos componentes do react-native
+import { View, Modal, Text, Pressable, Image, ScrollView } from "react-native";//Importacao dos componentes do react-native
 import { useNavigation } from "@react-navigation/native";//Importacao do useNavigation
+import AsyncStorage from "@react-native-async-storage/async-storage";//Importacao do AsyncStorage
+import axios from "axios";//Importacao do axios
 
-const API_URL = 'http://192.168.0.189:3000';//Constante da URL
-
+const API_URL = 'http://10.144.170.31:3000';//Constante da URL
 
 import { useFonts } from "expo-font";//Importacao do useFonts
 
@@ -12,22 +13,30 @@ import Styles from "../styles/StyleSheet";//Importacao do Styles
 import Btn from "../components/ButtonComponent";//Importacao do Btn
 import ImageProps from "../components/ImageComponent";//Importacao da ImageProps
 import InputProps from "../components/InputComponent";//Importacao do InputProps
-import ButtonComponent from "../components/ButtonComponent";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "axios";
+import ButtonComponent from "../components/ButtonComponent";//Importacao do ButtonComponent
 
 function Comprovante({route}) {
-    const navigation = useNavigation();
-    const [user, setUser] = useState('');
-    const [cpfUser, setCpfUser] = useState('');
-    const [senhaUser, setSenhaUser] = useState('');
-    const [respUser, setRespUser] = useState('');
-    const [respUserConta, setRespUserConta] = useState('');
-    const [respValTransfe, setRespValTransfe] = useState("");
-    const [respUserSelect, setRespUserSelect] = useState('');
-    const [loading, setLoading] = useState(true);
-    const [currentDate, setCurrentDate] = useState('');
+    const navigation = useNavigation();//Define o navigation
+    const [user, setUser] = useState('');//Define o user
+    const [cpfUser, setCpfUser] = useState('');//Define o cpfUser
+    const [senhaUser, setSenhaUser] = useState('');//Define o senhaUser
+    const [respUser, setRespUser] = useState('');//Define o respUser
+    const [respUserConta, setRespUserConta] = useState('');//Define o respUserConta
+    const [respValTransfe, setRespValTransfe] = useState("");//Define o respValTransfe
+    const [respUserSelect, setRespUserSelect] = useState('');//Define o respUserSelect
+    const [loading, setLoading] = useState(true);//Define o loading
+    const [currentDate, setCurrentDate] = useState('');//Define o currentDate
+
+    //Constante das Fontes
+    const [loaded] = useFonts({
+      Prompt: require("../assets/fonts/Prompt-Regular.ttf"),
+    });
   
+    if (!loaded) {
+      return null;
+    }
+
+    //Constante do useEffect
     useEffect(() => {
       const loadSession = async () => {
         try {
@@ -66,6 +75,7 @@ function Comprovante({route}) {
       setCurrentDate(new Date().toLocaleString()); // Set the current date and time
     }, []);
 
+    //Constante para a apagar a conta selecionada
     const DeletarContaSelect = async () => {
         try {
           const session = await AsyncStorage.removeItem('userContaSession',);
@@ -74,6 +84,7 @@ function Comprovante({route}) {
         catch (err) { console.log('Erro delete: ', err) }
       }
 
+      //Constante para log-out
       const DeletarSessionUser = async () => {
         try {
           const session = await AsyncStorage.removeItem('userSession',);
@@ -100,6 +111,7 @@ function Comprovante({route}) {
         }
       }
 
+      //Constante RestartAsync
       const RestartAsync = async () => {
         try {
           runExtrato()
@@ -112,39 +124,45 @@ function Comprovante({route}) {
 
     return (
       <View style={Styles.container}>
+        <ScrollView  style={{width: "100%"}}>
         <View style={Styles.section}>
           <View>
             <Pressable onPress={RestartAsync}>
               <Image
                 source={require("../assets/images/setinha.png")}
-                style={{ margin: 20 }}
+                style={{ marginTop: "12%", marginLeft: "4%" }}
               />
             </Pressable>
           </View>
   
-          <View style={{ alignItems: 'center', margin: '10%', gap: 20 }} >
+          <View style={{ alignItems: 'center', margin: '1%', gap: 20 }} >
             <ImageProps
               source={require("../assets/images/LogoBlue.png")}
-              style={{width: 100, height: 60,}}
+              style={Styles.ImgLogo}
             />
-            <Text>Transferência finalizada</Text>
-           <View style={{ width: '95%' }} >
-            <Text style={{ fontSize: 15, }} >Valor de transferência: <Text style={{fontWeight: 'bold' }} >{`R$${respValTransfe}`}</Text></Text>
+            <Text style={Styles.textosCard}>Transferência finalizada</Text>
+             
+             {/* Comprovante  */}
+            <View style={{width: "100%", alignItems: "center"}}>
+           <View style={Styles.linhaComprovante} >
+            <Text style={Styles.textosComprovante} >Valor de transferência: <Text style={{fontWeight: 'bold', color:"#2F2C79" }} >{`R$${respValTransfe}`}</Text></Text>
             </View>
-            <View style={{ width: '95%' }} >
-            <Text style={{ fontSize: 15, }} >Depositado por: <Text style={{fontWeight: 'bold' }} >{respUser.nome}</Text></Text>
+            <View style={Styles.linhaComprovante} >
+            <Text style={Styles.textosComprovante} >Depositado por: <Text style={{fontWeight: 'bold', color:"#2F2C79" }} >{respUser.nome}</Text></Text>
             </View>
-            <View style={{ width: '95%' }} >
-              <Text style={{ fontSize: 15, }} >Destino: <Text style={{fontWeight: 'bold' }} >{respUserConta}</Text></Text>
+            <View style={Styles.linhaComprovante} >
+              <Text style={Styles.textosComprovante} >Conta de Destino: <Text style={{fontWeight: 'bold', color:"#2F2C79" }} >{respUserConta}</Text></Text>
             </View>
-            <View style={{ width: '95%' }} >
-            <Text style={{ fontSize: 15, }} >Proprietário da conta destino: <Text style={{fontWeight: 'bold' }} >{respUserSelect.nome}</Text></Text>
+            <View style={Styles.linhaComprovante} >
+            <Text style={Styles.textosComprovante} >Depositado para: <Text style={{fontWeight: 'bold', color:"#2F2C79" }} >{respUserSelect.nome}</Text></Text>
             </View>
-            <View style={{ width: '95%' }} >
-              <Text style={{ fontSize: 15 }} >Data: <Text style={{ fontWeight: 'bold'}}>{currentDate}</Text></Text>
+            <View style={[Styles.linhaComprovante, {borderBottomWidth: 0}]} >
+              <Text style={Styles.textosComprovante} >Data: <Text style={{ fontWeight: 'bold', color:"#2F2C79"}}>{currentDate}</Text></Text>
+            </View>
             </View>
           </View>
         </View>
+        </ScrollView>
       </View>
     );
   }

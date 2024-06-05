@@ -2,28 +2,38 @@ import React, { useEffect, useState } from "react"; // Importação do React, us
 import { TextInput, Pressable, View, Alert, Text } from "react-native"; // Importação dos componentes do react-native
 import { useNavigation } from "@react-navigation/native"; // Importação do useNavigation
 import axios from "axios"; // Importação do axios
+import * as LocalAuthentication from "expo-local-authentication"; // Importação do LocalAuthentication
+import AsyncStorage from "@react-native-async-storage/async-storage"; // Importação do AsyncStorage
 
-const API_URL = 'http://192.168.0.189:3000'; // Constante da URL
+const API_URL = 'http://10.144.170.31:3000'; // Constante da URL
 
 import Rodape from "../partials/Rodapé"; // Importação do Rodape
 import ImageProps from "../components/ImageComponent"; // Importação da ImageProps
+import Btn from "../components/ButtonComponent";//Importacao do Btn
+
 import { useFonts } from "expo-font"; // Importação do useFonts
 import { Ionicons } from "@expo/vector-icons"; // Importação do Ionicons
+
 import Styles from "../styles/StyleSheet"; // Importação do Styles
-import * as LocalAuthentication from "expo-local-authentication"; // Importação do LocalAuthentication
-import AsyncStorage from "@react-native-async-storage/async-storage"; // Importação do AsyncStorage
-import Btn from "../components/ButtonComponent";
 
 export default function Transferencia({ route }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);//Define o isAuthenricated
   const [visible, setVisible] = useState(false); // Define visible state
-  const navigation = useNavigation();
-  const [user, setUser] = useState(null);
-  const [cpfUser, setCpfUser] = useState('');
-  const [senhaUser, setSenhaUser] = useState('');
-  const [respUser, setRespUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const navigation = useNavigation();//Define o navigation
+  const [user, setUser] = useState(null);//Define o user
+  const [cpfUser, setCpfUser] = useState('');//Define o cpfUser
+  const [senhaUser, setSenhaUser] = useState('');//Defne o senhaUser
+  const [respUser, setRespUser] = useState(null);//Define o respUser
+  const [loading, setLoading] = useState(true);//Define o loading
 
+  //Constante das Fontes
+  const [loaded] = useFonts({
+    Prompt: require("../assets/fonts/Prompt-Regular.ttf"),
+  });
+
+  if (!loaded) {
+    return null;
+  }
   // Authetication with FACEId and FingerPrint
 
   async function verifyAvailableAuthentication() {
@@ -102,8 +112,16 @@ export default function Transferencia({ route }) {
   const [error, setError] = useState(null);
   const [respUserConta, setRespUserConta] = useState(null);
   const [respUserSelect, setRespUserSelect] = useState(null);
+  const Valor = parseFloat(ValTransfe);
 
+  
   const SelectConta = async () => {
+    const Analise =  respUser.Saldo - ValTransfe;
+    if (Analise < 0) {
+      setError('Saldo insuficiente');
+    } else if (numConta === respUser.numConta) {
+      setError('Coloque uma conta válida')
+    } else {
     try {
       const response = await axios.post(
         `${API_URL}/SelectConta`,
@@ -115,7 +133,7 @@ export default function Transferencia({ route }) {
       // Salvar dados do usuário no AsyncStorage
       await AsyncStorage.setItem('userContaSession', JSON.stringify({
         respUserConta: numConta,
-        respValTransfe: ValTransfe,
+        respValTransfe: Valor,
         respUserSelect: responseData,
       }));
       navigation.navigate('TransferenciaConclusao')
@@ -123,6 +141,7 @@ export default function Transferencia({ route }) {
       setError('Conta inexistente')
       console.log('Erro, conta inexistente', err)
     }
+  }
   };
 
   return (

@@ -1,5 +1,5 @@
 import React, { useState } from "react";//Importacao do React e do useState
-import {View, Modal, TextInput, Text, Pressable, Alert, ScrollView } from "react-native";//Importacao dos componentes do react-native
+import { View, Modal, TextInput, Text, Pressable, Alert, ScrollView } from "react-native";//Importacao dos componentes do react-native
 import axios from "axios";//Importacao do axios
 import { useNavigation } from "@react-navigation/native";//Importacao do useNavigation
 
@@ -10,7 +10,7 @@ import ImageProps from "../components/ImageComponent";//Importacao da ImageProps
 
 import Styles from "../styles/StyleSheet";//Importacao do Styles
 
-const API_URL = 'http://10.144.170.31:3000';//Constante da URL
+const API_URL = 'http://192.168.0.189:3000';//Constante da URL
 
 export default function LoginModal({ visibleB, OnPressCloseB }) {
 
@@ -25,27 +25,59 @@ export default function LoginModal({ visibleB, OnPressCloseB }) {
   const handleRegister = async () => {
     const newUser = { nome, senha, email, cpf, };
     if (nome === "" || cpf === "" || email === "" || senha === "") {
-      Alert.alert("Cadastro inválido", "Insira todos os dados solicitados");
+      return Alert.alert(
+        "The Pixel Bank",
+        "Cadastro inválido: Insira todas as informações",
+        [
+          {
+            text: "OK",
+          },
+        ]
+      );
     } else if (confsenha != senha) {
-      Alert.alert("A senha esta diferente");
+      return Alert.alert(
+        "The Pixel Bank",
+        "A senha esta diferente ",
+        [
+          {
+            text: "OK",
+          },
+        ]
+      );
     } else {
-      try{
-      const response = await axios.post(`${API_URL}/Cadastro`, newUser);
-      if (response.status == 201) {
-        alert('Cadastros com estas informações no sistema já constam');
-      } else {
-      alert('Cadastro concluído')
-      navigation.navigate('Splash');
-      console.log(`Cadastro realizado: ${nome} - ${senha} - ${email} - ${cpf}`)
-      }
+      try {
+        const response = await axios.post(`${API_URL}/Cadastro`, newUser);
+        if (response.status == 201) {
+          return Alert.alert(
+            "The Pixel Bank",
+            "Cadastro inválido: Estas informações ja constam no sistema",
+            [
+              {
+                text: "OK",
+              },
+            ]
+          );
+        } else {
+          console.log(`Cadastro realizado: ${nome} - ${senha} - ${email} - ${cpf}`)
+          return Alert.alert(
+            "The Pixel Bank",
+            "Cadastro concluído: Agradecemos por sua escolha",
+            [
+              {
+                text: "OK",
+                OnPress: navigation.navigate('Splash'),
+              },
+            ]
+          );
+        }
       } catch (err) {
         console.log(err, "Erro")
       }
-      
-    }
-};
 
-//Constante das Fontes
+    }
+  };
+
+  //Constante das Fontes
   const [loaded] = useFonts({
     Prompt: require("../assets/fonts/Prompt-Regular.ttf"),
   });

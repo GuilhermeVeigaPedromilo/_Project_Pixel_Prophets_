@@ -12,14 +12,14 @@ import { useFonts } from "expo-font";//Importacao do useFonts
 import { StatusBar } from "expo-status-bar";//Importacao do StatusBar
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const API_URL = 'http://10.144.170.31:3000';//Constante da URL
+const API_URL = 'http://192.168.0.189:3000';//Constante da URL
 
 export default function First({ navigation }) {
   const [visibleA, setVisibleA] = useState(false);
   const [visibleB, setVisibleB] = useState(false);
   const [cpf, setCpf] = useState("");
   const [senha, setSenha] = useState("");
-  const [error, setError] = useState('');
+  const [error, setError] = useState(null);
 
   const handleLogin = async () => {
     try {
@@ -29,19 +29,19 @@ export default function First({ navigation }) {
         { withCredentials: true }
       );
 
-           // Salvar dados do usuário no AsyncStorage
-           await AsyncStorage.setItem('userSession', JSON.stringify({
-            cpfUser: cpf,
-            senhaUser: senha,
-            respUser: response.data
-          }));
-          console.log(JSON.stringify(response.data))
-          setVisibleA(false);
+      // Salvar dados do usuário no AsyncStorage
+      await AsyncStorage.setItem('userSession', JSON.stringify({
+        cpfUser: cpf,
+        senhaUser: senha,
+        respUser: response.data
+      }));
+      console.log(JSON.stringify(response.data))
+      setVisibleA(false);
       navigation.navigate("RotasDrawer", {
         screen: "Home",
         params: { cpfUser: cpf, senhaUser: senha, respUser: response.data },
       });
-      
+
     } catch (err) {
       setError("Invalid credentials");
     }
@@ -56,7 +56,7 @@ export default function First({ navigation }) {
 
   return (
     <View>
-      <StatusBar backgroundColor="#F0EDE9"/>
+      <StatusBar backgroundColor="#F0EDE9" />
       <ImageBackground
         source={require("../assets/images/Fundo1.png")}
         style={{ width: "100%", height: "100%", justifyContent: "flex-end" }}
@@ -82,7 +82,7 @@ export default function First({ navigation }) {
             OnPress={() => setVisibleB(true)}
           />
         </View>
-        
+
         <LoginModal
           setCpf={setCpf}
           setSenha={setSenha}

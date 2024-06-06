@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from "react";//Importacao do React
+import React, { useState, useEffect } from "react";//Importacao do React
 import { createDrawerNavigator } from "@react-navigation/drawer";//Importacao do createDrawerNavigator
 import CustomDrawer from "../components/CustomDrawer";//Importacao do CustomDrawer
-const API_URL = 'http://10.144.170.31:3000';//Constante da URL
+const API_URL = 'http://192.168.0.189:3000';//Constante da URL
 import Configuracoes from "../pages/Configuracoes";//Importacao da pagina Configuracoes
 import Ajuda from "../pages/Ajuda"; //Importacao da Pagina Ajuda
 import Perfil from "../pages/Perfil"; // Importacao da Pagina Perfil
@@ -21,8 +21,8 @@ function CustomDrawerIcon({ color, iconName }) {
 }
 
 export default function RotasDrawer() {
-  
-const navigation = useNavigation()
+
+  const navigation = useNavigation()
 
   const [user, setUser] = useState(null);
 
@@ -35,7 +35,7 @@ const navigation = useNavigation()
   }
 
   const handleLogout = async () => {
-    try{
+    try {
       const logout = await axios.get(`${API_URL}/logout`)
     } catch (err) {
       console.log('Não foi possível sair da sua conta');
@@ -82,7 +82,7 @@ const navigation = useNavigation()
             case "Perfil":
               iconName = "person";
               break;
-            case "Configurações":
+            case Configuracoes:
               iconName = "settings";
               break;
             case "Ajuda":
@@ -97,10 +97,10 @@ const navigation = useNavigation()
     >
       <Drawer.Screen name="Home" component={Home} />
       {/*<Drawer.Screen name="Perfil" component={Perfil} />*/}
-      <Drawer.Screen name="Configurações" component={Configuracoes} />
+      <Drawer.Screen name="Configuracoes" component={Configuracoes} />
       <Drawer.Screen name="Ajuda" component={Ajuda} />
       <Drawer.Screen name="Sair" component={Logout} />
-     {/* <Drawer.Screen name="Sair" component={handleLogout} />*/}
+      {/* <Drawer.Screen name="Sair" component={handleLogout} />*/}
     </Drawer.Navigator>
   );
 }

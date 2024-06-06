@@ -6,7 +6,7 @@ import ButtonComponent from "../components/ButtonComponent";
 import ImageComponent from "../components/ImageComponent";
 import TextComponent from "../components/TextComponent"
 
-export default function LoginModal({ visibleA, OnPressCloseA, setCpf, setSenha, handleLogin, error}) {
+export default function LoginModal({ visibleA, OnPressCloseA, setCpf, setSenha, handleLogin, error }) {
   const [loaded] = useFonts({
     "Prompt": require("../assets/fonts/Prompt-Regular.ttf"),
   });
@@ -35,37 +35,37 @@ export default function LoginModal({ visibleA, OnPressCloseA, setCpf, setSenha, 
                 style={Styles.ImgLogo}
               />
             </View>
-
+            <View style={{ alignItems: 'center', marginBottom: 10 }}>
+              <Text style={{ color: 'red' }} >{error}</Text>
+            </View>
             <View style={Styles.formEverything} >
               <View style={Styles.formGroup} >
-                <TextInput 
-                  style={Styles.formInput} 
-                  onChangeText={setCpf} 
+                <TextInput
+                  style={Styles.formInput}
+                  onChangeText={setCpf}
                   keyboardType="numeric"
                 />
                 <View style={{ backgroundColor: "#F0EDE9" }}>
                   <Text style={Styles.formLabel} texto="">CPF</Text>
                 </View>
               </View>
-                
+
               <View style={Styles.formGroup}>
-                <TextInput 
-                  style={Styles.formInput}  
-                  onChangeText={ setSenha } 
+                <TextInput
+                  style={Styles.formInput}
+                  onChangeText={setSenha}
                   secureTextEntry={true}
                 />
                 <View style={{ backgroundColor: "#F0EDE9" }}>
-                  <TextComponent style={Styles.formLabel} texto="SENHA"/>
+                  <TextComponent style={Styles.formLabel} texto="SENHA" />
                 </View>
               </View>
 
-              <View style={Styles.errors}>
-                <Text>{error}</Text>
-              </View>
+
 
               <View style={Styles.formGroup}>
                 <ButtonComponent
-                  TouchStyle={[ Styles.frtButtons, { backgroundColor: "#2F2C79", marginRight: 10 }]}
+                  TouchStyle={[Styles.frtButtons, { backgroundColor: "#2F2C79", marginRight: 10 }]}
                   letras={[Styles.firstButtons, { color: "#F5E2CF" }]}
                   children="Entrar"
                   OnPress={handleLogin}

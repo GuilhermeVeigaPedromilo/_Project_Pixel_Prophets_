@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";//Importacao do React, do useState e do useEffect
-import { Text, View, Pressable, FlatList, ImageBackground, ActivityIndicator } from "react-native";//Importacao dos componentes do react native
+import { Text, View, Pressable, FlatList, ImageBackground, ActivityIndicator, ScrollView } from "react-native";//Importacao dos componentes do react native
 import axios from "axios";//Importacao do axios
 import { useNavigation, useIsFocused } from "@react-navigation/native";//Importacao do useNavigation e do useIsFocused
 import AsyncStorage from "@react-native-async-storage/async-storage";//Importacao do AsyncStorage
@@ -12,7 +12,7 @@ import Styles from "../styles/StyleSheet";//Importacao do Styles
 import ImageProps from "../components/ImageComponent";//Importacao do ImageProps
 import Rodape from "../partials/Rodapé";//Importacao do Rodape
 
-const API_URL = 'http://10.144.170.31:3000'; // Constante da URL
+const API_URL = 'http://192.168.0.189:3000'; // Constante da URL
 
 export default function Home({ route }) {
   const navigation = useNavigation();//Define o navigation
@@ -82,46 +82,46 @@ export default function Home({ route }) {
   }
 
   return (
-    <View style={{ flex: 1, alignItems: "center", flexDirection: "column" }}>
-      <View style={Styles.quadradocontainer}>
-        <View style={{ flexDirection: "row" }}>
-          <ImageProps source={require("../assets/images/saldo.png")} style={{ width: 30, height: 30, marginLeft: "4%", marginTop: "3%" }} />
-          <Text style={{ color: "white", marginLeft: "3%", marginTop: "4%", fontFamily: "Prompt" }}>Saldo disponível</Text>
+    <View style={{ flex: 1 }}>
+      <View style={{ width: '100%', height: '60%', alignItems: "center", }} >
+        <View style={Styles.quadradocontainer}>
+          <View style={{ flexDirection: "row" }}>
+            <ImageProps source={require("../assets/images/saldo.png")} style={{ width: 30, height: 30, marginLeft: "4%", marginTop: "3%" }} />
+            <Text style={{ color: "white", marginLeft: "3%", marginTop: "4%", fontFamily: "Prompt" }}>Saldo disponível</Text>
+          </View>
+          <View style={{ width: "98%", marginTop: 30, marginLeft: "5%" }}>
+            <Text style={{ color: "white", fontSize: 30, fontFamily: "Prompt" }}>{`R$${respUser.Saldo}`}</Text>
+          </View>
         </View>
-        <View style={{ width: "98%", marginTop: 30, marginLeft: "5%" }}>
-          <Text style={{ color: "white", fontSize: 30, fontFamily: "Prompt" }}>{`R$${respUser.Saldo}`}</Text>
+        <FlatList
+          showsHorizontalScrollIndicator={false}
+          data={flatData}
+          horizontal
+          renderItem={({ item }) => (
+            <Pressable onPress={item.rota}>
+              <View style={[Styles.quadradocontainer2, { width: 180, height: 100, flexDirection: 'column' }]}>
+                <Ionicons name={item.image} size={32} color="#F0EDE9" />
+                <Text style={{ color: "white", textAlign: "center", fontSize: 20, fontFamily: "Prompt" }}>
+                  {item.text}
+                </Text>
+              </View>
+
+            </Pressable>
+          )}
+        />
+        <Text style={{ color: "#000020", textAlign: "center", fontSize: 20, fontFamily: "Prompt", }}>Cartão</Text>
+        <View style={{ width: "96%", height: 3, backgroundColor: "#171A4A", marginBottom: "4%", borderRadius: 10, marginTop: "2%" }}></View>
+      </View>
+      <ScrollView>
+        <View style={{ flex: 1, padding: 10, }} >
+
+          <ImageBackground source={require("../assets/images/cartaozica.png")} style={{ height: 200, width: "100%" }}>
+            <Text style={{ color: 'white', fontSize: 18, marginLeft: '6.5%', marginTop: "5%" }}>{respUser.numConta}</Text>
+            <Text style={{ color: 'white', fontSize: 22, marginLeft: '6.5%', marginTop: "25%" }}>{respUser.nome}</Text>
+          </ImageBackground>
+
         </View>
-      </View>
-
-{/* Começo Flatlist  */}
-      <FlatList
-        showsHorizontalScrollIndicator={false}
-        data={flatData}
-        horizontal
-        renderItem={({ item }) => (
-          <Pressable  onPress={item.rota}>
-            <View  style={[Styles.quadradocontainer2, { width: 200, height: 120, flexDirection: 'column' }]}>
-              <Ionicons name={item.image} size={32} color="#F0EDE9" />
-              <Text style={{ color: "white", textAlign: "center", fontSize: 20, fontFamily: "Prompt" }}>
-              {item.text}
-            </Text>
-            </View>
-            
-          </Pressable>
-        )}
-      />
-
-{/* Fim da Flatlist */}
-
-      <Text style={{ color: "#000020", textAlign: "center", fontSize: 20, fontFamily: "Prompt", marginTop: "3%" }}>Cartão</Text>
-      <View style={{ width: "96%", height: 3, backgroundColor: "#171A4A", marginBottom: "4%", borderRadius: 10, marginTop: "2%" }}></View>
-      <View style={{ width: '100%', height: '30%', padding: "2%", marginBottom: '15%' }} >
-        <ImageBackground source={require("../assets/images/cartaozica.png")} style={{ height: '98%', width: "100%" }}>
-          <Text style={{ color: 'white', fontSize: 22, marginLeft: '6.5%', marginTop: "2%" }}>{respUser.numConta}</Text>
-          <Text style={{ color: 'white', fontSize: 22, marginLeft: '6.5%', marginTop: "25%" }}>{respUser.nome}</Text>
-        </ImageBackground>
-      </View>
-
+      </ScrollView>
       <Rodape />
     </View>
   );

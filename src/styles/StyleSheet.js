@@ -185,15 +185,13 @@ const Styles = StyleSheet.create({
   quadradocontainer: {
     marginTop: "7%",
     width: "95%",
-    height: "25%",
+    height: "40%",
     backgroundColor: "#171A4A",
     display: "flex",
     borderRadius: 10,
   },
   quadradocontainer2: {
     marginTop: "15%",
-    width: "35%",
-    height: "15%",
     backgroundColor: "#000020",
     display: "flex",
     borderRadius: 10,

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";  //Importacao do useState e do useEffect
 import { useNavigation } from "@react-navigation/native"; //Importacao do useNavigation
 import { Button, Text, View, Pressable } from "react-native"; //Importacao dos componentes do react-native
-const API_URL = 'http://10.144.170.31:3000';//Constante da URL
+const API_URL = 'http://192.168.0.189:3000';//Constante da URL
 import { Ionicons } from "@expo/vector-icons"; //Importacao do Ionicons
 import { useFonts } from "expo-font";//Importacao do useFonts
 
@@ -11,7 +11,7 @@ import Txt from "../components/TextComponent"; // Importacao do Component Text
 import ImageProps from "../components/ImageComponent"; // Importacao do Componente Imagem
 import InputProps from "../components/InputComponent"; // Importação do Componente Text Input
 
-export default function Configuracoes({navigation}) {
+export default function Configuracoes({ navigation }) {
   const [loaded] = useFonts({
     "Prompt": require("../assets/fonts/Prompt-Regular.ttf"),
   });
@@ -22,36 +22,36 @@ export default function Configuracoes({navigation}) {
 
   return (
     <View style={Styles.container}>
-      
-        <View style={Styles.centro}>
-          <ImageProps
-            source={require("../assets/images/LogoBlue.png")}
-            style={Styles.ImgLogo}
-          />
-        <Text style={Styles.textos}>Configurações</Text>
-        </View>
-        <View style={{width: "100%" }}>
+
+      <View style={Styles.centro}>
+        <ImageProps
+          source={require("../assets/images/LogoBlue.png")}
+          style={Styles.ImgLogo}
+        />
+        <Text style={Styles.textos}>Configuracoes</Text>
+      </View>
+      <View style={{ width: "100%" }}>
         <View style={Styles.linhaabx}>
           <Pressable style={{ flexDirection: "row" }}
-           onPress={() => navigation.navigate("Perfil")}>
+            onPress={() => navigation.navigate("Perfil")}>
             <Ionicons size={28} color="#E8C39E" name="person" />
-            <Text  style={Styles.textosconfig}>Perfil de usuário</Text>
+            <Text style={Styles.textosconfig}>Perfil de usuário</Text>
           </Pressable>
         </View>
 
         <View style={Styles.linhaabx}>
           <Pressable style={{ flexDirection: "row" }}
-           onPress={() => navigation.navigate("Preferencias")}>
+            onPress={() => navigation.navigate("Preferencias")}>
             <Ionicons size={28} color="#E8C39E" name="extension-puzzle" />
-            <Text  style={Styles.textosconfig}>Preferências</Text>
+            <Text style={Styles.textosconfig}>Preferências</Text>
           </Pressable>
         </View>
 
         <View style={Styles.linhaabx}>
           <Pressable style={{ flexDirection: "row" }}
-           onPress={() => navigation.navigate("Privacidade")}>
+            onPress={() => navigation.navigate("Privacidade")}>
             <Ionicons size={28} color="#E8C39E" name="shield-checkmark" />
-            <Text  style={Styles.textosconfig}>Privacidade e segurança</Text>
+            <Text style={Styles.textosconfig}>Privacidade e segurança</Text>
           </Pressable>
         </View>
       </View>

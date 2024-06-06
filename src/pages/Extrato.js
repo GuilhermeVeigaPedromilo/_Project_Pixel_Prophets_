@@ -4,7 +4,7 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Text, View, FlatList, ScrollView } from "react-native";
 
-const API_URL = 'http://10.144.170.31:3000';
+const API_URL = 'http://192.168.0.189:3000';
 
 import { useFonts } from "expo-font";
 import { Ionicons } from "@expo/vector-icons";//Importacao do Ionicons
@@ -67,7 +67,7 @@ export default function Extrato({ route }) {
 
     function renderItem(item) {
         return (
-            <View style={{alignContent: "center", width: "100%"}}>
+            <View style={{ alignContent: "center", width: "100%" }}>
                 <ImageProps
                     source={require("../assets/images/Iconzinho.png")}
                     style={{ width: 50, height: 50, position: "relative", top: 65 }}
@@ -96,35 +96,35 @@ export default function Extrato({ route }) {
                 <Text style={Styles.saldo}>{`R$ ${respUser.Saldo}`}</Text>
             </View>
 
-         <ScrollView>
-            <View style={{ flex: 1, alignContent: 'center' }}>
-              <View style={{width: "100%", borderBottomColor: "#E8C39E", borderBottomWidth: 2}}>
-              <View style={{width: "100%", alignItems: "center"}}>
-                <Ionicons name="arrow-redo-outline" margim size={30} color="red" />
-                <Text style={Styles.textosextrato}>O que foi Pago:</Text>
-                </View>
-                <FlatList
-                    showsVerticalScrollIndicator={false}
-                    data={extratoEntrada}
-                    keyExtractor={(item) => item.id.toString()}
-                    renderItem={({ item }) => renderItem({ ...item, tipo: 'entrada' })}
-                    style={{marginBottom: "7%"}}
-                />
-                </View>
+            <ScrollView>
+                <View style={{ flex: 1, alignContent: 'center' }}>
+                    <View style={{ width: "100%", borderBottomColor: "#E8C39E", borderBottomWidth: 2 }}>
+                        <View style={{ width: "100%", alignItems: "center" }}>
+                            <Ionicons name="arrow-redo-outline" margim size={30} color="red" />
+                            <Text style={Styles.textosextrato}>O que foi Pago:</Text>
+                        </View>
+                        <FlatList
+                            showsVerticalScrollIndicator={false}
+                            data={extratoEntrada}
+                            keyExtractor={(item) => item.id.toString()}
+                            renderItem={({ item }) => renderItem({ ...item, tipo: 'entrada' })}
+                            style={{ marginBottom: "7%" }}
+                        />
+                    </View>
 
-                <View style={{width: "100%", marginTop: "3%"}}>
-                <View style={{width: "100%", alignItems: "center"}}>
-                <Ionicons name="arrow-undo-outline" margim size={30} color="green" />
-                <Text style={Styles.textosextrato}>O que foi Recebido:</Text>
+                    <View style={{ width: "100%", marginTop: "3%" }}>
+                        <View style={{ width: "100%", alignItems: "center" }}>
+                            <Ionicons name="arrow-undo-outline" margim size={30} color="green" />
+                            <Text style={Styles.textosextrato}>O que foi Recebido:</Text>
+                        </View>
+                        <FlatList
+                            showsVerticalScrollIndicator={false}
+                            data={extratoSaida}
+                            keyExtractor={(item) => item.id.toString()}
+                            renderItem={({ item }) => renderItem({ ...item, tipo: 'saida' })}
+                        />
+                    </View>
                 </View>
-                <FlatList
-                    showsVerticalScrollIndicator={false}
-                    data={extratoSaida}
-                    keyExtractor={(item) => item.id.toString()}
-                    renderItem={({ item }) => renderItem({ ...item, tipo: 'saida' })}
-                />
-                </View>
-            </View>
             </ScrollView>
             <Rodape />
         </View>

@@ -83,7 +83,7 @@ export default function StackRoutes() {
             headerShown: false,
           }}
         />
-         <Stack.Screen
+        <Stack.Screen
           name="Comprovante"
           component={Comprovante}
           options={{
@@ -91,15 +91,15 @@ export default function StackRoutes() {
           }}
         />
         <Stack.Screen name="Ajuda"
-         component={Ajuda}
-         options={{
-         headerShown: false,
-        }} />
-        <Stack.Screen name="Configurações" 
-        component={Configuracoes} 
-        options={{
-        headerShown: false,
-        }} />
+          component={Ajuda}
+          options={{
+            headerShown: false,
+          }} />
+        <Stack.Screen name="Configurações"
+          component={Configuracoes}
+          options={{
+            headerShown: false,
+          }} />
         <Stack.Screen
           name="RotasDrawer"
           component={RotasDrawer}

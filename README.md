@@ -173,3 +173,11 @@ npm init -y
 ```
 npm install express cors body-parser mysql2 express-server php phpmyadmin
 ```
+
+<br>
+
+<b>Instale o DotEnv<b>
+
+```
+npm install Dotenv
+```

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";//Importacao do React
-import { View, Modal, Text, Pressable, Image, Alert } from "react-native";//Importacao dos componentes do react-native
+import { View, Text, Pressable, Image, Alert,  } from "react-native";//Importacao dos componentes do react-native
 import { useNavigation } from "@react-navigation/native";//Importacao do useNavigation
 import axios from "axios";//Importacao do axios
 import AsyncStorage from "@react-native-async-storage/async-storage";//Importacao do AsyncStorage
 
-const API_URL = 'http://10.144.170.31:3000';//Constante da URL
+const API_URL = 'http://192.168.0.189:3000';//Constante da URL
 
 import { useFonts } from "expo-font";//Importacao do useFonts
 
@@ -15,17 +15,42 @@ import ImageProps from "../components/ImageComponent";//Importacao da ImageProps
 import InputProps from "../components/InputComponent";//Importacao do InputProps
 import ButtonComponent from "../components/ButtonComponent";//Importacao do ButtonComponent
 
-function TransferenciaConfirmacao({ visible, OnPress }) {
-  const navigation = useNavigation();//Define o navigati
+function TransferenciaConfirmacao({ }) {
+  const navigation = useNavigation();
+  const [user, setUser] = useState(null);
+  const [cpfUser, setCpfUser] = useState('');
+  const [senhaUser, setSenhaUser] = useState('');
+  const [respUser, setRespUser] = useState(null);
+
+  useEffect(() => {
+    const loadSession = async () => {
+      try {
+        const session = await AsyncStorage.getItem('userSession');
+        if (session) {
+          const { cpfUser, senhaUser, respUser } = JSON.parse(session);
+          setCpfUser(cpfUser);
+          setSenhaUser(senhaUser);
+          setRespUser(respUser);
+        }
+        loadContaSelect
+      } catch (error) {
+        console.log('Failed to load session', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadSession();
+  }, []);
+  
   return (
     <View>
-      <Modal animationType="slide" transparent={true} visible={visible}>
         <View style={Styles.container}>
           <ImageProps
             source={require("../assets/images/LogoBlue.png")}
             style={Styles.ImgLogo}
           />
-          <Txt Texto="Faça login" TextStyle={Styles.textos} />
+          <Text Texto="Faça login" TextStyle={Styles.textos} />
           <View style={Styles.caixas}>
             <ImageProps
               style={Styles.imagesicones}
@@ -49,7 +74,6 @@ function TransferenciaConfirmacao({ visible, OnPress }) {
             />
           </View>
         </View>
-      </Modal>
     </View>
   );
 }
@@ -150,22 +174,22 @@ function TransferenciaConclusao({ route }) {
     }
   }
 
-  const Concluir = () => { 
-  return Alert.alert(
-    `${respUser.nome}`,
-    "Tem certeza que deseja concluir a transferência?",
-    [
-      {
-        text: "CANCEL",
-        onPress: DeletarContaSelect,
-      },
-      {
-        text: "OK",
-        onPress: runFunctions,
-      },
-    ]
-  );
-}
+  const Concluir = () => {
+    return Alert.alert(
+      `${respUser.nome}`,
+      "Tem certeza que deseja concluir a transferência?",
+      [
+        {
+          text: "CANCEL",
+          onPress: DeletarContaSelect,
+        },
+        {
+          text: "OK",
+          onPress: runFunctions,
+        },
+      ]
+    );
+  }
 
   return (
     <View style={Styles.container}>

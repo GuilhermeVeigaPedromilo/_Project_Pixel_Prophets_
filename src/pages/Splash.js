@@ -11,18 +11,18 @@ export default function Splash() {
     setTimeout(() => {
       navigation.dispatch(CommonActions.reset({
         index: 0,
-        routes: [{name: "Login"}]
+        routes: [{ name: "Login" }]
       }))
     }, 5500);
   }, [])
 
   return (
-      <Video
-        style={StyleSheet.absoluteFill}
-        resizeMode={ResizeMode.COVER}
-        source={require("../assets/videos/Splash.mp4")}
-        isLooping={true}
-        shouldPlay={true}
-      />
+    <Video
+      style={StyleSheet.absoluteFill}
+      resizeMode={ResizeMode.COVER}
+      source={require("../assets/videos/Splash.mp4")}
+      isLooping={true}
+      shouldPlay={true}
+    />
   );
 }

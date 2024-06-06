@@ -5,7 +5,7 @@ import axios from "axios"; // Importação do axios
 import * as LocalAuthentication from "expo-local-authentication"; // Importação do LocalAuthentication
 import AsyncStorage from "@react-native-async-storage/async-storage"; // Importação do AsyncStorage
 
-const API_URL = 'http://10.144.170.31:3000'; // Constante da URL
+const API_URL = 'http://192.168.0.189:3000'; // Constante da URL
 
 import Rodape from "../partials/Rodapé"; // Importação do Rodape
 import ImageProps from "../components/ImageComponent"; // Importação da ImageProps
@@ -50,12 +50,11 @@ export default function Transferencia({ route }) {
 
     if (!isBiometricEnrolled) {
       return Alert.alert(
-        "Login",
-        "Não foi encontrada a biometria. Insira a senha da sua conta",
+        "The Pixel Bank",
+        "Não foi encontrada uma biometria cadastrada.",
         [
           {
             text: "OK",
-            onPress: () => navigation.navigate("TransferenciaConfirmacao"),
           },
         ]
       );
@@ -107,41 +106,41 @@ export default function Transferencia({ route }) {
     navigation.navigate("Home");
   }
 
-  const [ValTransfe, setValTransfe] = useState(null);  
+  const [ValTransfe, setValTransfe] = useState(null);
   const [numConta, setNumContDestino] = useState(null);
   const [error, setError] = useState(null);
   const [respUserConta, setRespUserConta] = useState(null);
   const [respUserSelect, setRespUserSelect] = useState(null);
   const Valor = parseFloat(ValTransfe);
 
-  
+
   const SelectConta = async () => {
-    const Analise =  respUser.Saldo - ValTransfe;
+    const Analise = respUser.Saldo - ValTransfe;
     if (Analise < 0) {
       setError('Saldo insuficiente');
     } else if (numConta === respUser.numConta) {
       setError('Coloque uma conta válida')
     } else {
-    try {
-      const response = await axios.post(
-        `${API_URL}/SelectConta`,
-        { numConta },
-        { withCredentials: true }
-      );
-      console.log(`SelectConta: ${JSON.stringify(response)}`);
-      const responseData = response.data[0]; // Pegando o primeiro item da resposta
-      // Salvar dados do usuário no AsyncStorage
-      await AsyncStorage.setItem('userContaSession', JSON.stringify({
-        respUserConta: numConta,
-        respValTransfe: Valor,
-        respUserSelect: responseData,
-      }));
-      navigation.navigate('TransferenciaConclusao')
-    } catch (err) {
-      setError('Conta inexistente')
-      console.log('Erro, conta inexistente', err)
+      try {
+        const response = await axios.post(
+          `${API_URL}/SelectConta`,
+          { numConta },
+          { withCredentials: true }
+        );
+        console.log(`SelectConta: ${JSON.stringify(response)}`);
+        const responseData = response.data[0]; // Pegando o primeiro item da resposta
+        // Salvar dados do usuário no AsyncStorage
+        await AsyncStorage.setItem('userContaSession', JSON.stringify({
+          respUserConta: numConta,
+          respValTransfe: Valor,
+          respUserSelect: responseData,
+        }));
+        navigation.navigate('TransferenciaConclusao')
+      } catch (err) {
+        setError('Conta inexistente')
+        console.log('Erro, conta inexistente', err)
+      }
     }
-  }
   };
 
   return (
@@ -151,20 +150,20 @@ export default function Transferencia({ route }) {
           source={require("../assets/images/LogoBlue.png")}
           style={Styles.ImgLogo}
         />
-        <Text style={{marginBottom: 15, color: 'red'}}>{error}</Text>
+        <Text style={{ marginBottom: 15, color: 'red' }}>{error}</Text>
         <View style={Styles.formGroup}>
           <TextInput style={Styles.formInput} onChangeText={setNumContDestino} keyboardType="numeric" />
           <View style={{ backgroundColor: "#F0EDE9" }} >
             <Text style={[Styles.formLabel, { fontSize: 11, fontFamily: "Prompt", }]}>
-              INSIRA O NÚMERO DA CONTA 
+              INSIRA O NÚMERO DA CONTA
             </Text>
           </View>
         </View>
         <View style={Styles.formGroup}>
-          <TextInput style={Styles.formInput} onChangeText={setValTransfe} keyboardType="numeric"/>
+          <TextInput style={Styles.formInput} onChangeText={setValTransfe} keyboardType="numeric" />
           <View style={{ backgroundColor: "#F0EDE9" }}>
             <Text style={[Styles.formLabel, { fontSize: 11, fontFamily: "Prompt", }]}>
-              INSIRA O VALOR PARA TRANSFERÊNCIA 
+              INSIRA O VALOR PARA TRANSFERÊNCIA
             </Text>
           </View>
         </View>
@@ -177,7 +176,7 @@ export default function Transferencia({ route }) {
           ]}
           letras={[Styles.firstButtons, { color: "#F5E2CF", fontFamily: "Prompt" }]}
           children="Continuar"
-        />      
+        />
       </View>
       <Rodape />
     </View>

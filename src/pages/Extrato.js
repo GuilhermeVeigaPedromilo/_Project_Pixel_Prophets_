@@ -4,7 +4,7 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Text, View, FlatList, ScrollView } from "react-native";
 
-const API_URL = 'http://192.168.0.189:3000';
+const API_URL = 'http://10.144.170.39:3000';
 
 import { useFonts } from "expo-font";
 import { Ionicons } from "@expo/vector-icons";//Importacao do Ionicons

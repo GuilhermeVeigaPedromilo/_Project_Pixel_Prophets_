@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";//Importacao do React
 import { createDrawerNavigator } from "@react-navigation/drawer";//Importacao do createDrawerNavigator
 import CustomDrawer from "../components/CustomDrawer";//Importacao do CustomDrawer
-const API_URL = 'http://192.168.0.189:3000';//Constante da URL
+const API_URL = 'http://10.144.170.39:3000';//Constante da URL
 import Configuracoes from "../pages/Configuracoes";//Importacao da pagina Configuracoes
 import Ajuda from "../pages/Ajuda"; //Importacao da Pagina Ajuda
 import Perfil from "../pages/Perfil"; // Importacao da Pagina Perfil

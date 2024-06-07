@@ -47,7 +47,6 @@ app.use(
 
 app.post('/Cadastro', (req, res) => {
   const { nome, cpf, email, senha, Saldo, numConta } = req.body
-
   console.log(`${JSON.stringify(req.body)}`);
 
   const verification = 'SELECT * FROM users WHERE nome = ? OR cpf = ?';

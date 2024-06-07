@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native";//Importacao do useNavi
 import AsyncStorage from "@react-native-async-storage/async-storage";//Importacao do AsyncStorage
 import axios from "axios";//Importacao do axios
 
-const API_URL = 'http://192.168.0.189:3000';//Constante da URL
+const API_URL = 'http://10.144.170.39:3000';//Constante da URL
 
 import { useFonts } from "expo-font";//Importacao do useFonts
 

@@ -1,5 +1,5 @@
 import { Text, View, Image, Pressable } from "react-native";//Importacao dos componentes do react-native
-const API_URL = 'http://192.168.0.189:3000';//Constante da URL
+const API_URL = 'http://10.144.170.39:3000';//Constante da URL
 import Styles from "../styles/StyleSheet"; // Importacao do Styles
 import { useNavigation } from "@react-navigation/native";
 
@@ -25,7 +25,7 @@ export default function Perfil() {
     <View style={Styles.container}>
       <View style={{ width: "100%", height: "95%", alignItems: "center", justifyContent: "center" }}>
         <View style={Styles.viewsetinha}>
-          <Pressable onPress={() => navigation.navigate('Configurações')}>
+          <Pressable onPress={() => navigation.navigate('Home')}>
             <Image
               source={require("../assets/images/setinha.png")}
               style={{ margin: 20 }}

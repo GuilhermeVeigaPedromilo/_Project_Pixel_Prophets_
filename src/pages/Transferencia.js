@@ -5,7 +5,7 @@ import axios from "axios"; // Importação do axios
 import * as LocalAuthentication from "expo-local-authentication"; // Importação do LocalAuthentication
 import AsyncStorage from "@react-native-async-storage/async-storage"; // Importação do AsyncStorage
 
-const API_URL = 'http://192.168.0.189:3000'; // Constante da URL
+const API_URL = 'http://10.144.170.39:3000'; // Constante da URL
 
 import Rodape from "../partials/Rodapé"; // Importação do Rodape
 import ImageProps from "../components/ImageComponent"; // Importação da ImageProps

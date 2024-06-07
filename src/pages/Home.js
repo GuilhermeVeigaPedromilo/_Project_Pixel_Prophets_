@@ -12,7 +12,7 @@ import Styles from "../styles/StyleSheet";//Importacao do Styles
 import ImageProps from "../components/ImageComponent";//Importacao do ImageProps
 import Rodape from "../partials/Rodapé";//Importacao do Rodape
 
-const API_URL = 'http://192.168.0.189:3000'; // Constante da URL
+const API_URL = 'http://10.144.170.39:3000'; // Constante da URL
 
 export default function Home({ route }) {
   const navigation = useNavigation();//Define o navigation

@@ -1,7 +1,7 @@
-import { StyleSheet } from "react-native";//Importacao do StyleSheet
-import { Video, ResizeMode } from "expo-av";//Importacao dos componentes do expo-av
-import { CommonActions, useNavigation } from "@react-navigation/native";//Importacao do CmmonActions e do useNavigation
-import { useEffect } from "react";//Importacao do useEffect
+import { StyleSheet } from "react-native";//importação do StyleSheet
+import { Video, ResizeMode } from "expo-av";//importação dos componentes do expo-av
+import { CommonActions, useNavigation } from "@react-navigation/native";//importação do CmmonActions e do useNavigation
+import { useEffect } from "react";//importação do useEffect
 
 export default function Splash() {
   const navigation = useNavigation();//Define o navigation

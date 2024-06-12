@@ -1,15 +1,15 @@
-import { View, ImageBackground, Text, Alert } from "react-native"; //Importacao dos componentes do react-native
-import React, { useState, useEffect } from "react"; //Importacao do React, useState e do useEffect
-import axios from "axios";//Importacao do axios
+import { View, ImageBackground, Text, Alert } from "react-native"; //importação dos componentes do react-native
+import React, { useState, useEffect } from "react"; //importação do React, useState e do useEffect
+import axios from "axios";//importação do axios
 
-import Btn from "../components/ButtonComponent"; //Importacao do Btn
-import LoginModal from "../partials/Login"; //Importacao do LoginModal
-import CadastroModal from "../partials/Cadastro"; //Importacao do CadastroModal
+import Btn from "../components/ButtonComponent"; //importação do Btn
+import LoginModal from "../partials/Login"; //importação do LoginModal
+import CadastroModal from "../partials/Cadastro"; //importação do CadastroModal
 
-import Styles from "../styles/StyleSheet"; //Importacao do Styles
+import Styles from "../styles/StyleSheet"; //importação do Styles
 
-import { useFonts } from "expo-font";//Importacao do useFonts
-import { StatusBar } from "expo-status-bar";//Importacao do StatusBar
+import { useFonts } from "expo-font";//importação do useFonts
+import { StatusBar } from "expo-status-bar";//importação do StatusBar
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const API_URL = 'http://10.144.170.39:3000';//Constante da URL
@@ -21,6 +21,7 @@ export default function First({ navigation }) {
   const [senha, setSenha] = useState("");
   const [error, setError] = useState(null);
 
+  // Pega as informações e verifica se existem no banco, para o Login
   const handleLogin = async () => {
     try {
       const response = await axios.post(

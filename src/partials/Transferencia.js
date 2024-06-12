@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";//Importacao do React
-import { View, Text, Pressable, Image, Alert,  } from "react-native";//Importacao dos componentes do react-native
-import { useNavigation } from "@react-navigation/native";//Importacao do useNavigation
-import axios from "axios";//Importacao do axios
-import AsyncStorage from "@react-native-async-storage/async-storage";//Importacao do AsyncStorage
+import React, { useState, useEffect } from "react";//importação do React
+import { View, Text, Pressable, Image, Alert,  } from "react-native";//importação dos componentes do react-native
+import { useNavigation } from "@react-navigation/native";//importação do useNavigation
+import axios from "axios";//importação do axios
+import AsyncStorage from "@react-native-async-storage/async-storage";//importação do AsyncStorage
 
 const API_URL = 'http://10.144.170.39:3000';//Constante da URL
 
-import { useFonts } from "expo-font";//Importacao do useFonts
+import { useFonts } from "expo-font";//importação do useFonts
 
-import Styles from "../styles/StyleSheet";//Importacao do Styles
+import Styles from "../styles/StyleSheet";//importação do Styles
 
-import Btn from "../components/ButtonComponent";//Importacao do Btn
-import ImageProps from "../components/ImageComponent";//Importacao da ImageProps
-import InputProps from "../components/InputComponent";//Importacao do InputProps
-import ButtonComponent from "../components/ButtonComponent";//Importacao do ButtonComponent
+import Btn from "../components/ButtonComponent";//importação do Btn
+import ImageProps from "../components/ImageComponent";//importação da ImageProps
+import InputProps from "../components/InputComponent";//importação do InputProps
+import ButtonComponent from "../components/ButtonComponent";//importação do ButtonComponent
 
 function TransferenciaConfirmacao({ }) {
   const navigation = useNavigation();

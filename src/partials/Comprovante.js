@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";//Importacao do React
-import { View, Modal, Text, Pressable, Image, ScrollView } from "react-native";//Importacao dos componentes do react-native
-import { useNavigation } from "@react-navigation/native";//Importacao do useNavigation
-import AsyncStorage from "@react-native-async-storage/async-storage";//Importacao do AsyncStorage
-import axios from "axios";//Importacao do axios
+import React, { useState, useEffect } from "react";//importação do React
+import { View, Modal, Text, Pressable, Image, ScrollView } from "react-native";//importação dos componentes do react-native
+import { useNavigation } from "@react-navigation/native";//importação do useNavigation
+import AsyncStorage from "@react-native-async-storage/async-storage";//importação do AsyncStorage
+import axios from "axios";//importação do axios
 
 const API_URL = 'http://10.144.170.39:3000';//Constante da URL
 
-import { useFonts } from "expo-font";//Importacao do useFonts
+import { useFonts } from "expo-font";//importação do useFonts
 
-import Styles from "../styles/StyleSheet";//Importacao do Styles
+import Styles from "../styles/StyleSheet";//importação do Styles
 
-import Btn from "../components/ButtonComponent";//Importacao do Btn
-import ImageProps from "../components/ImageComponent";//Importacao da ImageProps
-import InputProps from "../components/InputComponent";//Importacao do InputProps
-import ButtonComponent from "../components/ButtonComponent";//Importacao do ButtonComponent
+import Btn from "../components/ButtonComponent";//importação do Btn
+import ImageProps from "../components/ImageComponent";//importação da ImageProps
+import InputProps from "../components/InputComponent";//importação do InputProps
+import ButtonComponent from "../components/ButtonComponent";//importação do ButtonComponent
 
 function Comprovante({ route }) {
   const navigation = useNavigation();//Define o navigation
@@ -38,35 +38,35 @@ function Comprovante({ route }) {
 
   //Constante do useEffect
   useEffect(() => {
-    const loadSession = async () => {
+    const loadSession = async () => { //Função para mostrar todos os dados do usuário
       try {
         const session = await AsyncStorage.getItem('userSession');
         if (session) {
           const { cpfUser, senhaUser, respUser } = JSON.parse(session);
-          setCpfUser(cpfUser);
-          setSenhaUser(senhaUser);
-          setRespUser(respUser);
+          setCpfUser(cpfUser); //Onde setCpfUser é setado como cpfUser
+          setSenhaUser(senhaUser); //Onde setSenhaUser é setado como senhaUser
+          setRespUser(respUser); //Onde setRespUser é setado como respUser);
         }
         loadContaSelect
       } catch (error) {
-        console.log('Failed to load session', error);
+        console.log('Failed to load session', error);//Caso o comprovante haja um erro de dados aparecera esse erro
       } finally {
-        setLoading(false);
+        setLoading(false); //Define loading como falso
       }
     };
-    const loadContaSelect = async () => {
+    const loadContaSelect = async () => { //Função para mostrar todos os dados da conto onde você transferiu
       try {
         const session = await AsyncStorage.getItem('userContaSession');
         if (session) {
           const { respUserConta, respValTransfe, respUserSelect } = JSON.parse(session);
-          setRespUserConta(respUserConta);
-          setRespValTransfe(respValTransfe);
-          setRespUserSelect(respUserSelect);
+          setRespUserConta(respUserConta); //Onde setRespUserConta é setado como respUserConta
+          setRespValTransfe(respValTransfe); //Onde setRespValTransfe é setado como respValTransfe
+          setRespUserSelect(respUserSelect); //Onde setRespUserSelect é setado como respUserSelect);
         }
       } catch (errorB) {
-        console.log('Failed to load session', errorB);
+        console.log('Failed to load session', errorB); //Caso o comprovante haja um erro de dados aparecera esse erro
       } finally {
-        setLoading(false);
+        setLoading(false); //Define loading como falso
       }
     };
 
@@ -93,6 +93,7 @@ function Comprovante({ route }) {
     catch (err) { console.log('Erro delete: ', err) }
   }
 
+// Função que envia os dados para gerar o comprovante e armazenar o extrato
   const runExtrato = async () => {
     const numContaEntrada = respUser.numConta
     const numContaSaida = respUserSelect.numConta
@@ -111,7 +112,7 @@ function Comprovante({ route }) {
     }
   }
 
-  //Constante RestartAsync
+  // RestartAsync -- Inicia as duas consultas ao mesmo tempo
   const RestartAsync = async () => {
     try {
       runExtrato()

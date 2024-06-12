@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";//Importacao do React
-import { createDrawerNavigator } from "@react-navigation/drawer";//Importacao do createDrawerNavigator
-import CustomDrawer from "../components/CustomDrawer";//Importacao do CustomDrawer
+import React, { useState, useEffect } from "react";//importação do React
+import { createDrawerNavigator } from "@react-navigation/drawer";//importação do createDrawerNavigator
+import CustomDrawer from "../components/CustomDrawer";//importação do CustomDrawer
 const API_URL = 'http://10.144.170.39:3000';//Constante da URL
-import Configuracoes from "../pages/Configuracoes";//Importacao da pagina Configuracoes
-import Ajuda from "../pages/Ajuda"; //Importacao da Pagina Ajuda
-import Perfil from "../pages/Perfil"; // Importacao da Pagina Perfil
-import Login from "../pages/Login"//Importacao da pagina Login
-import { Ionicons } from "@expo/vector-icons";//Importacao do Ionicons
-import { useFonts } from "expo-font";//Importacao do useFonts
+import Configuracoes from "../pages/Configuracoes";//importação da pagina Configuracoes
+import Ajuda from "../pages/Ajuda"; //importação da Pagina Ajuda
+import Perfil from "../pages/Perfil"; // importação da Pagina Perfil
+import Login from "../pages/Login"//importação da pagina Login
+import { Ionicons } from "@expo/vector-icons";//importação do Ionicons
+import { useFonts } from "expo-font";//importação do useFonts
 import Home from "../pages/Home";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";

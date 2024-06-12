@@ -1,14 +1,14 @@
-import React, { useState } from "react";//Importacao do React e do useState
-import { View, Modal, TextInput, Text, Pressable, Alert, ScrollView } from "react-native";//Importacao dos componentes do react-native
-import axios from "axios";//Importacao do axios
-import { useNavigation } from "@react-navigation/native";//Importacao do useNavigation
+import React, { useState } from "react";//importação do React e do useState
+import { View, Modal, TextInput, Text, Pressable, Alert, ScrollView } from "react-native";//importação dos componentes do react-native
+import axios from "axios";//importação do axios
+import { useNavigation } from "@react-navigation/native";//importação do useNavigation
 
-import { useFonts } from "expo-font";//Importacao do useFonts
+import { useFonts } from "expo-font";//importação do useFonts
 
-import Btn from "../components/ButtonComponent";//Importacao do Btn
-import ImageProps from "../components/ImageComponent";//Importacao da ImageProps
+import Btn from "../components/ButtonComponent";//importação do Btn
+import ImageProps from "../components/ImageComponent";//importação da ImageProps
 
-import Styles from "../styles/StyleSheet";//Importacao do Styles
+import Styles from "../styles/StyleSheet";//importação do Styles
 
 const API_URL = 'http://10.144.170.39:3000';//Constante da URL
 

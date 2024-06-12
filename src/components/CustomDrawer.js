@@ -1,8 +1,8 @@
-import React from "react";//Importacao do React
-import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";//Importacao dos componentes do react-native
-import {  DrawerContentScrollView,  DrawerItemList,} from "@react-navigation/drawer";//Importacao do DrawerContentScrollView e do DrawerItemList,
+import React from "react";//importação do React
+import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";//importação dos componentes do react-native
+import {  DrawerContentScrollView,  DrawerItemList,} from "@react-navigation/drawer";//importação do DrawerContentScrollView e do DrawerItemList,
 
-import { useFonts } from "expo-font";//Importacao do useFonts
+import { useFonts } from "expo-font";//importação do useFonts
 
 export default function CustomDrawer(props) {
   const [loaded] = useFonts({

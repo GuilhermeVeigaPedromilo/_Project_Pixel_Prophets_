@@ -39,12 +39,13 @@ db.connect((err) => {
 // Configurar a sessão
 app.use(
   session({
-    secret: 'l8408230482309820482309483048',
+    secret: process.env.SESSION_SECRET,
     resave: true,
     saveUninitialized: true,
   })
 );
 
+// Função de cadastro, verifica se à informações de nome e cpf iguais, e registra as informações no banco
 app.post('/Cadastro', (req, res) => {
   const { nome, cpf, email, senha, Saldo, numConta } = req.body
   console.log(`${JSON.stringify(req.body)}`);
@@ -75,6 +76,7 @@ app.post('/Cadastro', (req, res) => {
   });
 });
 
+// Pega as informações solicitadas, e efetua o login
 app.post("/Login", (req, res) => {
   const { cpf, senha } = req.body;
   const query = "SELECT * FROM users WHERE cpf = ? AND senha = SHA1(?)";
@@ -92,6 +94,7 @@ app.post("/Login", (req, res) => {
   });
 });
 
+// Seleciona a conta requisitada na página de Transferência
 app.post('/SelectConta', (req, res) => {
   const { numConta } = req.body;
   const query = "SELECT * FROM users WHERE numConta = ?";
@@ -117,7 +120,7 @@ app.get('/user', (req, res) => {
   }
 });
 
-// Rota para obter dados do usuário logado
+// Rota para obter dados da conta requerida na Transferência
 app.get('/SelectUserConta', (req, res) => {
   if (JSON.stringify(results)) {
     res.status(200).send(JSON.stringify(results));
@@ -126,7 +129,7 @@ app.get('/SelectUserConta', (req, res) => {
   }
 });
 
-// Rota para atualizar usuário
+// Rota para atualizar a conta que esta realizando a transferência
 app.put("/updateUserA/:id", (req, res) => {
   const id = req.params.id;
   const { Saldo } = req.body;
@@ -142,7 +145,7 @@ app.put("/updateUserA/:id", (req, res) => {
   });
 });
 
-// Rota para atualizar usuário
+// Rota para atualizar a conta que esta recebendo a transferência
 app.put("/updateUserB/:id", (req, res) => {
   const id = req.params.id;
   const { Saldo } = req.body;

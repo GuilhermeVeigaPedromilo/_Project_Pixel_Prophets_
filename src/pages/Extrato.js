@@ -4,10 +4,10 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Text, View, FlatList, ScrollView } from "react-native";
 
-const API_URL = 'http://10.144.170.39:3000';
+const API_URL = 'http://10.144.170.39:3000'; // Constante do URL
 
 import { useFonts } from "expo-font";
-import { Ionicons } from "@expo/vector-icons";//Importacao do Ionicons
+import { Ionicons } from "@expo/vector-icons";//importação do Ionicons
 
 import Styles from "../styles/StyleSheet";
 import ImageProps from "../components/ImageComponent";
@@ -21,13 +21,14 @@ export default function Extrato({ route }) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+    // Função utilizada para pegar os dados do usuário para imprimir na tela.
         const loadSession = async () => {
             try {
                 const session = await AsyncStorage.getItem('userSession');
                 if (session) {
                     const { respUser } = JSON.parse(session);
                     setRespUser(respUser);
-                    await loadExtratos(respUser.nome);
+                    await loadExtratos(respUser.nome); // Capturar dado "nome" para imprimir.
                 }
             } catch (error) {
                 console.log('Failed to load session', error);
@@ -38,15 +39,16 @@ export default function Extrato({ route }) {
         loadSession();
     }, []);
 
-    const loadExtratos = async (nome) => {
+    // Função usada para pegar o extrato e o nome, tanto do "pagante" tanto com o do que recebeu. Também é puxado a data.
+    const loadExtratos = async (nome) => {  
         try {
-            const responseEntrada = await axios.get(`${API_URL}/SelectExtratoEntrada`, {
+            const responseEntrada = await axios.get(`${API_URL}/SelectExtratoEntrada`, { // Quem recebeu
                 params: { nome },
                 withCredentials: true,
             });
-            setExtratoEntrada(responseEntrada.data);
+            setExtratoEntrada(responseEntrada.data); // Dados da Flatlist
 
-            const responseSaida = await axios.get(`${API_URL}/SelectExtratoSaida`, {
+            const responseSaida = await axios.get(`${API_URL}/SelectExtratoSaida`, { // Quem pagou
                 params: { nome },
                 withCredentials: true,
             });
@@ -55,7 +57,8 @@ export default function Extrato({ route }) {
             console.log('Erro ao carregar extratos:', err);
         }
     };
-
+ 
+    // Usar fontes 
     const [loaded] = useFonts({
         Prompt: require("../assets/fonts/Prompt-Regular.ttf"),
         PromptBold: require("../assets/fonts/Prompt-Bold.ttf")
@@ -64,7 +67,7 @@ export default function Extrato({ route }) {
     if (!loaded) {
         return null;
     }
-
+ // Função do Flatlist puxando os dados já chamados anteriormente, {nomeSaida, nomeEntrada, Data,} Dados já chamados anteriormente
     function renderItem(item) {
         return (
             <View style={{ alignContent: "center", width: "100%" }}>
@@ -103,6 +106,7 @@ export default function Extrato({ route }) {
                             <Ionicons name="arrow-redo-outline" margim size={30} color="red" />
                             <Text style={Styles.textosextrato}>O que foi Pago:</Text>
                         </View>
+
                         <FlatList
                             showsVerticalScrollIndicator={false}
                             data={extratoEntrada}
@@ -117,6 +121,7 @@ export default function Extrato({ route }) {
                             <Ionicons name="arrow-undo-outline" margim size={30} color="green" />
                             <Text style={Styles.textosextrato}>O que foi Recebido:</Text>
                         </View>
+                        
                         <FlatList
                             showsVerticalScrollIndicator={false}
                             data={extratoSaida}

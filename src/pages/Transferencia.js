@@ -9,7 +9,7 @@ const API_URL = 'http://10.144.170.39:3000'; // Constante da URL
 
 import Rodape from "../partials/Rodapé"; // Importação do Rodape
 import ImageProps from "../components/ImageComponent"; // Importação da ImageProps
-import Btn from "../components/ButtonComponent";//Importacao do Btn
+import Btn from "../components/ButtonComponent";//importação do Btn
 
 import { useFonts } from "expo-font"; // Importação do useFonts
 import { Ionicons } from "@expo/vector-icons"; // Importação do Ionicons
@@ -113,7 +113,7 @@ export default function Transferencia({ route }) {
   const [respUserSelect, setRespUserSelect] = useState(null);
   const Valor = parseFloat(ValTransfe);
 
-
+// Verifica o saldo, se a conta solicitada é diferente, e salva as informações da conta requerida
   const SelectConta = async () => {
     const Analise = respUser.Saldo - ValTransfe;
     if (Analise < 0) {

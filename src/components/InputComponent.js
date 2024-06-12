@@ -1,4 +1,4 @@
-import { TextInput } from "react-native";//Importacao dos componentes do react-native
+import { TextInput } from "react-native";//importação dos componentes do react-native
 
 export default function InputProps({
   style,

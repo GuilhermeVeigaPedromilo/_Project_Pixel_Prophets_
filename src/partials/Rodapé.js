@@ -1,9 +1,9 @@
-import { View, Pressable } from "react-native";//Importacao dos componentes do react-native
+import { View, Pressable } from "react-native";//importação dos componentes do react-native
 import { useNavigation } from "@react-navigation/native";
 
-import Styles from "../styles/StyleSheet"; // Importacao do Styles
+import Styles from "../styles/StyleSheet"; // importação do Styles
 
-import { Ionicons } from "@expo/vector-icons";//Importacao do Ionicons
+import { Ionicons } from "@expo/vector-icons";//importação do Ionicons
 
 export default function Rodape() {
   const navigation = useNavigation();

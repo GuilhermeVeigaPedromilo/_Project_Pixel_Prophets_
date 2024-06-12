@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";//Importacao do React, do useState e do useEffect
-import { Text, View, Pressable, FlatList, ImageBackground, ActivityIndicator, ScrollView } from "react-native";//Importacao dos componentes do react native
-import axios from "axios";//Importacao do axios
-import { useNavigation, useIsFocused } from "@react-navigation/native";//Importacao do useNavigation e do useIsFocused
-import AsyncStorage from "@react-native-async-storage/async-storage";//Importacao do AsyncStorage
+import React, { useState, useEffect } from "react";//importação do React, do useState e do useEffect
+import { Text, View, Pressable, FlatList, ImageBackground, ActivityIndicator, ScrollView } from "react-native";//importação dos componentes do react native
+import axios from "axios";//importação do axios
+import { useNavigation, useIsFocused } from "@react-navigation/native";//importação do useNavigation e do useIsFocused
+import AsyncStorage from "@react-native-async-storage/async-storage";//importação do AsyncStorage
 
-import { useFonts } from "expo-font";//Importacao do useFonts
-import { Ionicons } from "@expo/vector-icons";//Importacao do Ionicons
+import { useFonts } from "expo-font";//importação do useFonts
+import { Ionicons } from "@expo/vector-icons";//importação do Ionicons
 
-import Styles from "../styles/StyleSheet";//Importacao do Styles
+import Styles from "../styles/StyleSheet";//importação do Styles
 
-import ImageProps from "../components/ImageComponent";//Importacao do ImageProps
-import Rodape from "../partials/Rodapé";//Importacao do Rodape
+import ImageProps from "../components/ImageComponent";//importação do ImageProps
+import Rodape from "../partials/Rodapé";//importação do Rodape
 
 const API_URL = 'http://10.144.170.39:3000'; // Constante da URL
 
@@ -24,6 +24,7 @@ export default function Home({ route }) {
 
   //Constante do useEffect
   useEffect(() => {
+    // Limpa as informações da sessão
     const clearSession = async () => {
       try {
         await AsyncStorage.removeItem('userSession');
